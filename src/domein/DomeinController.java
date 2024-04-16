@@ -1,9 +1,13 @@
 package domein;
 
 public class DomeinController {
+	
+	private App app;
 
 	public DomeinController() {
-		System.out.println("hallo2");
+		app = new App();
 	}
+	
+	
 
 }
