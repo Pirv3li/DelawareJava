@@ -6,8 +6,10 @@ public class DomeinController {
 
 	public DomeinController() {
 		app = new App();
-	}
+	};
 	
+	public void Aanmelden(String gebruikersnaam, String wachtwoord) {
+		app.Aanmelden(gebruikersnaam, wachtwoord);
+	};
 	
-
 }

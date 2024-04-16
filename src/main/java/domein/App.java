@@ -12,12 +12,13 @@ public class App {
         this.mapper = new Mapper();
     }
 
-    public Gebruiker Aanmelden(String gebruikersnaam, String password) {
+    public String Aanmelden(String gebruikersnaam, String password) {
         Gebruiker user = mapper.findGebruikerByUsername(gebruikersnaam);
+        
         if (user == null || !verifyPassword(password, user.getPassword_Hash())) {
-            return null; 
+            return "nope"; 
         }
-        return user;
+        return "logged in";
     }
 
     private boolean verifyPassword(String password, String hashedPassword) {
