@@ -1,8 +1,8 @@
 package domein;
 
+import persistentie.Mapper;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
-import persistentie.Mapper;
 
 public class App {
 
