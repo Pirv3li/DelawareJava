@@ -1,9 +1,20 @@
-bin/
-target/
-*.class
-*.jar
-*.war
-*.ear
+# Eclipse specific
 .classpath
 .project
 .settings/
+/bin/
+/target/
+
+# Ignore the Connectie.java file
+src/main/java/persistentie/Connectie.java
+
+# Java specific
+*.class
+*.ear
+*.jar
+*.war
+bin/
+target/
+
+# VS Code specific
+.vscode/
