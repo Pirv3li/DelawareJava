@@ -39,6 +39,7 @@ public class AanmeldenController {
         this.primaryStage = primaryStage;
     }
 
+
     public void start() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
@@ -59,11 +60,25 @@ public class AanmeldenController {
         String password = wachtwoord.getText();
         boolean loggedIn = controller.Aanmelden(username, password);
         if (loggedIn) {
-            // Navigate to the next scene or perform any other action
-            System.out.println("Login successful!");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("bestellingen.fxml"));
+                BestellingController bestellingController = new BestellingController(primaryStage);
+                bestellingController.setController(controller); 
+                loader.setController(bestellingController);
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+                
+                bestellingController.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             // Display login error message
-            loginError.setText("Invalid username or password.");
+            loginError.setText("login en wachtwoord combinatie is fout");
         }
     }
 }
