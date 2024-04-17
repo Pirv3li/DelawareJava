@@ -14,20 +14,21 @@
 	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
 		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="test" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -36,5 +37,21 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="A:/jars/byte-buddy-1.14.8.jar"/>
+	<classpathentry kind="lib" path="A:/jars/byte-buddy-agent-1.14.8.jar"/>
+	<classpathentry kind="lib" path="A:/jars/eclipselink-4.0.2.jar"/>
+	<classpathentry kind="lib" path="A:/jars/jakarta.persistence-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx.base.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx.media.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx.web.jar"/>
+	<classpathentry kind="lib" path="A:/jars/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="A:/jars/mockito-core-5.5.0.jar"/>
+	<classpathentry kind="lib" path="A:/jars/mockito-junit-jupiter-5.5.0.jar"/>
+	<classpathentry kind="lib" path="A:/jars/mysql-connector-j-8.3.0.jar"/>
+	<classpathentry kind="lib" path="A:/jars/objenesis-3.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

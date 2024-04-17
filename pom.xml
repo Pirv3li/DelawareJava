@@ -5,15 +5,58 @@
   <version>0.0.1-SNAPSHOT</version>
   <description>Delaware Project</description>
   <dependencies>
-	<dependency>
-    <groupId>de.mkammerer</groupId>
-    <artifactId>argon2-jvm</artifactId>
-    <version>2.11</version>
-	</dependency>
-	<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.33</version>
-	</dependency>
+    <dependency>
+      <groupId>de.mkammerer</groupId>
+      <artifactId>argon2-jvm</artifactId>
+      <version>2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version>
+    </dependency>
+    <!-- JavaFX -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>17</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>17</version>
+    </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Maven Shade Plugin for creating an executable JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <manifestEntries>
+                    <Main-Class>main.startUp</Main-Class>
+                    <Launcher-Opt>--module-path</Launcher-Opt>
+                    <Launcher-Opt>${java.home}/lib</Launcher-Opt>
+                    <Launcher-Opt>--add-modules</Launcher-Opt>
+                    <Launcher-Opt>javafx.controls,javafx.fxml</Launcher-Opt>
+                  </manifestEntries>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

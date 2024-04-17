@@ -20,40 +20,21 @@ public class SceneController {
 		this.controller = controller;
 	}
 	
-	public void SwitchToMenu(ActionEvent event) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("hoofdmenu.fxml"));
-			AanmeldenController hsc = new AanmeldenController(controller, this);
-			loader.setController(hsc);
-			Parent root = loader.load();
-//			hsc.vertaal();
-			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-//	public void SwitchToSpel(ActionEvent event) {
+//	public void SwitchToMenu(ActionEvent event) {
 //		try {
-//			FXMLLoader loader = new FXMLLoader(getClass().getResource("spelbord.fxml"));
-//			SpelbordController spl = new SpelbordController(controller);
-//			loader.setController(spl);
+//			FXMLLoader loader = new FXMLLoader(getClass().getResource("hoofdmenu.fxml"));
+//			AanmeldenController hsc = new AanmeldenController(controller, this);
+//			loader.setController(hsc);
 //			Parent root = loader.load();
-//			spl.vertaal();
-//			spl.scorebladen();
+////			hsc.vertaal();
 //			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //			Scene scene = new Scene(root);
 //			stage.setScene(scene);
 //			stage.show();
-//			
-//
 //		} catch (IOException e) {
+//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+//
 //	}
 }

@@ -1,13 +1,23 @@
 package main;
-import domein.DomeinController;
 
-public class startUp {
-	private static DomeinController dc;
-	
-	public static void main(String[] args) {
-		String gebruikersnaam = "klant1";
-		String password = "12345678";
-		dc = new DomeinController();
-		System.out.println(dc.Aanmelden(gebruikersnaam, password));
-	}
+import domein.DomeinController;
+import gui.AanmeldenController;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class startUp extends Application {
+    private static DomeinController dc;
+    private static AanmeldenController start;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        dc = new DomeinController();
+
+        start = new AanmeldenController(dc, primaryStage);
+        start.start();
+    }
 }

@@ -1,4 +1,5 @@
 package gui;
+
 import java.io.IOException;
 
 import domein.DomeinController;
@@ -12,58 +13,58 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AanmeldenController {
 
-		private SceneController switch2;
-		private DomeinController controller;
-		private Parent root;
-		
-		@FXML
-		private Button Login;
-		private TextField gebruikersnaam;
-		private PasswordField wachtwoord;
-		private Hyperlink wachtwoordVergeten;
+    private SceneController switch2;
+    private DomeinController controller;
+    private Parent root;
+    private Stage primaryStage;
+    
+    @FXML
+    private Button Login;
+    @FXML
+    private TextField gebruikersnaam;
+    @FXML
+    private PasswordField wachtwoord;
+    @FXML
+    private Hyperlink wachtwoordVergeten;
+    @FXML
+    private Text loginError;
 
-		public AanmeldenController(DomeinController controller, SceneController switch2) {
-			this.controller = controller;
-			this.switch2 = switch2;
-		}
+    public AanmeldenController(DomeinController controller, Stage primaryStage) {
+        this.controller = controller;
+        this.primaryStage = primaryStage;
+    }
 
-		public void start(Stage stage) {
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
-				loader.setController(this);
-				root = loader.load();
-				Scene scene = new Scene(root);
-				stage.setScene(scene);
-				stage.show();
+    public void start() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
+            loader.setController(this);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-		}
-
-	    public Parent getRoot() {
-	        return root; // Return the stored root node
-	    }
-
-//		public void SwitchToTaalScherm(ActionEvent event) {
-//			try {
-//				FXMLLoader loader = new FXMLLoader(getClass().getResource("taalscherm.fxml"));
-//				loader.setController(new TaalController(controller));
-//				Parent root = loader.load();
-//				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//				Scene scene = new Scene(root);
-//				stage.setScene(scene);
-//				stage.show();
-//
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//
-//	}
-	
+    @FXML
+    public void handleLogin(ActionEvent event) {
+        String username = gebruikersnaam.getText();
+        String password = wachtwoord.getText();
+        boolean loggedIn = controller.Aanmelden(username, password);
+        if (loggedIn) {
+            // Navigate to the next scene or perform any other action
+            System.out.println("Login successful!");
+        } else {
+            // Display login error message
+            loginError.setText("Invalid username or password.");
+        }
+    }
 }
+
