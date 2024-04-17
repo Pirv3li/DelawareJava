@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="500.0" maxWidth="700.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane prefHeight="500.0" prefWidth="100.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="3.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="delaware" textAlignment="CENTER" wrappingWidth="131.98046875">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Text>
+            <Button fx:id="bedrijven" layoutX="11.0" layoutY="93.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven" />
+            <Button fx:id="notificaties" layoutX="11.0" layoutY="141.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Notificaties" />
+            <Button fx:id="bestellingen" layoutX="9.0" layoutY="196.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="120.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bestellingen" />
+            <Button fx:id="profiel" layoutX="12.0" layoutY="314.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="115.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Profiel" />
+            <Button fx:id="klanten" layoutX="9.0" layoutY="256.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Klanten" />
+            <FontAwesomeIconView glyphName="BELL" layoutX="18.0" layoutY="163.0" size="21" text="" />
+            <FontAwesomeIconView glyphName="USER" layoutX="21.0" layoutY="336.0" size="21" text="" />
+            <FontAwesomeIconView glyphName="USERS" layoutX="17.0" layoutY="279.0" size="21" />
+            <FontAwesomeIconView glyphName="LIST" layoutX="14.0" layoutY="218.0" size="21" text="" />
+            <FontAwesomeIconView glyphName="COMPANY" layoutX="20.0" layoutY="115.0" size="21" text="" />
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="500.0" prefWidth="550.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="130.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bestellingen" textAlignment="CENTER" wrappingWidth="286.13671875">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Text>
+            <HBox layoutY="53.0" prefHeight="229.0" prefWidth="564.0">
+               <children>
+                  <ScrollPane prefHeight="243.0" prefWidth="573.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                     <content>
+                        <VBox prefHeight="225.0" prefWidth="560.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="544.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="100.0" text="ORDERID" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="100.0" text="DATUM" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="100.0" text="BEDRAG" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="110.0" text="ORDERSTATUS" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="110.0" text="BETALINGSTATUS" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="501.0">
+                                 <children>
+                                    <Label fx:id="orderid" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="100.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="datum" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="100.0" />
+                                    <Label fx:id="bedrag" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="100.0" />
+                                    <Label fx:id="orderstatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="110.0" />
+                                    <Label fx:id="betalingstatus" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="110.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </HBox>
+            <VBox layoutY="282.0" prefHeight="218.0" prefWidth="569.0">
+               <children>
+                  <VBox prefHeight="75.0" prefWidth="569.0">
+                     <children>
+                        <HBox maxWidth="567.0" prefHeight="34.0" prefWidth="567.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="100.0" text="ORDERID" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="100.0" text="DATUM" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="100.0" text="BEDRAG" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="110.0" text="ORDERSTATUS" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="110.0" text="BETALINGSTATUS" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" maxWidth="567.0" prefHeight="35.0" prefWidth="562.0">
+                           <children>
+                              <Label fx:id="orderid1" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="100.0" />
+                              <Label fx:id="datum1" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="100.0" />
+                              <Label fx:id="bedrag1" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="100.0" />
+                              <Label fx:id="orderstatus1" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="110.0" />
+                              <Label fx:id="betalingstatus1" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="110.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox maxWidth="550.0" prefHeight="26.0" prefWidth="500.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="68.0" prefWidth="100.0" text="ProductNaam" />
+                              <Label alignment="CENTER" prefHeight="68.0" prefWidth="100.0" text="stukprijs" />
+                              <Label alignment="CENTER" prefHeight="53.0" prefWidth="100.0" text="btwTarief" />
+                              <Label alignment="CENTER" prefHeight="68.0" prefWidth="110.0" text="aantal" />
+                              <Label alignment="CENTER" prefHeight="68.0" prefWidth="110.0" text="totaalprijs" />
+                           </children>
+                        </HBox>
+                        <ScrollPane maxWidth="565.0" prefHeight="114.0" prefWidth="523.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                           <content>
+                              <VBox prefHeight="45.0" prefWidth="559.0" style="-fx-background-color: transparent;">
+                                 <children>
+                                    <HBox prefHeight="31.0" prefWidth="558.0">
+                                       <children>
+                                          <Label fx:id="productNaam" alignment="CENTER" prefHeight="68.0" prefWidth="100.0" />
+                                          <Label fx:id="stukprijs" alignment="CENTER" prefHeight="68.0" prefWidth="100.0" />
+                                          <Label fx:id="btwPrijs" alignment="CENTER" prefHeight="53.0" prefWidth="100.0" />
+                                          <Label fx:id="aantal" alignment="CENTER" prefHeight="68.0" prefWidth="100.0" />
+                                          <Label fx:id="totaalPrijs" alignment="CENTER" prefHeight="68.0" prefWidth="100.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <HBox prefHeight="30.0" prefWidth="569.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="40.0" prefWidth="91.0" text="Totaal:" />
+                              <Label fx:id="totaal" prefHeight="35.0" prefWidth="140.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
