@@ -8,6 +8,6 @@ public class startUp {
 		String gebruikersnaam = "klant1";
 		String password = "12345678";
 		dc = new DomeinController();
-		dc.Aanmelden(gebruikersnaam, password);
+		System.out.println(dc.Aanmelden(gebruikersnaam, password));
 	}
 }

@@ -8,8 +8,8 @@ public class DomeinController {
 		app = new App();
 	};
 	
-	public void Aanmelden(String gebruikersnaam, String wachtwoord) {
-		app.Aanmelden(gebruikersnaam, wachtwoord);
+	public String Aanmelden(String gebruikersnaam, String wachtwoord) {
+		return app.Aanmelden(gebruikersnaam, wachtwoord);
 	};
 	
 }
