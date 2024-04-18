@@ -82,7 +82,6 @@ public class AanmeldenController {
                 e.printStackTrace();
             }
         } else {
-            // Display login error message
         	warningMessage.setText("login en wachtwoord combinatie is fout!!");
         }
     }

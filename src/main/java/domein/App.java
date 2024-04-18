@@ -35,6 +35,13 @@ public class App {
     	
         		return bestellingen;
     }
+        
+        public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
+        	
+        	List<BestellingDetails> bestellingDetails = mapper.getBestellingDetails(bestelling);
+    	
+        		return bestellingDetails;
+    }
     
 
     private boolean verifyPassword(String password, String hashedPassword) {

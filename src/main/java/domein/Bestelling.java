@@ -73,8 +73,15 @@ public class Bestelling {
 		this.orderStatus = orderStatus;
 	}
 
-	public boolean isBetalingStatus() {
-		return this.betalingStatus;
+	public String getBetalingStatus() {
+		String betalingStatus;
+		if(this.betalingStatus) {
+			betalingStatus = "Betaald";
+		}
+		else {
+			betalingStatus = "Niet betaald";
+		}
+		return betalingStatus;
 	}
 
 	public void setBetalingStatus(boolean betalingStatus) {

@@ -2,6 +2,7 @@ package persistentie;
 
 import domein.Bestelling;
 import domein.Gebruiker;
+import domein.BestellingDetails;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,6 +25,14 @@ public class Mapper {
     private static final String SELECT_ORDER_BY_IDLeverancier = 
     		"SELECT idOrder, idKlant, idLeverancier, idAdres, datum,orderStatus, betalingStatus, totaalPrijs FROM SDP2_2324_DB_G14.order "
     		+ "where idLeverancier = ?;";
+    
+    private static final String SELECT_BESTELLING_DETAILS = 
+    	    "SELECT od.idOrderDetails, od.eenheidsPrijs, od.aantal, od.idOrder, od.idProduct, " +
+    	    "p.naam AS productName, p.btwtarief, p.aantal AS productQuantity " +
+    	    "FROM orderdetails od " +
+    	    "JOIN product p ON od.idProduct = p.idProduct " +
+    	    "WHERE od.idOrder = ?";
+
 
     public Gebruiker findGebruikerByUsername(String gebruikersnaam) {
         Gebruiker gebruiker = null;
@@ -47,7 +56,6 @@ public class Mapper {
                    	 id = rs.getInt("idKlant");
 
                     }
-                    System.out.println(rol);
                     gebruiker = new Gebruiker(username, passwordHash, true,rol,id);
                 }
             }
@@ -79,11 +87,9 @@ public class Mapper {
                     double totaalPrijs = rs.getDouble("totaalPrijs");
 
                     Bestelling bestelling = new Bestelling(idOrder, idKlant, idLeverancier, idAdres, datum, orderStatus, betalingStatus, totaalPrijs);
-                    System.out.println(bestelling);
                     bestellingen.add(bestelling);
                     
                 }
-                System.out.println(bestellingen);
 
             }
             
@@ -93,4 +99,33 @@ public class Mapper {
 
         return bestellingen;
     }
+    
+    
+    public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
+        List<BestellingDetails> bestellingDetails = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(Connectie.JDBC_URL, Connectie.DATABASE_USERNAME, Connectie.DATABASE_PASSWORD);
+             PreparedStatement query = conn.prepareStatement(SELECT_BESTELLING_DETAILS)) {
+            String idOrder = bestelling.getIdOrder();
+            query.setString(1, idOrder);
+            try (ResultSet rs = query.executeQuery()) {
+                while (rs.next()) {
+                    int idOrderDetails = rs.getInt("idOrderDetails");
+                    double eenheidsPrijs = rs.getDouble("eenheidsPrijs");
+                    int idProduct = rs.getInt("idProduct");
+                    String productName = rs.getString("productName");
+                    double btwtarief = rs.getDouble("btwtarief");
+                    int productQuantity = rs.getInt("productQuantity");
+
+                    BestellingDetails bestellingDetail = new BestellingDetails(idOrderDetails, eenheidsPrijs, idProduct, productName, btwtarief, productQuantity);
+                    bestellingDetails.add(bestellingDetail);
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return bestellingDetails;
+    }
+
 }

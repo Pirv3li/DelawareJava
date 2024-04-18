@@ -27,4 +27,10 @@ public class DomeinController {
 		return bestellingen;
 	}
 	
+	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
+		
+		List<BestellingDetails> bestellingDetails =  app.getBestellingDetails(bestelling);
+		return bestellingDetails;
+	}
+	
 }
