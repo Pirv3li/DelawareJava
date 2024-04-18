@@ -1,5 +1,8 @@
 package domein;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DomeinController {
 	
 	private App app;
@@ -17,5 +20,11 @@ public class DomeinController {
 		}
 		return aangemeld;
 	};
+	
+	public List<Bestelling> FindbestellingenByLeverancierofKlant() {
+		
+		List<Bestelling> bestellingen =  app.FindbestellingenByLeverancierofKlant(user);
+		return bestellingen;
+	}
 	
 }

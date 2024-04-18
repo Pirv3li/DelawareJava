@@ -3,6 +3,8 @@ package domein;
 import persistentie.Mapper;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
@@ -25,6 +27,15 @@ public class App {
         }
         return user;
     }
+    
+
+        public List<Bestelling> FindbestellingenByLeverancierofKlant(Gebruiker user) {
+    	
+        	List<Bestelling> bestellingen = mapper.findBestellingByLeverancierofKlant(user);
+    	
+        		return bestellingen;
+    }
+    
 
     private boolean verifyPassword(String password, String hashedPassword) {
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id, ARGON_ITERATIONS, ARGON_MEMORY);

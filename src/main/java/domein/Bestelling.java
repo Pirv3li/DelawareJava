@@ -13,6 +13,18 @@ public class Bestelling {
 	private boolean betalingStatus;
 	private double totaalPrijs;
 
+	public Bestelling(String idOrder, int idKlant, int idLeverancier, int idAdres, Date datum, String orderStatus,
+			boolean betalingStatus, double totaalPrijs) {
+		setIdOrder(idOrder);
+		setIdKlant(idKlant);
+		setIdLeverancier(idLeverancier);
+		setIdKlant(idKlant);		
+		setDatum(datum);
+		setOrderStatus(orderStatus);
+		setBetalingStatus(betalingStatus);
+		setTotaalPrijs(totaalPrijs);
+	}
+
 	public String getIdOrder() {
 		return this.idOrder;
 	}
@@ -76,5 +88,7 @@ public class Bestelling {
 	public void setTotaalPrijs(double totaalPrijs) {
 		this.totaalPrijs = totaalPrijs;
 	}
+	
+
 
 }
