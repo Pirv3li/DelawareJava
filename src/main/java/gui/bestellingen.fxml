@@ -31,7 +31,7 @@
             <FontAwesomeIconView glyphName="USER" layoutX="21.0" layoutY="336.0" size="21" text="" />
             <FontAwesomeIconView glyphName="USERS" layoutX="17.0" layoutY="279.0" size="21" />
             <FontAwesomeIconView glyphName="LIST" layoutX="14.0" layoutY="218.0" size="21" text="" />
-            <FontAwesomeIconView glyphName="COMPANY" layoutX="20.0" layoutY="115.0" size="21" text="" />
+            <FontAwesomeIconView  layoutX="20.0" layoutY="115.0" size="21" text="" />
          </children>
       </AnchorPane>
    </left>
