@@ -1,58 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="1080.0" minWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="1080.0" minWidth="350.0" prefHeight="1080.0" prefWidth="350.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="delaware" textAlignment="CENTER" wrappingWidth="350.98046875">
+            <Text layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="delaware" textAlignment="CENTER" wrappingWidth="282.98046875">
                <font>
                   <Font size="49.0" />
                </font>
             </Text>
-            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="341.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven">
+            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven">
                <font>
                   <Font size="26.0" />
-               </font></Button>
-            <Button fx:id="notificaties" layoutX="6.0" layoutY="274.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="338.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Notificaties">
+               </font>
+            </Button>
+            <Button fx:id="notificaties" layoutX="6.0" layoutY="274.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Notificaties">
                <font>
                   <Font size="26.0" />
-               </font></Button>
-            <Button fx:id="bestellingen" layoutY="334.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="350.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bestellingen">
+               </font>
+            </Button>
+            <Button fx:id="bestellingen" layoutX="6.0" layoutY="334.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bestellingen">
                <font>
                   <Font size="26.0" />
-               </font></Button>
-            <Button fx:id="profiel" layoutX="4.0" layoutY="496.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="345.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Profiel">
+               </font>
+            </Button>
+            <Button fx:id="profiel" layoutX="3.0" layoutY="453.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="275.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Profiel">
                <font>
                   <Font size="26.0" />
-               </font></Button>
-            <Button fx:id="klanten" layoutX="4.0" layoutY="394.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="341.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Klanten">
+               </font>
+            </Button>
+            <Button fx:id="klanten" layoutX="5.0" layoutY="393.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="273.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Klanten">
                <font>
                   <Font size="26.0" />
-               </font></Button>
-            <Button fx:id="logout" layoutX="5.0" layoutY="973.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="339.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
+               </font>
+            </Button>
+            <Button fx:id="logout" layoutX="6.0" layoutY="752.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
             <FontAwesomeIconView glyphName="BELL" layoutX="28.0" layoutY="314.0" size="30" text="" />
-            <FontAwesomeIconView glyphName="USER" layoutX="33.0" layoutY="534.0" size="30" text="" />
+            <FontAwesomeIconView glyphName="USER" layoutX="34.0" layoutY="495.0" size="30" text="" />
             <FontAwesomeIconView glyphName="USERS" layoutX="27.0" layoutY="434.0" size="30" text="" />
             <FontAwesomeIconView glyphName="LIST" layoutX="30.0" layoutY="374.0" size="30" text="" />
             <FontAwesomeIconView layoutX="30.0" layoutY="252.0" size="30" text="" />
-            <FontAwesomeIconView layoutX="31.0" layoutY="1033.0" size="30" text="" />
-            <Text layoutX="33.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B-portaal" textAlignment="CENTER" wrappingWidth="287.955078125">
+            <FontAwesomeIconView layoutX="29.0" layoutY="830.0" size="30" text="" />
+            <Text layoutX="2.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B-portaal" textAlignment="CENTER" wrappingWidth="276.955078125">
                <font>
                   <Font size="29.0" />
                </font>
@@ -61,219 +67,54 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane maxHeight="1080.0" maxWidth="1570.0" minHeight="1080.0" minWidth="1570.0" prefHeight="1080.0" prefWidth="1570.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1080.0" maxWidth="1570.0" minHeight="776.0" minWidth="1041.0" prefHeight="776.0" prefWidth="1041.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="636.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bestellingen" textAlignment="CENTER" wrappingWidth="297.13671875">
+            <Text layoutX="372.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bestellingen" textAlignment="CENTER" wrappingWidth="297.13671875">
                <font>
                   <Font size="45.0" />
                </font>
             </Text>
-            <HBox layoutY="58.0" maxHeight="1022.0" maxWidth="785.0" minHeight="1022.0" minWidth="785.0" prefHeight="1022.0" prefWidth="785.0" style="-fx-border-color: black; -fx-border-width: 0px 2px 0px 0px;">
+            <VBox layoutX="47.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="680.0" minWidth="419.0" prefHeight="680.0" prefWidth="419.0">
                <children>
-                  <VBox maxWidth="785.0" minWidth="785.0" prefHeight="200.0" prefWidth="785.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" maxWidth="785.0" minWidth="785.0" prefHeight="55.0" prefWidth="785.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="120.0" minWidth="120.0" prefHeight="39.0" prefWidth="120.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="ORDERID">
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="135.0" minWidth="135.0" prefHeight="39.0" prefWidth="135.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="DATUM">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="140.0" minWidth="140.0" prefHeight="39.0" prefWidth="140.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="BEDRAG">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="39.0" prefWidth="180.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="ORDERSTATUS">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="39.0" prefWidth="180.0" style="-fx-border-color: grey; -fx-border-width: 0px 0px 1px 0px;" text="BETALINGSTATUS">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <ScrollPane maxHeight="988.0" maxWidth="785.0" minHeight="661.0" minWidth="785.0" prefHeight="988.0" prefWidth="785.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
-                           <content>
-                              <VBox fx:id="bestellingList" maxHeight="973.0" maxWidth="785.0" minHeight="973.0" minWidth="779.0" prefHeight="973.0" prefWidth="779.0">
-                                 <children>
-                                    <HBox prefHeight="38.0" prefWidth="600.0" style="-fx-border-color: #D3D3D3;">
-                                       <children>
-                                          <Label fx:id="orderid" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="120.0">
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="datum" alignment="CENTER" contentDisplay="CENTER" maxWidth="135.0" minWidth="135.0" prefHeight="40.0" prefWidth="135.0">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                          <Label fx:id="bedrag" alignment="CENTER" contentDisplay="CENTER" maxWidth="140.0" minWidth="140.0" prefHeight="40.0" prefWidth="140.0">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                          <Label fx:id="orderstatus" alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                          <Label fx:id="betalingstatus" alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <VBox layoutX="785.0" layoutY="58.0" maxHeight="1022.0" maxWidth="785.0" minHeight="1022.0" minWidth="785.0" prefHeight="1022.0" prefWidth="785.0">
-               <children>
-                  <VBox maxWidth="785.0" minWidth="785.0" prefHeight="75.0" prefWidth="785.0">
-                     <children>
-                        <HBox maxWidth="785.0" minWidth="785.0" prefHeight="34.0" prefWidth="785.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="120.0" minWidth="120.0" prefHeight="39.0" prefWidth="120.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="ORDERID">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="135.0" minWidth="135.0" prefHeight="35.0" prefWidth="135.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="DATUM">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="140.0" minWidth="140.0" prefHeight="38.0" prefWidth="140.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="BEDRAG">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="38.0" prefWidth="180.0" style="-fx-border-color: grey; -fx-border-width: 0px 1px 1px 0px;" text="ORDERSTATUS">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0" style="-fx-border-color: grey; -fx-border-width: 0px 0px 1px 0px;" text="BETALINGSTATUS">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <HBox fx:id="bestellingDetail" layoutX="10.0" layoutY="10.0" maxWidth="785.0" minWidth="785.0" prefHeight="40.0" prefWidth="785.0">
-                           <children>
-                              <Label fx:id="orderid1" alignment="CENTER" contentDisplay="CENTER" maxWidth="120.0" minWidth="120.0" prefHeight="40.0" prefWidth="120.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="datum1" alignment="CENTER" contentDisplay="CENTER" maxWidth="135.0" minWidth="135.0" prefHeight="40.0" prefWidth="135.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="bedrag1" alignment="CENTER" contentDisplay="CENTER" maxWidth="140.0" minWidth="140.0" prefHeight="36.0" prefWidth="140.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="orderstatus1" alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="betalingstatus1" alignment="CENTER" contentDisplay="CENTER" maxWidth="180.0" minWidth="180.0" prefHeight="40.0" prefWidth="180.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="946.0" prefWidth="785.0">
-                     <children>
-                        <HBox maxWidth="786.0" prefHeight="51.0" prefWidth="785.0">
-                           <children>
-                              <Label alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" text="ProductNaam" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" text="stukprijs" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="53.0" prefWidth="150.0" text="btwTarief" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" text="aantal" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                              <Label alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" text="totaalprijs" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                        <ScrollPane maxWidth="785.0" prefHeight="863.0" prefWidth="785.0" style="-fx-background-color: transparent; -fx-border-color: transparent;">
-                           <content>
-                              <VBox prefHeight="850.0" prefWidth="781.0" style="-fx-background-color: transparent;">
-                                 <children>
-                                    <HBox fx:id="productenList" maxHeight="50.0" maxWidth="783.0" minHeight="50.0" minWidth="596.0" prefHeight="50.0" prefWidth="783.0">
-                                       <children>
-                                          <Label fx:id="productNaam" alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" style="-fx-border-color: #D3D3D3; -fx-border-width: 0px 1px 0px 0px;" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                          <Label fx:id="stukprijs" alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" style="-fx-border-color: #D3D3D3; -fx-border-width: 0px 1px 0px 0px;" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                          <Label fx:id="btwPrijs" alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="53.0" prefWidth="150.0" style="-fx-border-color: #D3D3D3; -fx-border-width: 0px 1px 0px 0px;" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                          <Label fx:id="aantal" alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" style="-fx-border-color: #D3D3D3; -fx-border-width: 0px 1px 0px 0px;" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                          <Label fx:id="totaalPrijs" alignment="CENTER" maxWidth="150.0" minWidth="150.0" prefHeight="68.0" prefWidth="150.0" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </content>
-                        </ScrollPane>
-                        <HBox prefHeight="30.0" prefWidth="569.0">
-                           <children>
-                              <Label alignment="CENTER" prefHeight="50.0" prefWidth="142.0" text="Totaal:">
-                                 <font>
-                                    <Font size="34.0" />
-                                 </font></Label>
-                              <Label fx:id="totaal" prefHeight="51.0" prefWidth="168.0">
-                                 <font>
-                                    <Font size="34.0" />
-                                 </font></Label>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <TableView fx:id="bestellingTable" prefHeight="826.0" prefWidth="519.0">
+                     <columns>
+                        <TableColumn fx:id="orderidColumn" text="Order ID" />
+                        <TableColumn fx:id="datumColumn" prefWidth="59.0" text="Datum" />
+                        <TableColumn fx:id="bedragColumn" prefWidth="61.0" text="Bedrag" />
+                        <TableColumn fx:id="orderstatusColumn" minWidth="0.0" prefWidth="82.0" text="Order Status" />
+                        <TableColumn fx:id="betalingstatusColumn" prefWidth="136.0" text="Betaling Status" />
+                     </columns>
+                  </TableView>
                </children>
             </VBox>
+            <VBox layoutX="560.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="730.0" minWidth="423.0" prefHeight="730.0" prefWidth="423.0">
+               <children>
+                  <TableView fx:id="bestellingDetailsTable" prefHeight="825.0" prefWidth="545.0">
+                     <columns>
+                        <TableColumn fx:id="productNaamColumn" prefWidth="88.0" text="Product Naam" />
+                        <TableColumn fx:id="stukprijsColumn" prefWidth="76.0" text="prijs / stuk" />
+                        <TableColumn fx:id="btwPrijsColumn" prefWidth="67.0" text="BTW Prijs" />
+                        <TableColumn fx:id="aantalColumn" prefWidth="55.0" text="Aantal" />
+                        <TableColumn fx:id="totaalPrijsColumn" prefWidth="136.0" text="Totaal Prijs" />
+                     </columns>
+                  </TableView>
+                  <HBox prefHeight="30.0" prefWidth="569.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="142.0" text="Totaal:">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="totaalProductenLabel" prefHeight="51.0" prefWidth="168.0">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Line endX="-11.0" endY="-164.0" layoutX="531.0" layoutY="281.0" startX="-11.0" startY="564.5" />
          </children>
       </AnchorPane>
    </center>
