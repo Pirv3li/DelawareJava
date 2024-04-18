@@ -5,8 +5,6 @@
 /bin/
 /target/
 
-# Ignore the Connectie.java file
-src/main/java/persistentie/Connectie.java
 
 # Java specific
 *.class
