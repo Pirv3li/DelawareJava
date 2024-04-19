@@ -116,9 +116,11 @@ public class BestellingController {
     }
 
     private void vulBestellingDetailsTable(Bestelling bestelling) {
-        List<BestellingDetails> details = controller.getBestellingDetails(bestelling);
-        productTable.setItems(FXCollections.observableArrayList(details));
-        double totaal = details.stream().mapToDouble(BestellingDetails::getTotaalPrijs).sum();
-        totaalProductenLabel.setText(String.format("%.2f", totaal));
+        if (bestelling != null) {
+            List<BestellingDetails> details = controller.getBestellingDetails(bestelling);
+            productTable.setItems(FXCollections.observableArrayList(details));
+            double totaal = details.stream().mapToDouble(BestellingDetails::getTotaalPrijs).sum();
+            totaalProductenLabel.setText(String.format("%.2f", totaal));
+        }
     }
 }
