@@ -1,8 +1,28 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Bestelling {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+import jakarta.persistence.NamedQueries;
+
+@Entity
+@Table(name = "`order`")
+@NamedQueries({
+		@NamedQuery(name = "Bestelling.getBestellingenByLeverancierId", 
+				query = "select b FROM Bestelling b where b.idLeverancier = :idLeverancier") })
+public class Bestelling implements Serializable{
+
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private String idOrder;
 	private int idKlant;
@@ -18,11 +38,15 @@ public class Bestelling {
 		setIdOrder(idOrder);
 		setIdKlant(idKlant);
 		setIdLeverancier(idLeverancier);
-		setIdKlant(idKlant);		
+		setIdKlant(idKlant);
 		setDatum(datum);
 		setOrderStatus(orderStatus);
 		setBetalingStatus(betalingStatus);
 		setTotaalPrijs(totaalPrijs);
+	}
+	
+	public Bestelling() {
+		
 	}
 
 	public String getIdOrder() {
@@ -75,10 +99,9 @@ public class Bestelling {
 
 	public String getBetalingStatus() {
 		String betalingStatus;
-		if(this.betalingStatus) {
+		if (this.betalingStatus) {
 			betalingStatus = "Betaald";
-		}
-		else {
+		} else {
 			betalingStatus = "Niet betaald";
 		}
 		return betalingStatus;
@@ -95,7 +118,5 @@ public class Bestelling {
 	public void setTotaalPrijs(double totaalPrijs) {
 		this.totaalPrijs = totaalPrijs;
 	}
-	
-
 
 }

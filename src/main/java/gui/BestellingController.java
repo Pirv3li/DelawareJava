@@ -24,9 +24,10 @@ public class BestellingController {
 
     @FXML
     private TableView<Bestelling> bestellingTable;
-
+    
     @FXML
-    private TableView<BestellingDetails> productTable;
+    private TableView<BestellingDetails> bestellingDetailsTable;
+
 
     @FXML
     private Label totaalProductenLabel;
@@ -101,13 +102,15 @@ public class BestellingController {
 
         bestellingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+            	System.out.println("in");
                 vulBestellingDetailsTable(newSelection);
+                System.out.println(newSelection.getIdOrder());
             }
         });
     }
 
     private ObservableList<Bestelling> getBestellingen() {
-        List<Bestelling> bestellingen = controller.FindbestellingenByLeverancierofKlant();
+        List<Bestelling> bestellingen = controller.FindbestellingenByLeverancier();
         return FXCollections.observableArrayList(bestellingen);
     }
 
@@ -117,8 +120,9 @@ public class BestellingController {
 
     private void vulBestellingDetailsTable(Bestelling bestelling) {
         if (bestelling != null) {
+        	System.out.println("lala");
             List<BestellingDetails> details = controller.getBestellingDetails(bestelling);
-            productTable.setItems(FXCollections.observableArrayList(details));
+            bestellingDetailsTable.setItems(FXCollections.observableArrayList(details));
             double totaal = details.stream().mapToDouble(BestellingDetails::getTotaalPrijs).sum();
             totaalProductenLabel.setText(String.format("%.2f", totaal));
         }

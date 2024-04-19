@@ -5,9 +5,14 @@
              version="3.0">
 <persistence-unit name="b2bDeleware" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    
     <class>domein.Bedrijf</class>
     <class>domein.Gebruiker</class>
     <class>domein.Leverancier</class>
+    <class>domein.Bestelling</class>
+    <class>domein.BestellingDetails</class>
+    
+    
     
     
     <properties>
