@@ -3,34 +3,50 @@ package domein;
 import java.util.ArrayList;
 import java.util.List;
 
+import repository.BedrijfDao;
+import repository.BedrijfDaoJpa;
+
+import repository.GenericDaoJpa;
+import repository.LeverancierDao;
+import repository.LeverancierDaoJpa;
+
 public class DomeinController {
-	
+
 	private App app;
-	private Gebruiker user;
+	private Leverancier leverancier;
+
+	private BedrijfDao bedrijfRepo;
+	private LeverancierDao leverancierRepo;
 
 	public DomeinController() {
 		app = new App();
+
 	};
-	
+
+
+
 	public boolean Aanmelden(String gebruikersnaam, String wachtwoord) {
+
 		boolean aangemeld = false;
-		this.user = app.Aanmelden(gebruikersnaam, wachtwoord);
-		if(user != null) {
+		this.leverancier = app.Aanmelden(gebruikersnaam, wachtwoord);
+		if (leverancier != null) {
 			aangemeld = true;
 		}
+
 		return aangemeld;
+
 	};
-	
+
 	public List<Bestelling> FindbestellingenByLeverancierofKlant() {
-		
-		List<Bestelling> bestellingen =  app.FindbestellingenByLeverancierofKlant(user);
+
+		List<Bestelling> bestellingen = app.FindbestellingenByLeverancier(leverancier);
 		return bestellingen;
 	}
-	
+
 	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
-		
-		List<BestellingDetails> bestellingDetails =  app.getBestellingDetails(bestelling);
+
+		List<BestellingDetails> bestellingDetails = app.getBestellingDetails(bestelling);
 		return bestellingDetails;
 	}
-	
+
 }

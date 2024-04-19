@@ -1,9 +1,28 @@
 package domein;
 
+import java.io.Serializable;
 import java.util.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
 
-public class Bedrijf {
 
+@Entity
+@Table(name = "bedrijf")
+@NamedQuery(name = "Bedrijf.getBedrijfById",
+query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf")
+
+
+public class Bedrijf implements Serializable{
+
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idBedrijf;
 	private String naam;
 	private String logo;
@@ -105,8 +124,7 @@ public class Bedrijf {
 	}
 
 	public Bedrijf() {
-		// TODO - implement Bedrijf.Bedrijf
-		throw new UnsupportedOperationException();
+
 	}
 
 }

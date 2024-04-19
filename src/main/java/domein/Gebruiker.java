@@ -1,19 +1,32 @@
 package domein;
 
-public class Gebruiker {
+import java.io.Serializable;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
+public class Gebruiker implements Serializable{
+
+
+	private static final long serialVersionUID = 1L;
+	
 	private String gebruikersnaam;
 	private String password_Hash;
-	private boolean isActief;
-	private String rol;
-	private int id;
 
-	public Gebruiker(String gebruikersnaam, String password_Hash, boolean isActief, String rol,int id) {
+	
+
+
+	public Gebruiker(String gebruikersnaam, String password_Hash) {
 		setGebruikersnaam(gebruikersnaam);
 		setPassword_Hash(password_Hash);
-		setActief(isActief);
-		setRol(rol);
-		setId(id);
+
+	}
+	
+	public Gebruiker() {
+		
 	}
 
 	public String getGebruikersnaam() {
@@ -32,28 +45,9 @@ public class Gebruiker {
 		this.password_Hash = password_Hash;
 	}
 
-	public boolean isActief() {
-		return isActief;
-	}
 
-	private void setActief(boolean isActief) {
-		this.isActief = isActief;
-	}
 	
-	public String getRol() {
-		return rol;
-	}
 
-	private void setRol(String rol) {
-		this.rol = rol;
-	}
 	
-	public int getId() {
-		return id;
-	}
-
-	private void setId(int id) {
-		this.id = id;
-	}
 
 }
