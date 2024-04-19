@@ -24,6 +24,7 @@ public class AanmeldenController {
     private Parent root;
     private Stage primaryStage;
     
+    
     @FXML
     private Button Login;
     @FXML
