@@ -7,7 +7,6 @@
 
 
 # Java specific
-*.class
 *.ear
 *.jar
 *.war
