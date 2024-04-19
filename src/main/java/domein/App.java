@@ -1,8 +1,11 @@
 package domein;
 
-import persistentie.Mapper;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
+import repository.BestellingDao;
+import repository.BestellingDaoJpa;
+import repository.BestellingDetailsDao;
+import repository.BestellingDetailsDaoJpa;
 import repository.LeverancierDao;
 import repository.LeverancierDaoJpa;
 
@@ -15,18 +18,23 @@ import de.mkammerer.argon2.Argon2Factory;
 
 public class App {
 
-	private Mapper mapper;
 
 	private static final int ARGON_ITERATIONS = 6;
 	private static final int ARGON_MEMORY = 1 << 17;
 
 	private BedrijfDao bedrijfRepo;
 	private LeverancierDao leverancierRepo;
+	private BestellingDao bestellingRepo;
+	private BestellingDetailsDao bestellingDetailsRepo;
+
+
 
 	public App() {
-		this.mapper = new Mapper();
 		setBedrijfRepo(new BedrijfDaoJpa());
 		setLeverancierRepo(new LeverancierDaoJpa());
+		setBestellingRepo(new BestellingDaoJpa());
+		setBestellingDetailsRepo(new BestellingDetailsDaoJpa());
+
 	}
 
 	public void setBedrijfRepo(BedrijfDao mock) {
@@ -37,6 +45,13 @@ public class App {
 		leverancierRepo = mock;
 	}
 
+	public void setBestellingRepo(BestellingDao mock) {
+		bestellingRepo = mock;
+	}
+	
+	public void setBestellingDetailsRepo(BestellingDetailsDao mock) {
+		bestellingDetailsRepo = mock;
+	}
 //    public Admin Aanmelden(String gebruikersnaam, String password) {
 //    	Administrator admin = mapper.findLeverancierByUsername(gebruikersnaam);
 //        if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) { 
@@ -45,30 +60,24 @@ public class App {
 //        return user;
 //    }
 
-	public Leverancier Aanmelden(String gebruikersnaam, String password) {
+    public Leverancier Aanmelden(String gebruikersnaam, String password) {
+        Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam(gebruikersnaam);
+        if (leverancier != null && verifyPassword(password, leverancier.getPassword_Hash())) {
+            return leverancier;
+        }
+        return null;
+    }
 
-		LeverancierDaoJpa.startTransaction();
-		Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam("leverancier1");
-		;
-		LeverancierDaoJpa.closePersistency();
-
-		if (leverancier == null || !verifyPassword(password, leverancier.getPassword_Hash())) {
-			return null;
-		}
-		return leverancier;
-	}
-
-	public List<Bestelling> FindbestellingenByLeverancier(Leverancier user) {
-
-		List<Bestelling> bestellingen = mapper.findBestellingByLeverancierofKlant(user);
-
-		return bestellingen;
-	}
+    public List<Bestelling> getBestellingenByLeverancierId(Leverancier user) {
+        return bestellingRepo.getBestellingenByLeverancierId(user.getIdLeverancier());
+    }
 
 	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
 
-		List<BestellingDetails> bestellingDetails = mapper.getBestellingDetails(bestelling);
-
+		List<BestellingDetails> bestellingDetails = bestellingDetailsRepo.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder()));
+		for (BestellingDetails bestellingDetails2 : bestellingDetails) {
+			System.out.println(bestellingDetails2.getIdOrder());
+		}
 		return bestellingDetails;
 	}
 

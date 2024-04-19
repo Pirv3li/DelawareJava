@@ -37,9 +37,9 @@ public class DomeinController {
 
 	};
 
-	public List<Bestelling> FindbestellingenByLeverancierofKlant() {
+	public List<Bestelling> FindbestellingenByLeverancier() {
 
-		List<Bestelling> bestellingen = app.FindbestellingenByLeverancier(leverancier);
+		List<Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);
 		return bestellingen;
 	}
 
