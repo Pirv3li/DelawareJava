@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -19,7 +20,6 @@ import javafx.stage.Stage;
 
 public class AanmeldenController {
 
-    private SceneController switch2;
     private DomeinController controller;
     private Parent root;
     private Stage primaryStage;
@@ -38,6 +38,8 @@ public class AanmeldenController {
     private Hyperlink wachtwoordVergeten;
     @FXML
     private Text loginError;
+    @FXML
+    private CheckBox isAdmin;
 
     public AanmeldenController(DomeinController controller, Stage primaryStage) {
         this.controller = controller;
@@ -63,6 +65,8 @@ public class AanmeldenController {
     public void handleLogin(ActionEvent event) {
         String username = gebruikersnaam.getText();
         String password = wachtwoord.getText();
+        
+        if(!isAdmin.isSelected()) {
         boolean loggedIn = controller.Aanmelden(username, password);
         if (loggedIn) {
             try {
@@ -85,6 +89,29 @@ public class AanmeldenController {
         } else {
         	warningMessage.setText("login en wachtwoord combinatie is fout!!");
         }
-    }
+    } else{
+    	 boolean loggedIn = controller.AanmeldenAdmin(username, password);
+         if (loggedIn) {
+             try {
+                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Bedrijven.fxml"));
+                 BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
+                 bedrijvenController.setController(controller); 
+                 loader.setController(bedrijvenController);
+                 Parent root = loader.load();
+                 Scene scene = new Scene(root);
+                 
+                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                 stage.setScene(scene);
+                 stage.show();
+                 
+                 bedrijvenController.start();
+             } catch (IOException e) {
+             	
+                 e.printStackTrace();
+             }
+         } else {
+         	warningMessage.setText("login en wachtwoord combinatie is fout!!");
+         }
+    }}
 }
 

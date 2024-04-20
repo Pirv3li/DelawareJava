@@ -1,5 +1,9 @@
 package domein;
 
+import repository.AdminDao;
+import repository.AdminDaoJpa;
+import repository.AdresDao;
+import repository.AdresDaoJpa;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
 import repository.BestellingDao;
@@ -29,7 +33,8 @@ public class App {
 	private BestellingDao bestellingRepo;
 	private BestellingDetailsDao bestellingDetailsRepo;
 	private ProductDao productRepo;
-
+	private AdresDao adresRepo;
+	private AdminDao adminRepo;
 
 	public App() {
 		setBedrijfRepo(new BedrijfDaoJpa());
@@ -37,12 +42,22 @@ public class App {
 		setBestellingRepo(new BestellingDaoJpa());
 		setBestellingDetailsRepo(new BestellingDetailsDaoJpa());
 		setProductRepo(new ProductDaoJpa());
-
+		setAdresRepo(new AdresDaoJpa());
+		setAdminRepo(new AdminDaoJpa());
 
 	}
 
 	public void setBedrijfRepo(BedrijfDao mock) {
 		bedrijfRepo = mock;
+	}
+	
+	public void setAdminRepo(AdminDao mock) {
+		adminRepo = mock;
+	}
+	
+	
+	public void setAdresRepo(AdresDao mock) {
+		adresRepo = mock;
 	}
 
 	public void setLeverancierRepo(LeverancierDao mock) {
@@ -60,13 +75,14 @@ public class App {
 	public void setProductRepo(ProductDao mock) {
 		productRepo = mock;
 	}
-//    public Admin Aanmelden(String gebruikersnaam, String password) {
-//    	Administrator admin = mapper.findLeverancierByUsername(gebruikersnaam);
-//        if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) { 
-//            return null; 
-//        }
-//        return user;
-//    }
+	
+    public Admin AanmeldenAdmin(String gebruikersnaam, String password) {
+    	Admin admin = adminRepo.getAdminByGebruikersnaam(gebruikersnaam);
+        if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) { 
+            return null; 
+        }
+        return admin;
+    }
 
     public Leverancier Aanmelden(String gebruikersnaam, String password) {
         Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam(gebruikersnaam);
@@ -101,5 +117,17 @@ public class App {
 			System.out.println("Error verifying password: " + e.getMessage());
 			return false;
 		}
+	}
+
+	public List<Bedrijf> getBedrijven() {
+		return bedrijfRepo.getBedrijven();
+	}
+
+	public Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
+		return leverancierRepo.getLeverancierByIdBedrijf(idBedrijf);
+	}
+
+	public Adres getAdresByIdAdres(int idAdres) {
+		return adresRepo.getAdresById(idAdres);
 	}
 }

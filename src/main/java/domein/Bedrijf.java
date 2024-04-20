@@ -6,14 +6,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 
 @Entity
 @Table(name = "bedrijf")
-@NamedQuery(name = "Bedrijf.getBedrijfById",
-query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf")
+@NamedQueries({
+		@NamedQuery(name = "Bedrijf.getBedrijfById",
+		query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf") ,
+		
+		@NamedQuery(
+			    name = "Bedrijf.getBedrijven",
+			    query = "SELECT b FROM Bedrijf b"
+			)})
 
 
 public class Bedrijf implements Serializable{
@@ -107,14 +114,6 @@ public class Bedrijf implements Serializable{
 		this.gebruikerSinds = gebruikerSinds;
 	}
 
-	public int getIdAdres() {
-		return this.idAdres;
-	}
-
-	public void setIdAdres(int idAdres) {
-		this.idAdres = idAdres;
-	}
-
 	public boolean isIsActief() {
 		return this.isActief;
 	}
@@ -123,8 +122,35 @@ public class Bedrijf implements Serializable{
 		this.isActief = isActief;
 	}
 
+
+
+	public int getIdAdres() {
+		return idAdres;
+	}
+
+	public void setIdAdres(int idAdres) {
+		this.idAdres = idAdres;
+	}
+
+	public Bedrijf(int idBedrijf, String naam, String logo, String sector, String email, String iban, String btwNummer,
+			int telefoonnummer, Date gebruikerSinds, int idAdres, boolean isActief) {
+		super();
+		this.idBedrijf = idBedrijf;
+		this.naam = naam;
+		this.logo = logo;
+		this.sector = sector;
+		this.email = email;
+		this.iban = iban;
+		this.btwNummer = btwNummer;
+		this.telefoonnummer = telefoonnummer;
+		this.gebruikerSinds = gebruikerSinds;
+		this.idAdres = idAdres;
+		this.isActief = isActief;
+	}
+
 	public Bedrijf() {
 
 	}
+
 
 }

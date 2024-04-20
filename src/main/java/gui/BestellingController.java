@@ -7,10 +7,13 @@ import domein.Product;
 import domein.ProductEnDetailsGecombineerd;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -64,7 +67,25 @@ public class BestellingController {
 
     @FXML
     private TableColumn<BestellingDetails, Double> totaalPrijsPerProductColumn;
-
+    
+    @FXML
+    private Button bedrijven;
+    
+    
+    
+    @FXML
+    private void handleBedrijvenButtonAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Bedrijven.fxml"));
+            BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
+            bedrijvenController.setController(controller);
+            loader.setController(bedrijvenController);
+            Parent root = loader.load();
+            bedrijvenController.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public BestellingController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -143,4 +164,29 @@ public class BestellingController {
             totaalProductenLabel.setText(String.format("%.2f", totaal));
         }
     }
+    
+    @FXML
+    public void uitloggen(ActionEvent event) {
+        controller.uitloggen();
+        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
+            AanmeldenController aanmeldenController = new AanmeldenController(controller, new Stage());
+            loader.setController(aanmeldenController);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            
+            Stage loginStage = new Stage();
+            loginStage.setScene(scene);
+            loginStage.setTitle("Login");
+            loginStage.setResizable(false);
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

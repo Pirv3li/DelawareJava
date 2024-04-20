@@ -14,6 +14,7 @@ public class DomeinController {
 
 	private App app;
 	private Leverancier leverancier;
+	private Admin admin;
 
 	private BedrijfDao bedrijfRepo;
 	private LeverancierDao leverancierRepo;
@@ -23,8 +24,24 @@ public class DomeinController {
 
 	};
 
+	public void uitloggen() {
+		this.leverancier = null;
+		this.admin = null;
+	}
+	
+	public boolean AanmeldenAdmin(String gebruikersnaam, String wachtwoord) {
 
+		boolean aangemeld = false;
+		this.admin = app.AanmeldenAdmin(gebruikersnaam, wachtwoord);
+		if (admin != null) {
+			aangemeld = true;
+		}
 
+		return aangemeld;
+
+	};
+	
+	
 	public boolean Aanmelden(String gebruikersnaam, String wachtwoord) {
 
 		boolean aangemeld = false;
@@ -53,6 +70,27 @@ public class DomeinController {
 
 		Product product = app.getProductByProductId(bestellingDetail.getIdProduct());
 		return product;
+	}
+
+
+
+	public List<Bedrijf> getBedrijven() {
+		List<Bedrijf> bedrijven = app.getBedrijven();
+		return bedrijven;
+	}
+
+
+
+	public Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
+		Leverancier lever = app.getLeverancierGegevensByIdBedrijf(idBedrijf);
+		return lever;
+	}
+
+
+
+	public Adres getAdresByIdAdres(int idAdres) {
+		Adres adres = app.getAdresByIdAdres(idAdres);
+		return adres;
 	}
 
 }
