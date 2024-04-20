@@ -19,14 +19,9 @@
 
 <BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="delaware" textAlignment="CENTER" wrappingWidth="282.98046875">
-               <font>
-                  <Font size="49.0" />
-               </font>
-            </Text>
-            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven">
+            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven">
                <font>
                   <Font size="26.0" />
                </font>
@@ -51,7 +46,7 @@
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="logout"  onAction="#uitloggen" layoutX="6.0" layoutY="752.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
+            <Button fx:id="logout" layoutX="6.0" layoutY="752.0" mnemonicParsing="false" onAction="#uitloggen" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
                <font>
                   <Font size="18.0" />
                </font>
@@ -67,6 +62,7 @@
                   <Font size="29.0" />
                </font>
             </Text>
+            <ImageView fx:id="delawareLogo" fitHeight="67.0" fitWidth="283.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </left>

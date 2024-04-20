@@ -15,6 +15,8 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,7 +25,8 @@ public class AanmeldenController {
     private DomeinController controller;
     private Parent root;
     private Stage primaryStage;
-    
+    private Stage loginStage;
+
     
     @FXML
     private Button Login;
@@ -40,6 +43,8 @@ public class AanmeldenController {
     private Text loginError;
     @FXML
     private CheckBox isAdmin;
+    @FXML
+    private ImageView delawareLogo;
 
     public AanmeldenController(DomeinController controller, Stage primaryStage) {
         this.controller = controller;
@@ -55,7 +60,10 @@ public class AanmeldenController {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
-            
+            loginStage = new Stage();
+            String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
+            Image image = new Image(url);
+            delawareLogo.setImage(image);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,52 +74,63 @@ public class AanmeldenController {
         String username = gebruikersnaam.getText();
         String password = wachtwoord.getText();
         
-        if(!isAdmin.isSelected()) {
-        boolean loggedIn = controller.Aanmelden(username, password);
-        if (loggedIn) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("bestellingen.fxml"));
-                BestellingController bestellingController = new BestellingController(primaryStage);
-                bestellingController.setController(controller); 
-                loader.setController(bestellingController);
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-                
-                bestellingController.start();
-            } catch (IOException e) {
-            	
-                e.printStackTrace();
+        if (!isAdmin.isSelected()) {
+            boolean loggedIn = controller.Aanmelden(username, password);
+            if (loggedIn) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("bestellingen.fxml"));
+                    BestellingController bestellingController = new BestellingController(primaryStage);
+                    bestellingController.setController(controller); 
+                    loader.setController(bestellingController);
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+                    
+                    bestellingController.start();
+                    
+
+                    if (loginStage != null) {
+                        loginStage.close();
+                    }
+                } catch (IOException e) {
+                	warningMessage.setText("login en wachtwoord combinatie is fout!!");
+                    e.printStackTrace();
+                }
+            } else {
+                warningMessage.setText("login en wachtwoord combinatie is fout!!");
             }
         } else {
-        	warningMessage.setText("login en wachtwoord combinatie is fout!!");
+            boolean loggedIn = controller.AanmeldenAdmin(username, password);
+            if (loggedIn) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Bedrijven.fxml"));
+                    BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
+                    bedrijvenController.setController(controller); 
+                    loader.setController(bedrijvenController);
+                    Parent root = loader.load();
+                    Scene scene = new Scene(root);
+                    
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+                    
+                    bedrijvenController.start();
+                    
+                    if (loginStage != null) {
+                        loginStage.close();
+                    }
+                } catch (IOException e) {
+                	warningMessage.setText("login en wachtwoord combinatie is fout!!");
+                    e.printStackTrace();
+                }
+            } else {
+                warningMessage.setText("login en wachtwoord combinatie is fout!!");
+            }
         }
-    } else{
-    	 boolean loggedIn = controller.AanmeldenAdmin(username, password);
-         if (loggedIn) {
-             try {
-                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Bedrijven.fxml"));
-                 BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
-                 bedrijvenController.setController(controller); 
-                 loader.setController(bedrijvenController);
-                 Parent root = loader.load();
-                 Scene scene = new Scene(root);
-                 
-                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                 stage.setScene(scene);
-                 stage.show();
-                 
-                 bedrijvenController.start();
-             } catch (IOException e) {
-             	
-                 e.printStackTrace();
-             }
-         } else {
-         	warningMessage.setText("login en wachtwoord combinatie is fout!!");
-         }
-    }}
+    }
+
+
+
 }
 

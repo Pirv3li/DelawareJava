@@ -98,7 +98,9 @@ public class BedrijvenController {
     
     @FXML
     private ImageView logo;
-
+    @FXML
+    private ImageView delawareLogo;
+    
 
 
     private Stage primaryStage;
@@ -116,7 +118,9 @@ public class BedrijvenController {
             loader.setController(this);
             Parent root = loader.load();
             Scene scene = new Scene(root);
-
+            String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
+            Image image = new Image(url);
+            delawareLogo.setImage(image);
             if (primaryStage != null) {
                 primaryStage.setScene(scene);
                 primaryStage.setFullScreen(true);
@@ -233,22 +237,9 @@ public class BedrijvenController {
         
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
-        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
-            AanmeldenController aanmeldenController = new AanmeldenController(controller, new Stage());
-            loader.setController(aanmeldenController);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            
-            Stage loginStage = new Stage();
-            loginStage.setScene(scene);
-            loginStage.setTitle("Login");
-            loginStage.setResizable(false);
-            loginStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        AanmeldenController aanmeldenController = new AanmeldenController(controller, new Stage());
+        aanmeldenController.start();
     }
+
 
 }
