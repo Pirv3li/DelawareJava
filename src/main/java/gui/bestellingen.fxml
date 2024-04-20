@@ -95,7 +95,7 @@
                         <TableColumn fx:id="stukprijsColumn" prefWidth="76.0" text="prijs / stuk" />
                         <TableColumn fx:id="btwPrijsColumn" prefWidth="67.0" text="BTW Prijs" />
                         <TableColumn fx:id="aantalColumn" prefWidth="55.0" text="Aantal" />
-                        <TableColumn fx:id="totaalPrijsColumn" prefWidth="136.0" text="Totaal Prijs" />
+                        <TableColumn fx:id="totaalPrijsPerProductColumn" prefWidth="136.0" text="Totaal Prijs" />
                      </columns>
                   </TableView>
                   <HBox prefHeight="30.0" prefWidth="569.0">

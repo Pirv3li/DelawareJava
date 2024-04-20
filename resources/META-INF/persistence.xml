@@ -11,6 +11,8 @@
     <class>domein.Leverancier</class>
     <class>domein.Bestelling</class>
     <class>domein.BestellingDetails</class>
+     <class>domein.Product</class>
+    
     
     
     
