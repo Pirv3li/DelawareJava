@@ -8,6 +8,8 @@ import repository.BestellingDetailsDao;
 import repository.BestellingDetailsDaoJpa;
 import repository.LeverancierDao;
 import repository.LeverancierDaoJpa;
+import repository.ProductDao;
+import repository.ProductDaoJpa;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class App {
 	private LeverancierDao leverancierRepo;
 	private BestellingDao bestellingRepo;
 	private BestellingDetailsDao bestellingDetailsRepo;
-
+	private ProductDao productRepo;
 
 
 	public App() {
@@ -34,6 +36,8 @@ public class App {
 		setLeverancierRepo(new LeverancierDaoJpa());
 		setBestellingRepo(new BestellingDaoJpa());
 		setBestellingDetailsRepo(new BestellingDetailsDaoJpa());
+		setProductRepo(new ProductDaoJpa());
+
 
 	}
 
@@ -51,6 +55,10 @@ public class App {
 	
 	public void setBestellingDetailsRepo(BestellingDetailsDao mock) {
 		bestellingDetailsRepo = mock;
+	}
+	
+	public void setProductRepo(ProductDao mock) {
+		productRepo = mock;
 	}
 //    public Admin Aanmelden(String gebruikersnaam, String password) {
 //    	Administrator admin = mapper.findLeverancierByUsername(gebruikersnaam);
@@ -73,13 +81,16 @@ public class App {
     }
 
 	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
-
-		List<BestellingDetails> bestellingDetails = bestellingDetailsRepo.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder()));
-		for (BestellingDetails bestellingDetails2 : bestellingDetails) {
-			System.out.println(bestellingDetails2.getIdOrder());
-		}
+		List<BestellingDetails> bestellingDetails 
+		= bestellingDetailsRepo
+		.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder()));
 		return bestellingDetails;
 	}
+	
+	
+    public Product getProductByProductId(int id) {
+        return productRepo.getProductByProductId(id);
+    }
 
 	private boolean verifyPassword(String password, String hashedPassword) {
 		Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id, ARGON_ITERATIONS, ARGON_MEMORY);

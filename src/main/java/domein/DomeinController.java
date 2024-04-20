@@ -48,5 +48,11 @@ public class DomeinController {
 		List<BestellingDetails> bestellingDetails = app.getBestellingDetails(bestelling);
 		return bestellingDetails;
 	}
+	
+	public Product getProductByProductId(BestellingDetails bestellingDetail) {
+
+		Product product = app.getProductByProductId(bestellingDetail.getIdProduct());
+		return product;
+	}
 
 }

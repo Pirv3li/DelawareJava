@@ -1,8 +1,10 @@
-package gui;
+	package gui;
 
 import domein.Bestelling;
 import domein.BestellingDetails;
 import domein.DomeinController;
+import domein.Product;
+import domein.ProductEnDetailsGecombineerd;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BestellingController {
@@ -26,7 +29,7 @@ public class BestellingController {
     private TableView<Bestelling> bestellingTable;
     
     @FXML
-    private TableView<BestellingDetails> bestellingDetailsTable;
+    private TableView<ProductEnDetailsGecombineerd> bestellingDetailsTable;
 
 
     @FXML
@@ -60,7 +63,7 @@ public class BestellingController {
     private TableColumn<BestellingDetails, Integer> aantalColumn;
 
     @FXML
-    private TableColumn<BestellingDetails, Double> totaalPrijsColumn;
+    private TableColumn<BestellingDetails, Double> totaalPrijsPerProductColumn;
 
     public BestellingController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -88,23 +91,19 @@ public class BestellingController {
     public void initialize() {
         orderidColumn.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("datum"));
-        bedragColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
         orderstatusColumn.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
         betalingstatusColumn.setCellValueFactory(new PropertyValueFactory<>("betalingStatus"));
-
-        productNaamColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        stukprijsColumn.setCellValueFactory(new PropertyValueFactory<>("eenheidsPrijs"));
+        productNaamColumn.setCellValueFactory(new PropertyValueFactory<>("productNaam"));
+        stukprijsColumn.setCellValueFactory(new PropertyValueFactory<>("eenheidsPrijs")); 
         btwPrijsColumn.setCellValueFactory(new PropertyValueFactory<>("btwTarief"));
         aantalColumn.setCellValueFactory(new PropertyValueFactory<>("aantal"));
-        totaalPrijsColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
+        totaalPrijsPerProductColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
 
         bestellingTable.setItems(getBestellingen());
 
         bestellingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-            	System.out.println("in");
                 vulBestellingDetailsTable(newSelection);
-                System.out.println(newSelection.getIdOrder());
             }
         });
     }
@@ -120,9 +119,26 @@ public class BestellingController {
 
     private void vulBestellingDetailsTable(Bestelling bestelling) {
         if (bestelling != null) {
-        	System.out.println("lala");
             List<BestellingDetails> details = controller.getBestellingDetails(bestelling);
-            bestellingDetailsTable.setItems(FXCollections.observableArrayList(details));
+            List<ProductEnDetailsGecombineerd> gecombineerdeData = new ArrayList<>();
+
+            
+            for (BestellingDetails bestellingDetails : details) {
+                Product product = controller.getProductByProductId(bestellingDetails);
+                gecombineerdeData.add(new ProductEnDetailsGecombineerd(
+                    product.getNaam(),
+                    bestellingDetails.getEenheidsPrijs(),
+                    product.getBtwTarief(),
+                    product.getAantal()
+                ));
+               
+            }
+            
+            for (ProductEnDetailsGecombineerd productEnDetailsGecombineerd : gecombineerdeData) {
+				System.out.println(productEnDetailsGecombineerd.getTotaalPrijs()); 
+				System.out.println();
+			}
+            bestellingDetailsTable.setItems(FXCollections.observableArrayList(gecombineerdeData));
             double totaal = details.stream().mapToDouble(BestellingDetails::getTotaalPrijs).sum();
             totaalProductenLabel.setText(String.format("%.2f", totaal));
         }

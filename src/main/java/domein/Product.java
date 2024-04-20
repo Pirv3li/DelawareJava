@@ -1,12 +1,32 @@
 package domein;
 
-public class Product {
+import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "product")
+@NamedQueries({
+	@NamedQuery(name = "Product.getProductByProductId", 
+			query = "select p FROM Product p where p.idProduct = :idProduct") })
+public class Product implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+		
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idProduct;
 	private int idLeverancier;
 	private String naam;
 	private double eenheidsprijs;
-	private double btwTarief;
+	private int btwTarief;
 	private String foto;
 	private int aantal;
 	private String beschrijving;
@@ -14,6 +34,10 @@ public class Product {
 
 	public int getIdProduct() {
 		return this.idProduct;
+	}
+	
+	public Product() {
+		
 	}
 
 	public void setIdProduct(int idProduct) {
@@ -48,7 +72,7 @@ public class Product {
 		return this.btwTarief;
 	}
 
-	public void setBtwTarief(double btwTarief) {
+	public void setBtwTarief(int btwTarief) {
 		this.btwTarief = btwTarief;
 	}
 
@@ -96,7 +120,7 @@ public class Product {
 	 * @param beschrijving
 	 * @param categorie
 	 */
-	public Product(int idProduct, int idLeverancier, String naam, double eenheidsprijs, double btwTarief, String foto, int aantal, String beschrijving, String categorie) {
+	public Product(int idProduct, int idLeverancier, String naam, double eenheidsprijs, int btwTarief, String foto, int aantal, String beschrijving, String categorie) {
 		// TODO - implement Product.Product
 		throw new UnsupportedOperationException();
 	}
