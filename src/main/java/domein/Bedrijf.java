@@ -10,24 +10,17 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "bedrijf")
 @NamedQueries({
-		@NamedQuery(name = "Bedrijf.getBedrijfById",
-		query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf") ,
-		
-		@NamedQuery(
-			    name = "Bedrijf.getBedrijven",
-			    query = "SELECT b FROM Bedrijf b"
-			)})
+		@NamedQuery(name = "Bedrijf.getBedrijfById", query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf"),
 
+		@NamedQuery(name = "Bedrijf.getBedrijven", query = "SELECT b FROM Bedrijf b") })
 
-public class Bedrijf implements Serializable{
-
+public class Bedrijf implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idBedrijf;
@@ -122,8 +115,6 @@ public class Bedrijf implements Serializable{
 		this.isActief = isActief;
 	}
 
-
-
 	public int getIdAdres() {
 		return idAdres;
 	}
@@ -151,6 +142,5 @@ public class Bedrijf implements Serializable{
 	public Bedrijf() {
 
 	}
-
 
 }

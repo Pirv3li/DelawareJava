@@ -16,17 +16,17 @@ public class SceneController {
 	private Parent root;
 	private DomeinController controller;
 
-	public SceneController(DomeinController controller){
+	public SceneController(DomeinController controller) {
 		this.controller = controller;
 	}
-	
+
 	public void SwitchToMenu(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("bestellingen.fxml"));
 			SceneController scr = new SceneController(controller);
 			loader.setController(scr);
 			Parent root = loader.load();
-//			hsc.vertaal();
+			// hsc.vertaal();
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			Scene scene = new Scene(root);
 			stage.setScene(scene);

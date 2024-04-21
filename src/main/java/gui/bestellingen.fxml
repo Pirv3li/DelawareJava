@@ -14,36 +14,58 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0"
+   prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/16"
+   xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity"
+         prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: grey;"
+         BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven" visible="false">
+            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false"
+               prefHeight="60.0" prefWidth="271.0"
+               style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;"
+               text="Bedrijven" visible="false">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="notificaties" layoutX="6.0" layoutY="274.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Notificaties">
+            <Button fx:id="notificaties" layoutX="6.0" layoutY="274.0" mnemonicParsing="false"
+               prefHeight="60.0" prefWidth="271.0"
+               style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;"
+               text="Notificaties">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="bestellingen" layoutX="6.0" layoutY="334.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Bestellingen">
+            <Button fx:id="bestellingen" layoutX="6.0" layoutY="334.0" mnemonicParsing="false"
+               prefHeight="60.0" prefWidth="271.0"
+               style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;"
+               text="Bestellingen">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="profiel" layoutX="3.0" layoutY="453.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="275.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Profiel">
+            <Button fx:id="profiel" layoutX="3.0" layoutY="453.0" mnemonicParsing="false"
+               prefHeight="60.0" prefWidth="275.0"
+               style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;"
+               text="Profiel">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="klanten" layoutX="5.0" layoutY="393.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="273.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Klanten">
+            <Button fx:id="klanten" layoutX="5.0" layoutY="393.0" mnemonicParsing="false"
+               prefHeight="60.0" prefWidth="273.0"
+               style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;"
+               text="Klanten">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="logout" layoutX="6.0" layoutY="752.0" mnemonicParsing="false" onAction="#uitloggen" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
+            <Button fx:id="logout" layoutX="6.0" layoutY="752.0" mnemonicParsing="false"
+               onAction="#uitloggen" prefHeight="105.0" prefWidth="272.0"
+               style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;"
+               text="Logout">
                <font>
                   <Font size="18.0" />
                </font>
@@ -52,39 +74,48 @@
             <FontAwesomeIconView glyphName="USER" layoutX="34.0" layoutY="495.0" size="30" text="" />
             <FontAwesomeIconView glyphName="USERS" layoutX="27.0" layoutY="434.0" size="30" text="" />
             <FontAwesomeIconView glyphName="LIST" layoutX="30.0" layoutY="374.0" size="30" text="" />
-            <FontAwesomeIconView fx:id="bedrijvenSymbool" layoutX="30.0" layoutY="252.0" size="30" text="" visible="false" />
+            <FontAwesomeIconView fx:id="bedrijvenSymbool" layoutX="30.0" layoutY="252.0" size="30"
+               text="" visible="false" />
             <FontAwesomeIconView layoutX="29.0" layoutY="815.0" size="30" text="" />
-            <Text layoutX="2.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B-portaal" textAlignment="CENTER" wrappingWidth="276.955078125">
+            <Text layoutX="2.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0"
+               text="B2B-portaal" textAlignment="CENTER" wrappingWidth="276.955078125">
                <font>
                   <Font size="29.0" />
                </font>
             </Text>
-            <ImageView fx:id="delawareLogo" fitHeight="90.0" fitWidth="283.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="delawareLogo" fitHeight="90.0" fitWidth="283.0" layoutX="-1.0"
+               pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane maxHeight="1080.0" maxWidth="1570.0" minHeight="776.0" minWidth="1041.0" prefHeight="776.0" prefWidth="1041.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1080.0" maxWidth="1570.0" minHeight="776.0" minWidth="1041.0"
+         prefHeight="776.0" prefWidth="1041.0" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutX="372.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bestellingen" textAlignment="CENTER" wrappingWidth="297.13671875">
+            <Text layoutX="372.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0"
+               text="Bestellingen" textAlignment="CENTER" wrappingWidth="297.13671875">
                <font>
                   <Font size="45.0" />
                </font>
             </Text>
-            <VBox layoutX="47.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="680.0" minWidth="419.0" prefHeight="680.0" prefWidth="419.0">
+            <VBox layoutX="47.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0"
+               minHeight="680.0" minWidth="419.0" prefHeight="680.0" prefWidth="419.0">
                <children>
                   <TableView fx:id="bestellingTable" prefHeight="826.0" prefWidth="519.0">
                      <columns>
                         <TableColumn fx:id="orderidColumn" text="Order ID" />
                         <TableColumn fx:id="datumColumn" prefWidth="59.0" text="Datum" />
                         <TableColumn fx:id="bedragColumn" prefWidth="61.0" text="Bedrag" />
-                        <TableColumn fx:id="orderstatusColumn" minWidth="0.0" prefWidth="82.0" text="Order Status" />
-                        <TableColumn fx:id="betalingstatusColumn" prefWidth="136.0" text="Betaling Status" />
+                        <TableColumn fx:id="orderstatusColumn" minWidth="0.0" prefWidth="82.0"
+                           text="Order Status" />
+                        <TableColumn fx:id="betalingstatusColumn" prefWidth="136.0"
+                           text="Betaling Status" />
                      </columns>
                   </TableView>
                </children>
             </VBox>
-            <VBox layoutX="560.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="730.0" minWidth="423.0" prefHeight="730.0" prefWidth="423.0">
+            <VBox layoutX="560.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0"
+               minHeight="730.0" minWidth="423.0" prefHeight="730.0" prefWidth="423.0">
                <children>
                   <TableView fx:id="bestellingDetailsTable" prefHeight="825.0" prefWidth="545.0">
                      <columns>
@@ -92,7 +123,8 @@
                         <TableColumn fx:id="stukprijsColumn" prefWidth="76.0" text="prijs / stuk" />
                         <TableColumn fx:id="btwPrijsColumn" prefWidth="67.0" text="BTW Prijs" />
                         <TableColumn fx:id="aantalColumn" prefWidth="55.0" text="Aantal" />
-                        <TableColumn fx:id="totaalPrijsPerProductColumn" prefWidth="136.0" text="Totaal Prijs" />
+                        <TableColumn fx:id="totaalPrijsPerProductColumn" prefWidth="136.0"
+                           text="Totaal Prijs" />
                      </columns>
                   </TableView>
                   <HBox prefHeight="30.0" prefWidth="569.0">
@@ -111,7 +143,8 @@
                   </HBox>
                </children>
             </VBox>
-            <Line endX="-11.0" endY="-164.0" layoutX="531.0" layoutY="281.0" startX="-11.0" startY="564.5" />
+            <Line endX="-11.0" endY="-164.0" layoutX="531.0" layoutY="281.0" startX="-11.0"
+               startY="564.5" />
          </children>
       </AnchorPane>
    </center>

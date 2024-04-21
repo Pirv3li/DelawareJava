@@ -2,7 +2,7 @@ package domein;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import java.text.SimpleDateFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,13 +14,11 @@ import jakarta.persistence.NamedQueries;
 @Entity
 @Table(name = "`order`")
 @NamedQueries({
-		@NamedQuery(name = "Bestelling.getBestellingenByLeverancierId", 
-				query = "select b FROM Bestelling b where b.idLeverancier = :idLeverancier") })
-public class Bestelling implements Serializable{
-
+		@NamedQuery(name = "Bestelling.getBestellingenByLeverancierId", query = "select b FROM Bestelling b where b.idLeverancier = :idLeverancier") })
+public class Bestelling implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -44,9 +42,9 @@ public class Bestelling implements Serializable{
 		setBetalingStatus(betalingStatus);
 		setTotaalPrijs(totaalPrijs);
 	}
-	
+
 	public Bestelling() {
-		
+
 	}
 
 	public String getIdOrder() {
@@ -81,8 +79,9 @@ public class Bestelling implements Serializable{
 		this.idAdres = idAdres;
 	}
 
-	public Date getDatum() {
-		return this.datum;
+	public String getDatum() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(this.datum);
 	}
 
 	public void setDatum(Date datum) {

@@ -13,11 +13,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "admin")
-@NamedQuery(name = "Admin.getAdminByGebruikersnaam", 
-	query = "SELECT ad FROM Admin ad WHERE ad.gebruikersnaam = :gebruikersnaam")
+@NamedQuery(name = "Admin.getAdminByGebruikersnaam", query = "SELECT ad FROM Admin ad WHERE ad.gebruikersnaam = :gebruikersnaam")
 public class Admin extends Gebruiker implements Serializable {
-	
-	
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +23,17 @@ public class Admin extends Gebruiker implements Serializable {
 	private int idAdmin;
 	private String gebruikersnaam;
 	private String email;
-	
+
 	@Column(columnDefinition = "VARCHAR(255)")
-	private String roles; 
-	
-    public Admin(String gebruikersnaam, String password_Hash, int idAdmin, String roles, String email) {
-        super(gebruikersnaam, password_Hash);
-        this.idAdmin = idAdmin;
-        this.gebruikersnaam = gebruikersnaam;
-        this.email = email;
-        this.roles = roles;
-    }
+	private String roles;
+
+	public Admin(String gebruikersnaam, String password_Hash, int idAdmin, String roles, String email) {
+		super(gebruikersnaam, password_Hash);
+		this.idAdmin = idAdmin;
+		this.gebruikersnaam = gebruikersnaam;
+		this.email = email;
+		this.roles = roles;
+	}
 
 	public String getRoles() {
 		return roles;
@@ -52,7 +50,5 @@ public class Admin extends Gebruiker implements Serializable {
 	public void setIdAdmin(int idAdmin) {
 		this.idAdmin = idAdmin;
 	}
-	
-    
-    
+
 }

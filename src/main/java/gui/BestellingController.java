@@ -1,4 +1,4 @@
-	package gui;
+package gui;
 
 import domein.Bestelling;
 import domein.BestellingDetails;
@@ -32,10 +32,9 @@ public class BestellingController {
 
     @FXML
     private TableView<Bestelling> bestellingTable;
-    
+
     @FXML
     private TableView<ProductEnDetailsGecombineerd> bestellingDetailsTable;
-
 
     @FXML
     private Label totaalProductenLabel;
@@ -69,12 +68,12 @@ public class BestellingController {
 
     @FXML
     private TableColumn<BestellingDetails, Double> totaalPrijsPerProductColumn;
-    
+
     @FXML
     private Button bedrijven;
     @FXML
     private ImageView delawareLogo;
-    
+
     public BestellingController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -106,7 +105,7 @@ public class BestellingController {
         orderstatusColumn.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
         betalingstatusColumn.setCellValueFactory(new PropertyValueFactory<>("betalingStatus"));
         productNaamColumn.setCellValueFactory(new PropertyValueFactory<>("productNaam"));
-        stukprijsColumn.setCellValueFactory(new PropertyValueFactory<>("eenheidsPrijs")); 
+        stukprijsColumn.setCellValueFactory(new PropertyValueFactory<>("eenheidsPrijs"));
         btwPrijsColumn.setCellValueFactory(new PropertyValueFactory<>("btwTarief"));
         aantalColumn.setCellValueFactory(new PropertyValueFactory<>("aantal"));
         totaalPrijsPerProductColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
@@ -134,37 +133,34 @@ public class BestellingController {
             List<BestellingDetails> details = controller.getBestellingDetails(bestelling);
             List<ProductEnDetailsGecombineerd> gecombineerdeData = new ArrayList<>();
 
-            
             for (BestellingDetails bestellingDetails : details) {
                 Product product = controller.getProductByProductId(bestellingDetails);
                 gecombineerdeData.add(new ProductEnDetailsGecombineerd(
-                    product.getNaam(),
-                    bestellingDetails.getEenheidsPrijs(),
-                    product.getBtwTarief(),
-                    product.getAantal()
-                ));
-               
+                        product.getNaam(),
+                        bestellingDetails.getEenheidsPrijs(),
+                        product.getBtwTarief(),
+                        product.getAantal()));
+
             }
-            
+
             for (ProductEnDetailsGecombineerd productEnDetailsGecombineerd : gecombineerdeData) {
-				System.out.println(productEnDetailsGecombineerd.getTotaalPrijs()); 
-				System.out.println();
-			}
+                System.out.println(productEnDetailsGecombineerd.getTotaalPrijs());
+                System.out.println();
+            }
             bestellingDetailsTable.setItems(FXCollections.observableArrayList(gecombineerdeData));
             double totaal = details.stream().mapToDouble(BestellingDetails::getTotaalPrijs).sum();
             totaalProductenLabel.setText(String.format("%.2f", totaal));
         }
     }
-    
+
     @FXML
     public void uitloggen(ActionEvent event) {
         controller.uitloggen();
-        
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         AanmeldenController aanmeldenController = new AanmeldenController(controller, new Stage());
         aanmeldenController.start();
     }
-
 
 }

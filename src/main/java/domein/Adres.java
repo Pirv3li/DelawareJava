@@ -11,16 +11,14 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "adres")
 @NamedQueries({
-		@NamedQuery(name = "Adres.getAdresById",
-		query = "select  a FROM Adres a where a.idAdres = :idAdres") })
+		@NamedQuery(name = "Adres.getAdresById", query = "select  a FROM Adres a where a.idAdres = :idAdres") })
 
 public class Adres implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAdres;
@@ -29,7 +27,7 @@ public class Adres implements Serializable {
 	private String stad;
 	private int postcode;
 	private Date laatstGebruikt;
-	
+
 	public Adres(int idAdres, String straat, int nummer, String stad, int postcode, Date laatstGebruikt) {
 		super();
 		this.idAdres = idAdres;
@@ -64,7 +62,6 @@ public class Adres implements Serializable {
 		this.nummer = nummer;
 	}
 
-
 	public void setStad(String stad) {
 		this.stad = stad;
 	}
@@ -84,14 +81,13 @@ public class Adres implements Serializable {
 	public void setLaatstGebruikt(Date laatstGebruikt) {
 		this.laatstGebruikt = laatstGebruikt;
 	}
-	
+
 	public String getStraat() {
-	    return straat + " " + nummer;
+		return straat + " " + nummer;
 	}
 
 	public String getStad() {
-	    return stad + ", " + postcode;
+		return stad + ", " + postcode;
 	}
-	
-	
+
 }

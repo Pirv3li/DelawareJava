@@ -1,7 +1,6 @@
 package domein;
 
 import java.io.Serializable;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,16 +9,14 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "product")
 @NamedQueries({
-	@NamedQuery(name = "Product.getProductByProductId", 
-			query = "select p FROM Product p where p.idProduct = :idProduct") })
-public class Product implements Serializable{
+		@NamedQuery(name = "Product.getProductByProductId", query = "select p FROM Product p where p.idProduct = :idProduct") })
+public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-		
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idProduct;
@@ -35,9 +32,9 @@ public class Product implements Serializable{
 	public int getIdProduct() {
 		return this.idProduct;
 	}
-	
+
 	public Product() {
-		
+
 	}
 
 	public void setIdProduct(int idProduct) {
@@ -120,7 +117,8 @@ public class Product implements Serializable{
 	 * @param beschrijving
 	 * @param categorie
 	 */
-	public Product(int idProduct, int idLeverancier, String naam, double eenheidsprijs, int btwTarief, String foto, int aantal, String beschrijving, String categorie) {
+	public Product(int idProduct, int idLeverancier, String naam, double eenheidsprijs, int btwTarief, String foto,
+			int aantal, String beschrijving, String categorie) {
 		// TODO - implement Product.Product
 		throw new UnsupportedOperationException();
 	}

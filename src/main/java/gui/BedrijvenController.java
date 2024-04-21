@@ -22,7 +22,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
-
 import domein.Adres;
 import domein.Bedrijf;
 import domein.DomeinController;
@@ -89,24 +88,21 @@ public class BedrijvenController {
 
     @FXML
     private GridPane bedrijfInformatie;
-    
+
     @FXML
     private GridPane leverancierInformatie;
-    
+
     @FXML
     private VBox informatieVBox;
-    
+
     @FXML
     private ImageView logo;
     @FXML
     private ImageView delawareLogo;
-    
-
 
     private Stage primaryStage;
 
     private DomeinController controller;
-
 
     public BedrijvenController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -132,12 +128,11 @@ public class BedrijvenController {
             e.printStackTrace();
         }
     }
-    
+
     public void setController(DomeinController controller) {
         this.controller = controller;
     }
 
-    
     public void initialize() {
         naamColumn.setCellValueFactory(new PropertyValueFactory<>("naam"));
         isActiefColumn.setCellValueFactory(cellData -> {
@@ -147,15 +142,14 @@ public class BedrijvenController {
         });
 
         bedrijfTable.setItems(getBedrijven());
-        
-        
+
         bedrijfTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 vulBedrijfDetailsTable(newSelection);
             }
         });
     }
-    
+
     @FXML
     private void switchToBedrijf() {
         bedrijfInformatie.setVisible(true);
@@ -169,7 +163,7 @@ public class BedrijvenController {
         bedrijfInformatie.setVisible(false);
         switchInformatiePosition();
     }
-    
+
     private void switchInformatiePosition() {
         // Remove existing panes if present
         informatieVBox.getChildren().remove(bedrijfInformatie);
@@ -183,21 +177,18 @@ public class BedrijvenController {
         }
     }
 
-
-    
     private ObservableList<Bedrijf> getBedrijven() {
         List<Bedrijf> bedrijven = controller.getBedrijven();
         return FXCollections.observableArrayList(bedrijven);
     }
 
-
     private void vulBedrijfDetailsTable(Bedrijf bedrijf) {
         Adres adres = controller.getAdresByIdAdres(bedrijf.getIdAdres());
-        
+
         if (bedrijf != null) {
-        	String url = bedrijf.getLogo();
-        	Image image = new Image(url);
-        	logo.setImage(image);
+            String url = bedrijf.getLogo();
+            Image image = new Image(url);
+            logo.setImage(image);
             bedrijfNaam.setText(bedrijf.getNaam());
             sector.setText(bedrijf.getSector());
             emailBedrijf.setText(bedrijf.getEmail());
@@ -209,37 +200,36 @@ public class BedrijvenController {
             stad.setText(adres.getStad());
             isActief.setText(bedrijf.isIsActief() ? "Actief" : "Niet actief");
             isActief.setTextFill(bedrijf.isIsActief() ? Color.GREEN : Color.RED);
-            
+
             setupLeverancierInformatie(bedrijf);
         }
     }
-    
+
     public void setupLeverancierInformatie(Bedrijf bedrijf) {
         Leverancier lever = controller.getLeverancierGegevensByIdBedrijf(bedrijf.getIdBedrijf());
         String leverancierNummer = lever.getLeveranciernummer();
-        String gebruikersnaam = lever.getGebruikersnaam(); 
-        String email = lever.getEmail(); 
+        String gebruikersnaam = lever.getGebruikersnaam();
+        String email = lever.getEmail();
         String betaalMethodes = lever.getBetaalMethodes();
         setLeverancierInformatie(leverancierNummer, gebruikersnaam, email, betaalMethodes);
     }
 
-    
-    public void setLeverancierInformatie(String leverancierNummer, String gebruikersnaam, String email, String betaalMethodes) {
+    public void setLeverancierInformatie(String leverancierNummer, String gebruikersnaam, String email,
+            String betaalMethodes) {
         this.leverancierNummer.setText(leverancierNummer);
         this.gebruikersnaamLeverancier.setText(gebruikersnaam);
         this.emailLeverancier.setText(email);
         this.betaalMethodesLeverancier.setText(betaalMethodes);
     }
-    
+
     @FXML
     public void uitloggen(ActionEvent event) {
         controller.uitloggen();
-        
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         AanmeldenController aanmeldenController = new AanmeldenController(controller, new Stage());
         aanmeldenController.start();
     }
-
 
 }

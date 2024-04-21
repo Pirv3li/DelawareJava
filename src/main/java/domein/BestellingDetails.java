@@ -13,9 +13,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "`orderdetails`")
 @NamedQueries({
-
 		@NamedQuery(name = "BestellingDetails.getBestellingDetailsByOrderId", query = "select b FROM BestellingDetails b where b.idOrder = :idOrder")
-
 })
 
 public class BestellingDetails implements Serializable {
@@ -49,6 +47,7 @@ public class BestellingDetails implements Serializable {
 	}
 
 	public double getTotaalPrijs() {
+
 		return (eenheidsPrijs * aantal) + 0;
 
 		// 0 MOET PRODUCT BTW WORDEN

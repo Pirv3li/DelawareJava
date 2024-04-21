@@ -24,7 +24,6 @@ import de.mkammerer.argon2.Argon2Factory;
 
 public class App {
 
-
 	private static final int ARGON_ITERATIONS = 6;
 	private static final int ARGON_MEMORY = 1 << 17;
 
@@ -50,12 +49,11 @@ public class App {
 	public void setBedrijfRepo(BedrijfDao mock) {
 		bedrijfRepo = mock;
 	}
-	
+
 	public void setAdminRepo(AdminDao mock) {
 		adminRepo = mock;
 	}
-	
-	
+
 	public void setAdresRepo(AdresDao mock) {
 		adresRepo = mock;
 	}
@@ -67,46 +65,44 @@ public class App {
 	public void setBestellingRepo(BestellingDao mock) {
 		bestellingRepo = mock;
 	}
-	
+
 	public void setBestellingDetailsRepo(BestellingDetailsDao mock) {
 		bestellingDetailsRepo = mock;
 	}
-	
+
 	public void setProductRepo(ProductDao mock) {
 		productRepo = mock;
 	}
-	
-    public Admin AanmeldenAdmin(String gebruikersnaam, String password) {
-    	Admin admin = adminRepo.getAdminByGebruikersnaam(gebruikersnaam);
-        if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) { 
-            return null; 
-        }
-        return admin;
-    }
 
-    public Leverancier Aanmelden(String gebruikersnaam, String password) {
-        Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam(gebruikersnaam);
-        if (leverancier != null && verifyPassword(password, leverancier.getPassword_Hash())) {
-            return leverancier;
-        }
-        return null;
-    }
+	public Admin AanmeldenAdmin(String gebruikersnaam, String password) {
+		Admin admin = adminRepo.getAdminByGebruikersnaam(gebruikersnaam);
+		if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) {
+			return null;
+		}
+		return admin;
+	}
 
-    public List<Bestelling> getBestellingenByLeverancierId(Leverancier user) {
-        return bestellingRepo.getBestellingenByLeverancierId(user.getIdLeverancier());
-    }
+	public Leverancier Aanmelden(String gebruikersnaam, String password) {
+		Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam(gebruikersnaam);
+		if (leverancier != null && verifyPassword(password, leverancier.getPassword_Hash())) {
+			return leverancier;
+		}
+		return null;
+	}
+
+	public List<Bestelling> getBestellingenByLeverancierId(Leverancier user) {
+		return bestellingRepo.getBestellingenByLeverancierId(user.getIdLeverancier());
+	}
 
 	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
-		List<BestellingDetails> bestellingDetails 
-		= bestellingDetailsRepo
-		.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder()));
+		List<BestellingDetails> bestellingDetails = bestellingDetailsRepo
+				.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder()));
 		return bestellingDetails;
 	}
-	
-	
-    public Product getProductByProductId(int id) {
-        return productRepo.getProductByProductId(id);
-    }
+
+	public Product getProductByProductId(int id) {
+		return productRepo.getProductByProductId(id);
+	}
 
 	private boolean verifyPassword(String password, String hashedPassword) {
 		Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id, ARGON_ITERATIONS, ARGON_MEMORY);
