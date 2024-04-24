@@ -48,37 +48,31 @@ public class DomeinController {
 
 	public List<Bestelling> FindbestellingenByLeverancier() {
 		List<Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);
-		System.out.println("bestellingen by lev: " + bestellingen);
 		return bestellingen;
 	}
 
 	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
 		List<BestellingDetails> bestellingDetails = app.getBestellingDetails(bestelling);
-		System.out.println("bestellingDetails: " + bestellingDetails);
 		return bestellingDetails;
 	}
 
 	public Product getProductByProductId(BestellingDetails bestellingDetail) {
 		Product product = app.getProductByProductId(bestellingDetail.getIdProduct());
-		System.out.println("product: " + product);
 		return product;
 	}
 
 	public List<Bedrijf> getBedrijven() {
 		List<Bedrijf> bedrijven = app.getBedrijven();
-		System.out.println("bedrijven: " + bedrijven);
 		return bedrijven;
 	}
 
 	public Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
 		Leverancier lever = app.getLeverancierGegevensByIdBedrijf(idBedrijf);
-		System.out.println("leverancier by bedrijf: " + lever);
 		return lever;
 	}
 
 	public Adres getAdresByIdAdres(int idAdres) {
 		Adres adres = app.getAdresByIdAdres(idAdres);
-		System.out.println("adres by id: " + adres);
 		return adres;
 	}
 

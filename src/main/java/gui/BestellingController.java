@@ -143,10 +143,6 @@ public class BestellingController {
 
             }
 
-            for (ProductEnDetailsGecombineerd productEnDetailsGecombineerd : gecombineerdeData) {
-                System.out.println(productEnDetailsGecombineerd.getTotaalPrijs());
-                System.out.println();
-            }
             bestellingDetailsTable.setItems(FXCollections.observableArrayList(gecombineerdeData));
             double totaal = details.stream().mapToDouble(BestellingDetails::getTotaalPrijs).sum();
             totaalProductenLabel.setText(String.format("%.2f", totaal));

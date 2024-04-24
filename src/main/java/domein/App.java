@@ -21,6 +21,7 @@ import java.util.List;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import jakarta.persistence.EntityNotFoundException;
 
 public class App {
 
@@ -75,19 +76,33 @@ public class App {
 	}
 
 	public Admin AanmeldenAdmin(String gebruikersnaam, String password) {
-		Admin admin = adminRepo.getAdminByGebruikersnaam(gebruikersnaam);
-		if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) {
-			return null;
+		try {
+			Admin admin = adminRepo.getAdminByGebruikersnaam(gebruikersnaam);
+			if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) {
+				return null;
+			}
+			return admin;
 		}
-		return admin;
+		catch(Exception e){
+			return null;
+
+		}
+
 	}
 
 	public Leverancier Aanmelden(String gebruikersnaam, String password) {
-		Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam(gebruikersnaam);
-		if (leverancier != null && verifyPassword(password, leverancier.getPassword_Hash())) {
-			return leverancier;
+		try {
+			Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam(gebruikersnaam);
+			if (leverancier != null && verifyPassword(password, leverancier.getPassword_Hash())) {
+				return leverancier;
+			}
+			return null;
 		}
-		return null;
+		//catching alles veranderen naar andere exception
+		catch (Exception e){
+			return null;
+		}
+
 	}
 
 	public List<Bestelling> getBestellingenByLeverancierId(Leverancier user) {
@@ -110,7 +125,7 @@ public class App {
 		try {
 			return argon2.verify(hashedPassword, password.toCharArray(), StandardCharsets.UTF_8);
 		} catch (Exception e) {
-			System.out.println("Error verifying password: " + e.getMessage());
+//			System.out.println("Error verifying password: " + e.getMessage());
 			return false;
 		}
 	}
