@@ -2,13 +2,38 @@ package domein;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+@Entity
+@Table(name = "notificatie")
 public class Notificatie {
 
+	@Id
 	private String idNotificatie;
 	private String text;
 	private String onderwerp;
 	private boolean geopend;
-	Date datum;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date datum;
+
+	@ManyToOne
+	@JoinColumn(name = "idOrder")
+	private Bestelling bestelling;
+
+	public Bestelling getBestelling() {
+		return this.bestelling;
+	}
+
+	public void setBestelling(Bestelling bestelling) {
+		this.bestelling = bestelling;
+	}
 
 	public String getIdNotificatie() {
 		return this.idNotificatie;
@@ -58,9 +83,18 @@ public class Notificatie {
 	 * @param geopend
 	 * @param datum
 	 */
-	public Notificatie(String idNotificatie, String text, String onderwerp, boolean geopend, Date datum) {
+	public Notificatie(String idNotificatie, String text, String onderwerp, boolean geopend, Date datum, Bestelling bestelling) {
 		// TODO - implement Notificatie.Notificatie
 		throw new UnsupportedOperationException();
+	}
+
+	public Notificatie() {
+    }
+	
+	@Override
+	public String toString() {
+		return "Notificatie: idNotificatie: " + idNotificatie +  ", onderwerp: " + onderwerp + ", text: " + text
+				+ ", geopend: " + geopend + ", datum: " + datum + "]";
 	}
 
 }
