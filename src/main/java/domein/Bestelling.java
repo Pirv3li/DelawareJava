@@ -14,7 +14,8 @@ import jakarta.persistence.NamedQueries;
 @Entity
 @Table(name = "`order`")
 @NamedQueries({
-		@NamedQuery(name = "Bestelling.getBestellingenByLeverancierId", query = "select b FROM Bestelling b where b.idLeverancier = :idLeverancier") })
+		@NamedQuery(name = "Bestelling.getBestellingenByLeverancierId", query = "select b FROM Bestelling b where b.idLeverancier = :idLeverancier"),
+		@NamedQuery(name = "Bestelling.getBestellingenByKlantId", query = "select b FROM Bestelling b where b.idKlant = :idKlant")})
 public class Bestelling implements Serializable {
 
 	private static final long serialVersionUID = 1L;

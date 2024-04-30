@@ -45,6 +45,23 @@ public class DomeinController {
 
 		return aangemeld;
 	};
+	
+	public List<Klant> getKlantenByLeverancierId(){
+		return app.getKlantenByLeverancierId(leverancier.getIdLeverancier());
+	}
+	
+	public Klant getKlantById(int klantId) {
+		return app.getKlantById(klantId);
+	}
+	
+	public List<Bestelling> FindbestellingenByKlant(Klant klant) {
+		List<Bestelling> bestellingen = app.getBestellingenByKlantId(klant);
+		return bestellingen;
+	}
+	
+	public void setAantalBestellingen(Klant klant) {
+		app.setAantalBestellingenByKlant(klant);
+	}
 
 	public List<Bestelling> FindbestellingenByLeverancier() {
 		List<Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);

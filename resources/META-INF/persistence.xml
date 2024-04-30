@@ -15,6 +15,7 @@
     <class>domein.BestellingDetails</class>
     <class>domein.Product</class>
     <class>domein.Notificatie</class>
+    <class>domein.Klant</class>
     
     
     

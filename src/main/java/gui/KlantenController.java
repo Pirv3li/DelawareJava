@@ -30,6 +30,7 @@ import domein.Adres;
 import domein.Bedrijf;
 import domein.Bestelling;
 import domein.DomeinController;
+import domein.Klant;
 import domein.Leverancier;
 
 
@@ -89,13 +90,13 @@ public class KlantenController {
     private FontAwesomeIconView LIST;
 
     @FXML
-    private TableView<Klanten> KlantenTable;
+    private TableView<Klant> KlantenTable;
 
     @FXML
     private TableView<Bestelling> bestellingenView;
 
     @FXML
-    private TableColumn<Klanten, String> klantNaamColumn;
+    private TableColumn<Klant, String> klantNaamColumn;
 
     @FXML
     private TableColumn<Bestelling, String> aantalBestellingenColumn;
@@ -160,11 +161,12 @@ public class KlantenController {
     
     
     public void initialize() {
-    	klantNaamColumn.setCellValueFactory(new PropertyValueFactory<>("Klanten"));
-        aantalBestellingenColumn.setCellValueFactory(new PropertyValueFactory<>("Aantal Bestellingen"));
-
+    	klantNaamColumn.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
+    	
         KlantenTable.setItems(getKlanten());
-
+        
+        aantalBestellingenColumn.setCellValueFactory(new PropertyValueFactory<>("aantalBestellingen"));
+        
         KlantenTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 vulKlantDetailsTable(newSelection);
@@ -197,41 +199,45 @@ public class KlantenController {
         }
     }
 
-    private ObservableList<Klanten> getKlanten() {
-        List<Klanten> klanten = controller.getKlanten();
+    private ObservableList<Klant> getKlanten() {
+        List<Klant> klanten = controller.getKlantenByLeverancierId();
+        for(Klant klant: klanten) {
+        	controller.setAantalBestellingen(klant);
+        }
         return FXCollections.observableArrayList(klanten);
     }
 
-    private void vulKlantDetailsTable(Klanten klant) {
-        Adres adres = controller.getAdresByIdAdres(klant.getIdAdres());
+
+    private void vulKlantDetailsTable(Klant klant) {
+        // Adres adres = controller.getAdresByIdAdres(klant.getIdAdres());
 
         if (klant != null) {
-            String url = klant.getLogo();
-            Image image = new Image(url);
-            logo.setImage(image);
-            klantNaam.setText(klant.getNaam());
+//            String url = klant.getLogo();
+//            Image image = new Image(url);
+//            logo.setImage(image);
+            klantNaam.setText(klant.getGebruikersnaam());
             emailKlant.setText(klant.getEmail());
-            telefoonNummer.setText(String.valueOf(klant.getTelefoonnummer()));
-            straat.setText(adres.getStraat());
-            stad.setText(adres.getStad());
+            //telefoonNummer.setText(String.valueOf(klant.getTelefoonnummer()));
+            //straat.setText(adres.getStraat());
+            //stad.setText(adres.getStad());
 
             setupKlantBestellingen(klant);
         }
     }
 
-    public void setupKlantBestellingen(Klanten klant) {
+    public void setupKlantBestellingen(Klant klant) {
         orderIDColumn.setCellValueFactory(new PropertyValueFactory<>("IdOrder"));
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("Datum"));
-        bedragColumn.setCellValueFactory(new PropertyValueFactory<>("Bedrag"));
+        bedragColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
         orderStatusColumn.setCellValueFactory(new PropertyValueFactory<>("OrderStatus"));
         betalingStatusColumn.setCellValueFactory(new PropertyValueFactory<>("BetalingStatus"));
         
-        bestellingenView.setItems(getBestellingen());
+        bestellingenView.setItems(getBestellingen(klant));
     }
     
     
-    private ObservableList<Bestelling> getBestellingen() {
-        List<Bestelling> bestellingen = controller.findKlantBestellingenByLeverancier();
+    private ObservableList<Bestelling> getBestellingen(Klant klant) {
+        List<Bestelling> bestellingen = controller.FindbestellingenByKlant(klant);
         return FXCollections.observableArrayList(bestellingen);
     }
 

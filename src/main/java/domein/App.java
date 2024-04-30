@@ -1,5 +1,7 @@
 package domein;
 
+import repository.KlantDao;
+import repository.KlantDaoJpa;
 import repository.AdminDao;
 import repository.AdminDaoJpa;
 import repository.AdresDao;
@@ -35,6 +37,7 @@ public class App {
 	private ProductDao productRepo;
 	private AdresDao adresRepo;
 	private AdminDao adminRepo;
+	private KlantDao klantRepo;
 
 	public App() {
 		setBedrijfRepo(new BedrijfDaoJpa());
@@ -44,13 +47,17 @@ public class App {
 		setProductRepo(new ProductDaoJpa());
 		setAdresRepo(new AdresDaoJpa());
 		setAdminRepo(new AdminDaoJpa());
-
+		setKlantRepo(new KlantDaoJpa());
+	}
+	
+	public void setKlantRepo(KlantDao mock) {
+		klantRepo = mock;
 	}
 
 	public void setBedrijfRepo(BedrijfDao mock) {
 		bedrijfRepo = mock;
 	}
-
+	
 	public void setAdminRepo(AdminDao mock) {
 		adminRepo = mock;
 	}
@@ -104,11 +111,35 @@ public class App {
 		}
 
 	}
+	
+	public List<Klant> getKlantenByLeverancierId(int idLeverancier){
+		return klantRepo.getKlantenByLeverancierID(idLeverancier);
+	}
+	
+	public Klant getKlantById(int idKlant){
+		return klantRepo.getKlantById(idKlant);
+	}
 
 	public List<Bestelling> getBestellingenByLeverancierId(Leverancier user) {
 		return bestellingRepo.getBestellingenByLeverancierId(user.getIdLeverancier());
 	}
 
+	public List<Bestelling> getBestellingenByKlantId(Klant user) {
+		return bestellingRepo.getBestellingenByKlantId(user.getIdKlant());
+	}
+	
+	public void setAantalBestellingenByKlant(Klant klant) {
+		List<Bestelling> bestellingen = bestellingRepo.getBestellingenByKlantId(klant.getIdKlant());
+		int countUnpaidOrders = 0;
+
+		for (Bestelling bestelling : bestellingen) {
+		    if (bestelling.getBetalingStatus()=="Niet betaald") {
+		        countUnpaidOrders++;
+		    }
+		}
+		klant.setAantalBestellingen(countUnpaidOrders);
+	}
+	
 	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
 		List<BestellingDetails> bestellingDetails = bestellingDetailsRepo
 				.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder()));

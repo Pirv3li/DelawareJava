@@ -22,4 +22,15 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
             throw new EntityNotFoundException();
         } 
     }
+
+	@Override
+	public List<Bestelling> getBestellingenByKlantId(int id) throws EntityNotFoundException {
+		 try {
+	            return em.createNamedQuery("Bestelling.getBestellingenByKlantId", Bestelling.class)
+	                 .setParameter("idKlant", id)
+	                .getResultList();
+	        } catch (NoResultException ex) {
+	            throw new EntityNotFoundException();
+	        } 
+	}
 }

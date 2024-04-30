@@ -71,9 +71,22 @@ public class BestellingController {
 
     @FXML
     private Button bedrijven;
+    
     @FXML
     private ImageView delawareLogo;
 
+    @FXML
+    private Button notificaties;
+
+    @FXML
+    private Button bestellingen;
+
+    @FXML
+    private Button profiel;
+
+    @FXML
+    private Button klanten;
+    
     public BestellingController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -157,6 +170,15 @@ public class BestellingController {
         stage.close();
         AanmeldenController aanmeldenController = new AanmeldenController(controller, new Stage());
         aanmeldenController.start();
+    }
+    
+    @FXML
+    public void switchKlantenPagina(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        KlantenController klantenController = new KlantenController(new Stage());
+        klantenController.setController(controller);
+        klantenController.start();
     }
 
 }

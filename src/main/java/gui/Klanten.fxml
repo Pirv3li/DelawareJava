@@ -17,15 +17,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
          <children>
-            <Text layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="delaware" textAlignment="CENTER" wrappingWidth="282.98046875">
-               <font>
-                  <Font size="49.0" />
-               </font>
-            </Text>
             <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven">
                <font>
                   <Font size="26.0" />
@@ -67,6 +62,7 @@
                   <Font size="29.0" />
                </font>
             </Text>
+            <ImageView fx:id="delawareLogo" fitHeight="89.0" fitWidth="280.0" layoutX="1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </left>
@@ -92,12 +88,11 @@
                <children>
                   <HBox prefHeight="35.0" prefWidth="74.0">
                      <children>
-                        <Button fx:id="klantSwitch" onAction="#switchToKlant" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="227.0" style="-fx-text-fill: black; -fx-background-color: #D8D8D8; -fx-border-color: grey;" text="Klant" textAlignment="CENTER" />
-                        <Button fx:id="bestellingenSwitch" onAction="#switchToBestellingen" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="196.0" style="-fx-text-fill: black; -fx-background-color: #D8D8D8; -fx-border-color: grey;" text="Bestellingen" textAlignment="CENTER" />
+                        <Button fx:id="klantSwitch" alignment="CENTER" mnemonicParsing="false" onAction="#switchToKlant" prefHeight="35.0" prefWidth="227.0" style="-fx-text-fill: black; -fx-background-color: #D8D8D8; -fx-border-color: grey;" text="Klant" textAlignment="CENTER" />
+                        <Button fx:id="bestellingenSwitch" alignment="CENTER" mnemonicParsing="false" onAction="#switchToBestellingen" prefHeight="35.0" prefWidth="196.0" style="-fx-text-fill: black; -fx-background-color: #D8D8D8; -fx-border-color: grey;" text="Bestellingen" textAlignment="CENTER" />
                      </children>
                   </HBox>
-                    <VBox fx:id="informatieVBox" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0"
-                     minWidth="423.0" prefHeight="683.0" prefWidth="423.0">
+                    <VBox fx:id="informatieVBox" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0" minWidth="423.0" prefHeight="683.0" prefWidth="423.0">
                      <children>
 		                  <GridPane fx:id="KlantView" prefHeight="328.0" prefWidth="423.0">
 		                    <columnConstraints>
