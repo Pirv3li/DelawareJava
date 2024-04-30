@@ -165,11 +165,9 @@ public class BedrijvenController {
     }
 
     private void switchInformatiePosition() {
-        // Remove existing panes if present
         informatieVBox.getChildren().remove(bedrijfInformatie);
         informatieVBox.getChildren().remove(leverancierInformatie);
 
-        // Add the panes in the new positions
         if (bedrijfInformatie.isVisible()) {
             informatieVBox.getChildren().add(0, bedrijfInformatie);
         } else if (leverancierInformatie.isVisible()) {

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="delaware" textAlignment="CENTER" wrappingWidth="282.98046875">
+               <font>
+                  <Font size="49.0" />
+               </font>
+            </Text>
+            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="notificaties" layoutX="6.0" layoutY="274.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Notificaties">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="bestellingen" layoutX="6.0" layoutY="334.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bestellingen">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="profiel" layoutX="3.0" layoutY="453.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="275.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Profiel">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="klanten" layoutX="5.0" layoutY="393.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="273.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Klanten">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="logout" layoutX="6.0" layoutY="752.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <FontAwesomeIconView glyphName="BELL" layoutX="28.0" layoutY="314.0" size="30" text="" />
+            <FontAwesomeIconView glyphName="USER" layoutX="34.0" layoutY="495.0" size="30" text="" />
+            <FontAwesomeIconView glyphName="USERS" layoutX="27.0" layoutY="434.0" size="30" text="" />
+            <FontAwesomeIconView glyphName="LIST" layoutX="30.0" layoutY="374.0" size="30" text="" />
+            <FontAwesomeIconView layoutX="30.0" layoutY="252.0" size="30" text="" />
+            <FontAwesomeIconView layoutX="29.0" layoutY="830.0" size="30" text="" />
+            <Text layoutX="2.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B-portaal" textAlignment="CENTER" wrappingWidth="276.955078125">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane maxHeight="1080.0" maxWidth="1570.0" minHeight="776.0" minWidth="1041.0" prefHeight="776.0" prefWidth="1041.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="372.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Klanten" textAlignment="CENTER" wrappingWidth="297.13671875">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Text>
+            <VBox layoutX="47.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="680.0" minWidth="419.0" prefHeight="680.0" prefWidth="419.0" style="-fx-background-color: #DADADA;">
+               <children>
+                  <TableView fx:id="KlantenTable" prefHeight="680.0" prefWidth="180.0">
+                     <columns>
+                        <TableColumn fx:id="klantNaamColumn" prefWidth="297.0" text="Klant" />
+                        <TableColumn fx:id="aantalBestellingenColumn" prefWidth="121.0" text="bestellingen" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+            <VBox layoutX="560.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0" minWidth="423.0" prefHeight="683.0" prefWidth="423.0">
+               <children>
+                  <HBox prefHeight="35.0" prefWidth="74.0">
+                     <children>
+                        <Button fx:id="klantSwitch" onAction="#switchToKlant" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="227.0" style="-fx-text-fill: black; -fx-background-color: #D8D8D8; -fx-border-color: grey;" text="Klant" textAlignment="CENTER" />
+                        <Button fx:id="bestellingenSwitch" onAction="#switchToBestellingen" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="196.0" style="-fx-text-fill: black; -fx-background-color: #D8D8D8; -fx-border-color: grey;" text="Bestellingen" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+                    <VBox fx:id="informatieVBox" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0"
+                     minWidth="423.0" prefHeight="683.0" prefWidth="423.0">
+                     <children>
+		                  <GridPane fx:id="KlantView" prefHeight="328.0" prefWidth="423.0">
+		                    <columnConstraints>
+		                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="115.0" />
+		                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="362.0" minWidth="10.0" prefWidth="308.0" />
+		                    </columnConstraints>
+		                    <rowConstraints>
+		                      <RowConstraints maxHeight="145.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+		                      <RowConstraints maxHeight="165.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+		                        <RowConstraints maxHeight="260.0" minHeight="0.0" prefHeight="64.0" vgrow="SOMETIMES" />
+		                        <RowConstraints maxHeight="261.0" minHeight="6.0" prefHeight="49.0" vgrow="SOMETIMES" />
+		                        <RowConstraints maxHeight="239.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+		                        <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+		                    </rowConstraints>
+		                     <children>
+		                        <ImageView fitHeight="131.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+		                        <Label prefHeight="44.0" prefWidth="212.0" text="Naam:" textAlignment="CENTER" GridPane.rowIndex="1" />
+		                        <Label prefHeight="64.0" prefWidth="215.0" text="Email:" GridPane.rowIndex="2" />
+		                        <Label prefHeight="45.0" prefWidth="222.0" text="Telefoonnummer:" GridPane.rowIndex="3" />
+		                        <Label prefHeight="59.0" prefWidth="226.0" text="Adres:" GridPane.rowIndex="4" />
+		                        <Label fx:id="klantNaam" prefHeight="41.0" prefWidth="314.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+		                        <Label fx:id="emailKlant" prefHeight="41.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+		                        <Label fx:id="telefoonNummer" prefHeight="40.0" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+		                        <Label fx:id="straat" prefHeight="40.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+		                        <Label GridPane.columnIndex="1" GridPane.rowIndex="5" />
+		                        <Label fx:id="stad" prefHeight="64.0" prefWidth="318.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+		                     </children>
+		                  </GridPane>
+		                  <TableView fx:id="bestellingenView" prefHeight="324.0" prefWidth="423.0" visible="false">
+		                    <columns>
+		                      <TableColumn fx:id="orderIDColumn" prefWidth="75.0" text="OrderID" />
+		                      <TableColumn fx:id="datumColumn" prefWidth="75.0" text="Datum" />
+		                        <TableColumn fx:id="bedragColumn" prefWidth="75.0" text="Bedrag" />
+		                        <TableColumn fx:id="orderStatusColumn" prefWidth="104.0" text="OrderStatus" />
+		                        <TableColumn fx:id="betalingStatusColumn" prefWidth="93.0" text="BetalingStatus" />
+		                    </columns>
+		                  </TableView>
+                  	</children>
+                  </VBox>
+               </children>
+            </VBox>
+            <Line endX="-11.0" endY="-164.0" layoutX="531.0" layoutY="281.0" startX="-11.0" startY="564.5" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
