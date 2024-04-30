@@ -6,6 +6,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Predicate;
 
 import java.util.List;
 
@@ -28,5 +29,20 @@ public class NotificatieDaoJpa extends GenericDaoJpa<Notificatie> {
                 .setFirstResult(begin - 1)
                 .setMaxResults(aantal)
                 .getResultList();
+    }
+
+    public long countUnopenedNotificationsByLeverancierId(int idLeverancier) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Notificatie> notificatieRoot = cq.from(Notificatie.class);
+        Join<Notificatie, Bestelling> orderJoin = notificatieRoot.join("bestelling");
+    
+        Predicate leverancierPredicate = cb.equal(orderJoin.get("idLeverancier"), idLeverancier);
+        Predicate geopendPredicate = cb.isFalse(notificatieRoot.get("geopend"));
+        cq.where(cb.and(leverancierPredicate, geopendPredicate));
+    
+        cq.select(cb.count(notificatieRoot.get("idNotificatie")));
+    
+        return em.createQuery(cq).getSingleResult();
     }
 }
