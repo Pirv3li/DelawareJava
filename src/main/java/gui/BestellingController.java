@@ -68,9 +68,6 @@ public class BestellingController {
 
     @FXML
     private TableColumn<BestellingDetails, Double> totaalPrijsPerProductColumn;
-
-    @FXML
-    private Button bedrijven;
     
     @FXML
     private ImageView delawareLogo;
@@ -179,6 +176,14 @@ public class BestellingController {
         KlantenController klantenController = new KlantenController(new Stage());
         klantenController.setController(controller);
         klantenController.start();
+    }
+    
+    @FXML
+    public void switchProfielPagina(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        ProfielController profielController = new ProfielController(stage);
+        profielController.setController(controller);
+        profielController.start();
     }
 
 }

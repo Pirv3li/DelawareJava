@@ -13,30 +13,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="886.0" minWidth="1321.0" prefHeight="886.0" prefWidth="1321.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="823.0" minWidth="-Infinity" prefHeight="1079.0" prefWidth="282.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="bedrijven" layoutX="6.0" layoutY="212.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bedrijven">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
             <Button fx:id="notificaties" layoutX="6.0" layoutY="274.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Notificaties">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="bestellingen" layoutX="6.0" layoutY="334.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bestellingen">
+            <Button fx:id="bestellingen" layoutX="6.0" layoutY="334.0" mnemonicParsing="false" onAction="#switchBestellingPagina" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Bestellingen">
                <font>
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="profiel" layoutX="3.0" layoutY="453.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="275.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Profiel">
+            <Button fx:id="profiel" layoutX="3.0" layoutY="453.0" mnemonicParsing="false" onAction="#switchProfielPagina" prefHeight="60.0" prefWidth="275.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Profiel">
                <font>
                   <Font size="26.0" />
                </font>
@@ -46,7 +40,7 @@
                   <Font size="26.0" />
                </font>
             </Button>
-            <Button fx:id="logout" layoutX="6.0" layoutY="752.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
+            <Button fx:id="logout" layoutX="6.0" layoutY="752.0" mnemonicParsing="false" onAction="#uitloggen" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
                <font>
                   <Font size="18.0" />
                </font>
@@ -55,7 +49,6 @@
             <FontAwesomeIconView glyphName="USER" layoutX="34.0" layoutY="495.0" size="30" text="" />
             <FontAwesomeIconView glyphName="USERS" layoutX="27.0" layoutY="434.0" size="30" text="" />
             <FontAwesomeIconView glyphName="LIST" layoutX="30.0" layoutY="374.0" size="30" text="" />
-            <FontAwesomeIconView layoutX="30.0" layoutY="252.0" size="30" text="" />
             <FontAwesomeIconView layoutX="29.0" layoutY="830.0" size="30" text="" />
             <Text layoutX="2.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B-portaal" textAlignment="CENTER" wrappingWidth="276.955078125">
                <font>
@@ -92,7 +85,7 @@
                         <Button fx:id="bestellingenSwitch" alignment="CENTER" mnemonicParsing="false" onAction="#switchToBestellingen" prefHeight="35.0" prefWidth="196.0" style="-fx-text-fill: black; -fx-background-color: #D8D8D8; -fx-border-color: grey;" text="Bestellingen" textAlignment="CENTER" />
                      </children>
                   </HBox>
-                    <VBox fx:id="informatieVBox" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0" minWidth="423.0" prefHeight="683.0" prefWidth="423.0">
+                    <VBox fx:id="informatieVBox" maxHeight="1022.0" maxWidth="785.0" minHeight="563.0" minWidth="423.0" prefHeight="650.0" prefWidth="423.0">
                      <children>
 		                  <GridPane fx:id="KlantView" prefHeight="328.0" prefWidth="423.0">
 		                    <columnConstraints>
@@ -108,7 +101,7 @@
 		                        <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
 		                    </rowConstraints>
 		                     <children>
-		                        <ImageView fitHeight="131.0" fitWidth="208.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+		                        <ImageView fitHeight="95.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
 		                        <Label prefHeight="44.0" prefWidth="212.0" text="Naam:" textAlignment="CENTER" GridPane.rowIndex="1" />
 		                        <Label prefHeight="64.0" prefWidth="215.0" text="Email:" GridPane.rowIndex="2" />
 		                        <Label prefHeight="45.0" prefWidth="222.0" text="Telefoonnummer:" GridPane.rowIndex="3" />
@@ -134,7 +127,6 @@
                   </VBox>
                </children>
             </VBox>
-            <Line endX="-11.0" endY="-164.0" layoutX="531.0" layoutY="281.0" startX="-11.0" startY="564.5" />
          </children>
       </AnchorPane>
    </center>

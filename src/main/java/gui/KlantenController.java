@@ -27,10 +27,10 @@ import java.util.List;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import domein.Adres;
+import domein.Klant;
 import domein.Bedrijf;
 import domein.Bestelling;
 import domein.DomeinController;
-import domein.Klant;
 import domein.Leverancier;
 
 
@@ -252,5 +252,23 @@ public class KlantenController {
         aanmeldenController.start();
     }
     
+    
+    @FXML
+    public void switchProfielPagina(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        ProfielController profielController = new ProfielController(new Stage());
+        profielController.setController(controller);
+        profielController.start();
+    }
+    
+    @FXML
+    public void switchBestellingPagina(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        BestellingController bestellingController = new BestellingController(new Stage());
+        bestellingController.setController(controller);
+        bestellingController.start();
+    }
     
 }

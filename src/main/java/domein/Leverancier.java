@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
@@ -15,33 +17,27 @@ import jakarta.persistence.Table;
 @Table(name = "leverancier")
 @NamedQueries({
         @NamedQuery(name = "Leverancier.getLeverancierByGebruikersnaam", query = "SELECT l FROM Leverancier l WHERE l.gebruikersnaam = :gebruikersnaam"),
-        @NamedQuery(name = "Leverancier.getLeverancierByIdBedrijf", query = "SELECT l from Leverancier l where l.idBedrijf = :idBedrijf") })
+        @NamedQuery(name = "Leverancier.getLeverancierByIdBedrijf", query = "SELECT l from Leverancier l where l.bedrijf.idBedrijf = :idBedrijf"),
+        @NamedQuery(name = "Leverancier.updateLeverancierBetaalMethodes", query = "UPDATE Leverancier l SET l.betaalMethodes = :betaalMethodes WHERE l.idLeverancier = :idLeverancier") })
 public class Leverancier extends Gebruiker implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
+    @ManyToOne
+    @JoinColumn(name = "idBedrijf", referencedColumnName = "idBedrijf")
+    private Bedrijf bedrijf;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLeverancier")
     private int idLeverancier;
-    private int idBedrijf;
+
     private String leveranciernummer;
     private String[] betaalMethodes;
     private String email;
 
     public Leverancier() {
         super();
-    }
-
-    public Leverancier(String gebruikersnaam, String password_Hash,
-            String leveranciernummer, String[] betaalMethodes,
-            String roles, int idLeverancier, String email, int idBedrijf) {
-        super(gebruikersnaam, password_Hash);
-        this.leveranciernummer = leveranciernummer;
-        this.betaalMethodes = betaalMethodes;
-        this.idLeverancier = idLeverancier;
-        this.email = email;
-        this.idBedrijf = idBedrijf;
     }
 
     public Leverancier(String gebruikersnaam, String password_Hash,
@@ -104,8 +100,12 @@ public class Leverancier extends Gebruiker implements Serializable {
     public void setBetaalMethodes(String[] betaalMethodes) {
         this.betaalMethodes = betaalMethodes;
     }
+    
+	public Bedrijf getBedrijf() {
+		return bedrijf;
+	}
 
-    public String getEmail() {
+	public String getEmail() {
         return this.email;
     }
 }

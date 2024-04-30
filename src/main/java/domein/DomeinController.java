@@ -110,4 +110,8 @@ public class DomeinController {
 	public Admin getAdmin() {
 		return admin;
 	}
+
+	public void updateLeverancier(Leverancier lever) {
+		app.updateLeverancier(lever);
+	}
 }

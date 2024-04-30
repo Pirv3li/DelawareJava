@@ -172,4 +172,9 @@ public class App {
 	public Adres getAdresByIdAdres(int idAdres) {
 		return adresRepo.getAdresById(idAdres);
 	}
+
+	public void updateLeverancier(Leverancier lever) {
+		leverancierRepo.updateLeverancier(lever);
+		
+	}
 }

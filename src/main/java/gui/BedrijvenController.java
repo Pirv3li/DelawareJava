@@ -151,14 +151,14 @@ public class BedrijvenController {
     }
 
     @FXML
-    private void switchToBedrijf() {
+    private void switchToBedrijfInformatie() {
         bedrijfInformatie.setVisible(true);
         leverancierInformatie.setVisible(false);
         switchInformatiePosition();
     }
 
     @FXML
-    private void switchToLeverancier() {
+    private void switchToLeverancierInformatie() {
         leverancierInformatie.setVisible(true);
         bedrijfInformatie.setVisible(false);
         switchInformatiePosition();
