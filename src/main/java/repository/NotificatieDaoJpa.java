@@ -7,6 +7,10 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Predicate;
+import java.util.Date;
+
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 
 import java.util.List;
 
@@ -14,6 +18,25 @@ public class NotificatieDaoJpa extends GenericDaoJpa<Notificatie> {
 
     public NotificatieDaoJpa() {
         super(Notificatie.class);
+    }
+
+    public void createNotification(String text, String onderwerp, boolean geopend, Date datum, Bestelling bestelling) {
+    	EntityTransaction transaction = em.getTransaction();
+    	String idOrder = bestelling.getIdOrder();
+    	try {
+    		transaction.begin();
+    		
+    		Notificatie notificatie = new Notificatie(text, onderwerp, geopend, datum, idOrder);
+            em.persist(notificatie);
+
+            transaction.commit();
+    		
+    	} catch (Exception ex) {
+    		if (transaction != null && transaction.isActive()) {
+    			transaction.rollback();
+    		}
+    		throw ex;
+    	}
     }
 
     public List<Notificatie> getAllNotificationsByLeverancierId(int idLeverancier, int begin, int aantal) {

@@ -1,12 +1,14 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
 import repository.GenericDaoJpa;
 import repository.LeverancierDao;
 import repository.LeverancierDaoJpa;
+import repository.NotificatieDaoJpa;
 
 public class DomeinController {
 
@@ -91,6 +93,12 @@ public class DomeinController {
 	public Adres getAdresByIdAdres(int idAdres) {
 		Adres adres = app.getAdresByIdAdres(idAdres);
 		return adres;
+	}
+	
+	public void maakNotificatie(Bestelling bestelling) {
+		NotificatieDaoJpa notificatieRepo = new NotificatieDaoJpa();
+		
+		notificatieRepo.createNotification("Gelieve te betalen!", "Betalingsherinnering", false, new Date(), bestelling);
 	}
 
 	//getters en setters

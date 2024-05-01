@@ -3,11 +3,13 @@ package gui;
 import domein.Bestelling;
 import domein.BestellingDetails;
 import domein.DomeinController;
+import domein.Notificatie;
 import domein.Product;
 import domein.ProductEnDetailsGecombineerd;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -83,6 +85,9 @@ public class BestellingController {
 
     @FXML
     private Button klanten;
+
+    @FXML
+    private Button betalingsherinnering;
     
     public BestellingController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -125,11 +130,24 @@ public class BestellingController {
         bestellingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 vulBestellingDetailsTable(newSelection);
+                isbetaald(newSelection);
+                betalingsherinnering.setOnAction(stuurBetalingsherinnering(newSelection));
             }
+            
         });
+        
+        
     }
 
-    private ObservableList<Bestelling> getBestellingen() {
+    private void isbetaald(Bestelling newSelection) {
+		if (newSelection.getBetalingStatus().equals("Betaald")) {
+			betalingsherinnering.setVisible(false);
+		} else {
+			betalingsherinnering.setVisible(true);
+		}
+	}
+
+	private ObservableList<Bestelling> getBestellingen() {
         List<Bestelling> bestellingen = controller.FindbestellingenByLeverancier();
         return FXCollections.observableArrayList(bestellingen);
     }
@@ -158,6 +176,13 @@ public class BestellingController {
             totaalProductenLabel.setText(String.format("%.2f", totaal));
         }
     }
+    
+
+    public EventHandler<ActionEvent> stuurBetalingsherinnering(Bestelling bestelling) {
+    	return event -> {
+            controller.maakNotificatie(bestelling);
+        };
+	}
 
     @FXML
     public void uitloggen(ActionEvent event) {
