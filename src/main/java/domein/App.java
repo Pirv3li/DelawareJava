@@ -135,7 +135,7 @@ public class App {
 
 		for (Bestelling bestelling : bestellingen) {
 			countAllorders ++;
-		    if (bestelling.getBetalingStatus()=="Niet betaald") {
+		    if (bestelling.getBetalingStatus()=="Niet betaald" || bestelling.getOrderStatus().contains("niet-verzonden")) {
 		        countUnpaidOrders++;
 		    }
 		}
