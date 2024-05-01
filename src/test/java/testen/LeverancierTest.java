@@ -10,7 +10,7 @@ public class LeverancierTest {
     @Test
     public void testGetIdLeverancier() {
         // Arrange
-        Leverancier leverancier = new Leverancier("username", "password", "123", new String[]{"method1", "method2"}, "roles", 1);
+        Leverancier leverancier = new Leverancier("username", "password", "123" ,"method1, method2", "roles", 1);
 
         // Act
         int id = leverancier.getIdLeverancier();
@@ -22,7 +22,7 @@ public class LeverancierTest {
     @Test
     public void testGetLeveranciernummer() {
         // Arrange
-        Leverancier leverancier = new Leverancier("username", "password", "123", new String[]{"method1", "method2"}, "roles", 1);
+        Leverancier leverancier = new Leverancier("username", "password", "123", "method1, method2", "roles", 1);
 
         // Act
         String nummer = leverancier.getLeveranciernummer();
@@ -34,7 +34,7 @@ public class LeverancierTest {
     @Test
     public void testGetBetaalMethodes() {
         // Arrange
-        Leverancier leverancier = new Leverancier("username", "password", "123", new String[]{"method1", "method2"}, "roles", 1);
+        Leverancier leverancier = new Leverancier("username", "password", "123", "method1, method2", "roles", 1);
 
         // Act
         String methodes = leverancier.getBetaalMethodes();
@@ -46,7 +46,7 @@ public class LeverancierTest {
     @Test
     public void testGetEmail() {
         // Arrange
-        Leverancier leverancier = new Leverancier("username", "password", "123", new String[]{"method1", "method2"}, "roles", 1, "test@email.com");
+        Leverancier leverancier = new Leverancier("username", "password", "123", "method1, method2", "roles", 1, "test@email.com");
 
         // Act
         String email = leverancier.getEmail();
