@@ -23,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -137,6 +138,27 @@ public class KlantenController {
 
 	private DomeinController controller;
     
+	
+
+
+	public static String convertToList(String input) {
+		// Remove brackets and split by comma
+		String[] tokens = input.replaceAll("\\[|\\]", "").split(", ");
+
+		// Initialize list to store strings
+		List<String> list = new ArrayList<>();
+
+		// Add each token to the list
+		for (String token : tokens) {
+			list.add(token);
+		}
+
+		// Join the list into a single string with each item separated by a comma
+		String result = String.join(", ", list);
+		return result;
+	}
+	
+	
     public KlantenController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
