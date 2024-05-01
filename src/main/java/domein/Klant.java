@@ -25,6 +25,9 @@ public class Klant implements Serializable {
     
     @Transient
     private int aantalBestellingen;
+    
+    @Transient
+    private int totaalBestellingen;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,8 +99,15 @@ public class Klant implements Serializable {
 		return aantalBestellingen;
 	}
 
+	public int getTotaalBestellingen() {
+		return totaalBestellingen;
+	}
+	
 	public void setAantalBestellingen(int aantalBestellingen) {
 		this.aantalBestellingen = aantalBestellingen;
 	}
 
+	public void setTotaalBestellingen(int aantalBestellingen) {
+		this.totaalBestellingen = aantalBestellingen;
+	}
 }

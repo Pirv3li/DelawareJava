@@ -131,13 +131,16 @@ public class App {
 	public void setAantalBestellingenByKlant(Klant klant) {
 		List<Bestelling> bestellingen = bestellingRepo.getBestellingenByKlantId(klant.getIdKlant());
 		int countUnpaidOrders = 0;
+		int countAllorders = 0;
 
 		for (Bestelling bestelling : bestellingen) {
+			countAllorders ++;
 		    if (bestelling.getBetalingStatus()=="Niet betaald") {
 		        countUnpaidOrders++;
 		    }
 		}
 		klant.setAantalBestellingen(countUnpaidOrders);
+		klant.setTotaalBestellingen(countAllorders);
 	}
 	
 	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
@@ -163,6 +166,10 @@ public class App {
 
 	public List<Bedrijf> getBedrijven() {
 		return bedrijfRepo.getBedrijven();
+	}
+	
+	public Bedrijf getBedrijfByKlantId(int idKlant) {
+		return bedrijfRepo.getBedrijfByKlantId(idKlant);
 	}
 
 	public Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {

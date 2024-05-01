@@ -115,6 +115,9 @@ public class KlantenController {
 
     @FXML
     private TableColumn<Bestelling, String> betalingStatusColumn;
+    
+    @FXML
+    private TableColumn<Bestelling, String> totaleBestellingen;
 
     @FXML
     private GridPane KlantView;
@@ -127,6 +130,8 @@ public class KlantenController {
     private ImageView logo;
     @FXML
     private ImageView delawareLogo;
+    
+  
 
 	private DomeinController controller;
     
@@ -166,6 +171,9 @@ public class KlantenController {
         KlantenTable.setItems(getKlanten());
         
         aantalBestellingenColumn.setCellValueFactory(new PropertyValueFactory<>("aantalBestellingen"));
+        
+        totaleBestellingen.setCellValueFactory(new PropertyValueFactory<>("totaalBestellingen"));
+
         
         KlantenTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -209,17 +217,19 @@ public class KlantenController {
 
 
     private void vulKlantDetailsTable(Klant klant) {
-        // Adres adres = controller.getAdresByIdAdres(klant.getIdAdres());
+    	Bedrijf bedrijf = controller.getBedrijfByKlant(klant);
+    	String telNr = String.valueOf(bedrijf.getTelefoonnummer());
+        Adres adres = controller.getAdresByIdAdres(bedrijf.getIdAdres());
 
         if (klant != null) {
-//            String url = klant.getLogo();
-//            Image image = new Image(url);
-//            logo.setImage(image);
+            String url = bedrijf.getLogo();
+            Image image = new Image(url);
+            logo.setImage(image);
             klantNaam.setText(klant.getGebruikersnaam());
             emailKlant.setText(klant.getEmail());
-            //telefoonNummer.setText(String.valueOf(klant.getTelefoonnummer()));
-            //straat.setText(adres.getStraat());
-            //stad.setText(adres.getStad());
+            telefoonNummer.setText(telNr);
+            straat.setText(adres.getStraat());
+            stad.setText(adres.getStad());
 
             setupKlantBestellingen(klant);
         }

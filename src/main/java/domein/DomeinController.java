@@ -1,5 +1,7 @@
 package domein;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,7 +66,7 @@ public class DomeinController {
 	public void setAantalBestellingen(Klant klant) {
 		app.setAantalBestellingenByKlant(klant);
 	}
-
+	
 	public List<Bestelling> FindbestellingenByLeverancier() {
 		List<Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);
 		return bestellingen;
@@ -88,6 +90,10 @@ public class DomeinController {
 	public Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
 		Leverancier lever = app.getLeverancierGegevensByIdBedrijf(idBedrijf);
 		return lever;
+	}
+	
+	public Bedrijf getBedrijfByKlant(Klant klant) {
+		return app.getBedrijfByKlantId(klant.getIdKlant());
 	}
 
 	public Adres getAdresByIdAdres(int idAdres) {

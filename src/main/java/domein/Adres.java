@@ -89,5 +89,10 @@ public class Adres implements Serializable {
 	public String getStad() {
 		return stad + ", " + postcode;
 	}
+	
+	 @Override
+	    public String toString() {
+	        return straat + " " + nummer + " " + stad + " " + postcode;
+	    }
 
 }

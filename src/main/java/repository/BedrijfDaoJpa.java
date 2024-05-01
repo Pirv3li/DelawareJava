@@ -3,6 +3,7 @@ package repository;
 import java.util.List;
 
 import domein.Bedrijf;
+import domein.Klant;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
 
@@ -30,4 +31,14 @@ public class BedrijfDaoJpa extends GenericDaoJpa<Bedrijf> implements BedrijfDao 
             throw new EntityNotFoundException();
         } 
     }
+
+	public Bedrijf getBedrijfByKlantId(int id) throws EntityNotFoundException {
+		try {
+			return em.createQuery("SELECT b FROM Klant k JOIN Bedrijf b ON k.idBedrijf = b.idBedrijf WHERE k.idKlant = :idKlant", Bedrijf.class)
+                    .setParameter("idKlant", id)
+                    .getSingleResult();
+		} catch (NoResultException ex) {
+            throw new EntityNotFoundException();
+        } 
+	}
 }
