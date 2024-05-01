@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="783.0" minWidth="1321.0" prefHeight="783.0" prefWidth="1469.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="783.0" minWidth="1321.0" prefHeight="783.0" prefWidth="1469.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="783.0" minWidth="-Infinity" prefHeight="783.0" prefWidth="282.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
          <children>
@@ -70,7 +70,7 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox fx:id="BestellingenRechts" layoutX="605.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="642.0" minWidth="423.0" prefHeight="642.0" prefWidth="478.0">
+            <VBox fx:id="BestellingenRechts" layoutX="605.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="642.0" minWidth="423.0" prefHeight="642.0" prefWidth="478.0" visible="false">
                <children>
                   <TableView fx:id="bestellingDetailsTable" prefHeight="574.0" prefWidth="483.0">
                      <columns>
