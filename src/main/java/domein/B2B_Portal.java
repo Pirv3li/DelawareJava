@@ -25,7 +25,7 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import jakarta.persistence.EntityNotFoundException;
 
-public class App {
+public class B2B_Portal {
 
 	private static final int ARGON_ITERATIONS = 6;
 	private static final int ARGON_MEMORY = 1 << 17;
@@ -39,7 +39,7 @@ public class App {
 	private AdminDao adminRepo;
 	private KlantDao klantRepo;
 
-	public App() {
+	public B2B_Portal() {
 		setBedrijfRepo(new BedrijfDaoJpa());
 		setLeverancierRepo(new LeverancierDaoJpa());
 		setBestellingRepo(new BestellingDaoJpa());
@@ -82,7 +82,7 @@ public class App {
 		productRepo = mock;
 	}
 
-	public Admin AanmeldenAdmin(String gebruikersnaam, String password) {
+	public Admin aanmeldenAdmin(String gebruikersnaam, String password) {
 		try {
 			Admin admin = adminRepo.getAdminByGebruikersnaam(gebruikersnaam);
 			if (admin == null || !verifyPassword(password, admin.getPassword_Hash())) {
@@ -97,7 +97,7 @@ public class App {
 
 	}
 
-	public Leverancier Aanmelden(String gebruikersnaam, String password) {
+	public Leverancier aanmelden(String gebruikersnaam, String password) {
 		try {
 			Leverancier leverancier = leverancierRepo.getLeverancierByGebruikersnaam(gebruikersnaam);
 			if (leverancier != null && verifyPassword(password, leverancier.getPassword_Hash())) {

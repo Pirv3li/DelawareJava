@@ -258,7 +258,7 @@ public class KlantenController {
 	}
 
 	private ObservableList<Bestelling> getBestellingen(Klant klant) {
-		List<Bestelling> bestellingen = controller.FindbestellingenByKlant(klant);
+		List<Bestelling> bestellingen = controller.findBestellingenByKlant(klant);
 		return FXCollections.observableArrayList(bestellingen);
 	}
 

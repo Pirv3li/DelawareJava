@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import domein.Admin;
 import domein.Adres;
-import domein.App;
+import domein.B2B_Portal;
 import domein.Bedrijf;
 import domein.Bestelling;
 import domein.BestellingDetails;
@@ -23,28 +23,28 @@ public class DomeinControllerTest {
 
     @Test
     public void testAanmeldenAdmin() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         Admin mockAdmin = mock(Admin.class);
-        when(mockApp.AanmeldenAdmin("username", "password")).thenReturn(mockAdmin);
+        when(mockApp.aanmeldenAdmin("username", "password")).thenReturn(mockAdmin);
 
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
 
-        boolean aangemeld = controller.AanmeldenAdmin("username", "password");
+        boolean aangemeld = controller.aanmeldenAdmin("username", "password");
 
         assertEquals(true, aangemeld);
     }
 
     @Test
     public void testAanmelden() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         Leverancier mockLeverancier = mock(Leverancier.class);
-        when(mockApp.Aanmelden("username", "password")).thenReturn(mockLeverancier);
+        when(mockApp.aanmelden("username", "password")).thenReturn(mockLeverancier);
 
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
 
-        boolean aangemeld = controller.Aanmelden("username", "password");
+        boolean aangemeld = controller.aanmelden("username", "password");
 
         assertEquals(true, aangemeld);
     }
@@ -61,7 +61,7 @@ public class DomeinControllerTest {
 
     @Test
     public void testFindbestellingenByLeverancier() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         Leverancier mockLeverancier = mock(Leverancier.class);
         List<Bestelling> mockBestellingen = new ArrayList<>();
         when(mockApp.getBestellingenByLeverancierId(mockLeverancier)).thenReturn(mockBestellingen);
@@ -70,14 +70,14 @@ public class DomeinControllerTest {
         controller.setApp(mockApp);
         controller.setLeverancier(mockLeverancier);
 
-        List<Bestelling> bestellingen = controller.FindbestellingenByLeverancier();
+        List<Bestelling> bestellingen = controller.findBestellingenByLeverancier();
 
         assertEquals(mockBestellingen, bestellingen);
     }
 
     @Test
     public void testGetBestellingDetails() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         Bestelling mockBestelling = mock(Bestelling.class);
         List<BestellingDetails> mockBestellingDetails = new ArrayList<>();
         when(mockApp.getBestellingDetails(mockBestelling)).thenReturn(mockBestellingDetails);
@@ -92,7 +92,7 @@ public class DomeinControllerTest {
 
     @Test
     public void testGetProductByProductId() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         BestellingDetails mockBestellingDetail = mock(BestellingDetails.class);
         Product mockProduct = mock(Product.class);
         when(mockApp.getProductByProductId(mockBestellingDetail.getIdProduct())).thenReturn(mockProduct);
@@ -107,7 +107,7 @@ public class DomeinControllerTest {
 
     @Test
     public void testGetBedrijven() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         List<Bedrijf> mockBedrijven = new ArrayList<>();
         when(mockApp.getBedrijven()).thenReturn(mockBedrijven);
 
@@ -121,7 +121,7 @@ public class DomeinControllerTest {
 
     @Test
     public void testGetLeverancierGegevensByIdBedrijf() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         Leverancier mockLeverancier = mock(Leverancier.class);
         when(mockApp.getLeverancierGegevensByIdBedrijf(1)).thenReturn(mockLeverancier);
 
@@ -135,7 +135,7 @@ public class DomeinControllerTest {
 
     @Test
     public void testGetAdresByIdAdres() {
-        App mockApp = mock(App.class);
+        B2B_Portal mockApp = mock(B2B_Portal.class);
         Adres mockAdres = mock(Adres.class);
         when(mockApp.getAdresByIdAdres(1)).thenReturn(mockAdres);
 

@@ -157,7 +157,7 @@ public class BestellingController {
 	}
 
 	private ObservableList<Bestelling> getBestellingen() {
-		List<Bestelling> bestellingen = controller.FindbestellingenByLeverancier();
+		List<Bestelling> bestellingen = controller.findBestellingenByLeverancier();
 		return FXCollections.observableArrayList(bestellingen);
 	}
 

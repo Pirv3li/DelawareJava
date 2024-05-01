@@ -86,7 +86,7 @@ public class AanmeldenController {
 		String password = wachtwoord.getText();
 
 		if (!isAdmin.isSelected()) {
-			boolean loggedIn = controller.Aanmelden(username, password);
+			boolean loggedIn = controller.aanmelden(username, password);
 			if (loggedIn) {
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bestellingen.fxml"));
@@ -110,7 +110,7 @@ public class AanmeldenController {
 				warningMessage.setText("login en wachtwoord combinatie is fout!!");
 			}
 		} else {
-			boolean loggedIn = controller.AanmeldenAdmin(username, password);
+			boolean loggedIn = controller.aanmeldenAdmin(username, password);
 			if (loggedIn) {
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bedrijven.fxml"));

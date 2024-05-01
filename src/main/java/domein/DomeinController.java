@@ -14,7 +14,7 @@ import repository.NotificatieDaoJpa;
 
 public class DomeinController {
 
-	private App app;
+	private B2B_Portal app;
 	private Leverancier leverancier;
 	private Admin admin;
 
@@ -22,7 +22,7 @@ public class DomeinController {
 	private LeverancierDao leverancierRepo;
 
 	public DomeinController() {
-		app = new App();
+		app = new B2B_Portal();
 	};
 
 	public void uitloggen() {
@@ -30,9 +30,9 @@ public class DomeinController {
 		this.admin = null;
 	}
 
-	public boolean AanmeldenAdmin(String gebruikersnaam, String wachtwoord) {
+	public boolean aanmeldenAdmin(String gebruikersnaam, String wachtwoord) {
 		boolean aangemeld = false;
-		this.admin = app.AanmeldenAdmin(gebruikersnaam, wachtwoord);
+		this.admin = app.aanmeldenAdmin(gebruikersnaam, wachtwoord);
 		if (admin != null) {
 			aangemeld = true;
 		}
@@ -40,9 +40,9 @@ public class DomeinController {
 		return aangemeld;
 	};
 
-	public boolean Aanmelden(String gebruikersnaam, String wachtwoord) {
+	public boolean aanmelden(String gebruikersnaam, String wachtwoord) {
 		boolean aangemeld = false;
-		this.leverancier = app.Aanmelden(gebruikersnaam, wachtwoord);
+		this.leverancier = app.aanmelden(gebruikersnaam, wachtwoord);
 		if (leverancier != null) {
 			aangemeld = true;
 		}
@@ -58,7 +58,7 @@ public class DomeinController {
 		return app.getKlantById(klantId);
 	}
 	
-	public List<Bestelling> FindbestellingenByKlant(Klant klant) {
+	public List<Bestelling> findBestellingenByKlant(Klant klant) {
 		List<Bestelling> bestellingen = app.getBestellingenByKlantId(klant);
 		return bestellingen;
 	}
@@ -67,7 +67,7 @@ public class DomeinController {
 		app.setAantalBestellingenByKlant(klant);
 	}
 	
-	public List<Bestelling> FindbestellingenByLeverancier() {
+	public List<Bestelling> findBestellingenByLeverancier() {
 		List<Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);
 		return bestellingen;
 	}
@@ -109,7 +109,7 @@ public class DomeinController {
 
 	//getters en setters
 
-	public void setApp(App app) {
+	public void setApp(B2B_Portal app) {
 		this.app = app;
 	}
 
