@@ -22,103 +22,105 @@ import javafx.stage.Stage;
 
 public class AanmeldenController {
 
-    private DomeinController controller;
-    private Parent root;
-    private Stage primaryStage;
-    private Stage loginStage;
+	private DomeinController controller;
+	private Parent root;
+	private Stage primaryStage;
+	private Stage loginStage;
 
-    @FXML
-    private Button Login;
-    @FXML
-    private TextField gebruikersnaam;
-    @FXML
-    private PasswordField wachtwoord;
+	@FXML
+	private Button Login;
+	@FXML
+	private TextField gebruikersnaam;
+	@FXML
+	private PasswordField wachtwoord;
 
-    @FXML
-    private Label warningMessage;
-    @FXML
-    private Hyperlink wachtwoordVergeten;
-    @FXML
-    private Text loginError;
-    @FXML
-    private CheckBox isAdmin;
-    @FXML
-    private ImageView delawareLogo;
+	@FXML
+	private Label warningMessage;
+	@FXML
+	private Hyperlink wachtwoordVergeten;
+	@FXML
+	private Text loginError;
+	@FXML
+	private CheckBox isAdmin;
+	@FXML
+	private ImageView delawareLogo;
 
-    public AanmeldenController(DomeinController controller, Stage primaryStage) {
-        this.controller = controller;
-        this.primaryStage = primaryStage;
-    }
+	public AanmeldenController(DomeinController controller, Stage primaryStage) {
+		this.controller = controller;
+		this.primaryStage = primaryStage;
+	}
 
-    public void start() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Aanmelden.fxml"));
-            loader.setController(this);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("delaware B2B-Portaal");
-            String url1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPBqAOQhpbb8mYBZiCv3WPum0MjflrbzxR-rOrjUVmKbtM6SVz7HBNZV6Wm_nzcgPqGU0&usqp=CAU";
-            Image image1 = new Image(url1);
-            primaryStage.getIcons().add(image1);
-            primaryStage.show();
-            loginStage = new Stage();
-            String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
-            Image image = new Image(url);
-            delawareLogo.setImage(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	public void start() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Aanmelden.fxml"));
+			loader.setController(this);
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("delaware B2B-Portaal");
+			String url1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPBqAOQhpbb8mYBZiCv3WPum0MjflrbzxR-rOrjUVmKbtM6SVz7HBNZV6Wm_nzcgPqGU0&usqp=CAU";
+			Image image1 = new Image(url1);
+			primaryStage.getIcons().add(image1);
+			primaryStage.show();
+			loginStage = new Stage();
+			String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
+			Image image = new Image(url);
+			delawareLogo.setImage(image);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    @FXML
-    public void handleLogin(ActionEvent event) {
-        String username = gebruikersnaam.getText();
-        String password = wachtwoord.getText();
+	@FXML
+	public void handleLogin(ActionEvent event) {
+		String username = gebruikersnaam.getText();
+		String password = wachtwoord.getText();
 
-        if (!isAdmin.isSelected()) {
-            boolean loggedIn = controller.Aanmelden(username, password);
-            if (loggedIn) {
-                try {
-                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bestellingen.fxml"));
-        			BestellingController bestellingController = new BestellingController(primaryStage);
-        			bestellingController.setController(controller);
-        	        loader.setController(bestellingController);
-        	        Parent root = loader.load();
-        	        Scene scene = new Scene(root);
-        	
-        	        primaryStage.setScene(scene);
+		if (!isAdmin.isSelected()) {
+			boolean loggedIn = controller.Aanmelden(username, password);
+			if (loggedIn) {
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bestellingen.fxml"));
+					BestellingController bestellingController = new BestellingController(primaryStage);
+					bestellingController.setController(controller);
+					loader.setController(bestellingController);
+					Parent root = loader.load();
+					Scene scene = new Scene(root);
+
+					primaryStage.setScene(scene);
+//					primaryStage.setFullScreen(true);
         	        primaryStage.centerOnScreen();
-        	        primaryStage.show();
-                } catch (IOException e) {
-                    warningMessage.setText("login en wachtwoord combinatie is fout!!");
-                    e.printStackTrace();
-                }
-            } else {
-                warningMessage.setText("login en wachtwoord combinatie is fout!!");
-            }
-        } else {
-            boolean loggedIn = controller.AanmeldenAdmin(username, password);
-            if (loggedIn) {
-                try {
-                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bedrijven.fxml"));
-        			BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
-        			bedrijvenController.setController(controller);
-        	        loader.setController(bedrijvenController);
-        	        Parent root = loader.load();
-        	        Scene scene = new Scene(root);
-        	
-        	        primaryStage.setScene(scene);
+					primaryStage.show();
+				} catch (IOException e) {
+					warningMessage.setText("login en wachtwoord combinatie is fout!!");
+					e.printStackTrace();
+				}
+			} else {
+				warningMessage.setText("login en wachtwoord combinatie is fout!!");
+			}
+		} else {
+			boolean loggedIn = controller.AanmeldenAdmin(username, password);
+			if (loggedIn) {
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bedrijven.fxml"));
+					BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
+					bedrijvenController.setController(controller);
+					loader.setController(bedrijvenController);
+					Parent root = loader.load();
+					Scene scene = new Scene(root);
+
+					primaryStage.setScene(scene);
+//					primaryStage.setFullScreen(true);
         	        primaryStage.centerOnScreen();
-        	        primaryStage.show();
-                } catch (IOException e) {
-                    warningMessage.setText("login en wachtwoord combinatie is fout!!");
-                    e.printStackTrace();
-                }
-            } else {
-                warningMessage.setText("login en wachtwoord combinatie is fout!!");
-            }
-        }
-    }
+					primaryStage.show();
+				} catch (IOException e) {
+					warningMessage.setText("login en wachtwoord combinatie is fout!!");
+					e.printStackTrace();
+				}
+			} else {
+				warningMessage.setText("login en wachtwoord combinatie is fout!!");
+			}
+		}
+	}
 
 }

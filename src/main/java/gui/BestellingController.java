@@ -105,12 +105,12 @@ public class BestellingController {
 			Scene scene = new Scene(root);
 			if (primaryStage != null) {
 				primaryStage.setScene(scene);
-				// primaryStage.setFullScreen(true);
+//				primaryStage.setFullScreen(true);
 
-				Platform.runLater(() -> {
-					primaryStage.centerOnScreen();
-					primaryStage.show();
-				});
+//				Platform.runLater(() -> {
+//					primaryStage.centerOnScreen();
+//					primaryStage.show();
+//				});
 			} else {
 				System.err.println("PrimaryStage is null. Scene not set.");
 			}
@@ -216,6 +216,7 @@ public class BestellingController {
 			Scene scene = new Scene(root);
 
 			primaryStage.setScene(scene);
+//			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
 			System.out.println("fail");
@@ -235,6 +236,7 @@ public class BestellingController {
 			Scene scene = new Scene(root);
 
 			primaryStage.setScene(scene);
+//			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
 			System.out.println("fail");

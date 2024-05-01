@@ -104,6 +104,7 @@ public class ProfielController {
 	private Stage primaryStage;
 	private DomeinController controller;
 	private boolean isWijzigen = false;
+
 	public ProfielController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
@@ -188,7 +189,7 @@ public class ProfielController {
 				betaalMethodesUpdate.setVisible(true);
 				opslaanButton.setVisible(true);
 
-			}else {
+			} else {
 				wijzigenButton.setText("Wijzigen");
 				wijzigenButton.setStyle("-fx-background-color:  #326CFC; -fx-text-fill: white;");
 				isWijzigen = false;
@@ -199,7 +200,7 @@ public class ProfielController {
 		});
 
 		opslaanButton.setOnAction(event -> {
-			
+
 			wijzigenButton.setText("Wijzigen");
 			wijzigenButton.setStyle("-fx-background-color:  #326CFC; -fx-text-fill: white;");
 			isWijzigen = false;
@@ -213,7 +214,7 @@ public class ProfielController {
 			betaalMethodes.getItems().clear();
 			betaalMethodes.getItems().addAll(vulLijst);
 
-		    betaalMethodesUpdate.getItems().removeAll(selectedPaymentMethods);
+			betaalMethodesUpdate.getItems().removeAll(selectedPaymentMethods);
 
 			betaalMethodesUpdate.setVisible(false);
 			opslaanButton.setVisible(false);
@@ -251,6 +252,7 @@ public class ProfielController {
 			Scene scene = new Scene(root);
 
 			primaryStage.setScene(scene);
+//			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
 			System.out.println("fail");
@@ -269,6 +271,7 @@ public class ProfielController {
 			Scene scene = new Scene(root);
 
 			primaryStage.setScene(scene);
+//			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
 			System.out.println("fail");

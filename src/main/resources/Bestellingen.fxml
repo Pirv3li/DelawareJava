@@ -34,7 +34,7 @@
             </Button>
             <Button fx:id="logout" layoutX="4.0" layoutY="640.0" mnemonicParsing="false" onAction="#uitloggen" prefHeight="105.0" prefWidth="272.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Logout">
                <font>
-                  <Font size="18.0" />
+                  <Font size="26.0" />
                </font>
             </Button>
             <FontAwesomeIconView glyphName="USER" layoutX="34.0" layoutY="460.0" size="30" text="" />
