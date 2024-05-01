@@ -1,21 +1,13 @@
 package domein;
 
 import repository.KlantDao;
-import repository.KlantDaoJpa;
 import repository.AdminDao;
-import repository.AdminDaoJpa;
 import repository.AdresDao;
-import repository.AdresDaoJpa;
 import repository.BedrijfDao;
-import repository.BedrijfDaoJpa;
 import repository.BestellingDao;
-import repository.BestellingDaoJpa;
 import repository.BestellingDetailsDao;
-import repository.BestellingDetailsDaoJpa;
 import repository.LeverancierDao;
-import repository.LeverancierDaoJpa;
 import repository.ProductDao;
-import repository.ProductDaoJpa;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -23,7 +15,6 @@ import java.util.List;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
-import jakarta.persistence.EntityNotFoundException;
 
 public class B2B_Portal {
 
@@ -31,57 +22,26 @@ public class B2B_Portal {
 	private static final int ARGON_MEMORY = 1 << 17;
 
 	private BedrijfDao bedrijfRepo;
-	private LeverancierDao leverancierRepo;
-	private BestellingDao bestellingRepo;
-	private BestellingDetailsDao bestellingDetailsRepo;
-	private ProductDao productRepo;
-	private AdresDao adresRepo;
-	private AdminDao adminRepo;
-	private KlantDao klantRepo;
+    private LeverancierDao leverancierRepo;
+    private BestellingDao bestellingRepo;
+    private BestellingDetailsDao bestellingDetailsRepo;
+    private ProductDao productRepo;
+    private AdresDao adresRepo;
+    private AdminDao adminRepo;
+    private KlantDao klantRepo;
 
-	public B2B_Portal() {
-		setBedrijfRepo(new BedrijfDaoJpa());
-		setLeverancierRepo(new LeverancierDaoJpa());
-		setBestellingRepo(new BestellingDaoJpa());
-		setBestellingDetailsRepo(new BestellingDetailsDaoJpa());
-		setProductRepo(new ProductDaoJpa());
-		setAdresRepo(new AdresDaoJpa());
-		setAdminRepo(new AdminDaoJpa());
-		setKlantRepo(new KlantDaoJpa());
-	}
-	
-	public void setKlantRepo(KlantDao mock) {
-		klantRepo = mock;
-	}
-
-	public void setBedrijfRepo(BedrijfDao mock) {
-		bedrijfRepo = mock;
-	}
-	
-	public void setAdminRepo(AdminDao mock) {
-		adminRepo = mock;
-	}
-
-	public void setAdresRepo(AdresDao mock) {
-		adresRepo = mock;
-	}
-
-	public void setLeverancierRepo(LeverancierDao mock) {
-		leverancierRepo = mock;
-	}
-
-	public void setBestellingRepo(BestellingDao mock) {
-		bestellingRepo = mock;
-	}
-
-	public void setBestellingDetailsRepo(BestellingDetailsDao mock) {
-		bestellingDetailsRepo = mock;
-	}
-
-	public void setProductRepo(ProductDao mock) {
-		productRepo = mock;
-	}
-
+    public B2B_Portal(BedrijfDao bedrijfRepo, LeverancierDao leverancierRepo, BestellingDao bestellingRepo,
+                      BestellingDetailsDao bestellingDetailsRepo, ProductDao productRepo, AdresDao adresRepo,
+                      AdminDao adminRepo, KlantDao klantRepo) {
+        this.bedrijfRepo = bedrijfRepo;
+        this.leverancierRepo = leverancierRepo;
+        this.bestellingRepo = bestellingRepo;
+        this.bestellingDetailsRepo = bestellingDetailsRepo;
+        this.productRepo = productRepo;
+        this.adresRepo = adresRepo;
+        this.adminRepo = adminRepo;
+        this.klantRepo = klantRepo;
+    }
 	public Admin aanmeldenAdmin(String gebruikersnaam, String password) {
 		try {
 			Admin admin = adminRepo.getAdminByGebruikersnaam(gebruikersnaam);

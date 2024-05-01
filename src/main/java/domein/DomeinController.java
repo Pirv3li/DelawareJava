@@ -5,12 +5,24 @@ package domein;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import repository.AdminDao;
+import repository.AdminDaoJpa;
+import repository.AdresDao;
+import repository.AdresDaoJpa;
 import repository.BedrijfDao;
 import repository.BedrijfDaoJpa;
-import repository.GenericDaoJpa;
+import repository.BestellingDao;
+import repository.BestellingDaoJpa;
+import repository.BestellingDetailsDao;
+import repository.BestellingDetailsDaoJpa;
+import repository.KlantDao;
+import repository.KlantDaoJpa;
 import repository.LeverancierDao;
 import repository.LeverancierDaoJpa;
 import repository.NotificatieDaoJpa;
+import repository.ProductDao;
+import repository.ProductDaoJpa;
 
 public class DomeinController {
 
@@ -19,11 +31,28 @@ public class DomeinController {
 	private Admin admin;
 
 	private BedrijfDao bedrijfRepo;
-	private LeverancierDao leverancierRepo;
+    private LeverancierDao leverancierRepo;
+    private BestellingDao bestellingRepo;
+    private BestellingDetailsDao bestellingDetailsRepo;
+    private ProductDao productRepo;
+    private AdresDao adresRepo;
+    private AdminDao adminRepo;
+    private KlantDao klantRepo;
 
-	public DomeinController() {
-		app = new B2B_Portal();
-	};
+	 public DomeinController() {
+	        this.bedrijfRepo = new BedrijfDaoJpa();
+	        this.leverancierRepo = new LeverancierDaoJpa();
+	        this.bestellingRepo = new BestellingDaoJpa();
+	        this.bestellingDetailsRepo = new BestellingDetailsDaoJpa();
+	        this.productRepo = new ProductDaoJpa();
+	        this.adresRepo = new AdresDaoJpa();
+	        this.adminRepo = new AdminDaoJpa();
+	        this.klantRepo = new KlantDaoJpa();
+	        
+	        this.app = new B2B_Portal(bedrijfRepo, leverancierRepo, bestellingRepo, bestellingDetailsRepo, productRepo,
+                    adresRepo, adminRepo, klantRepo);
+}
+	                     
 
 	public void uitloggen() {
 		this.leverancier = null;
