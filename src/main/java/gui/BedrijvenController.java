@@ -94,12 +94,17 @@ public class BedrijvenController {
 
     @FXML
     private VBox informatieVBox;
+    
+    @FXML
+    private VBox informatieVBox1;
 
     @FXML
     private ImageView logo;
     @FXML
     private ImageView delawareLogo;
 
+    @FXML
+    
     private Stage primaryStage;
 
     private DomeinController controller;
@@ -108,32 +113,37 @@ public class BedrijvenController {
         this.primaryStage = primaryStage;
     }
 
-    public void start() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Bedrijven.fxml"));
-            loader.setController(this);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
-            Image image = new Image(url);
-            delawareLogo.setImage(image);
-            if (primaryStage != null) {
-                primaryStage.setScene(scene);
-                primaryStage.setFullScreen(true);
-                primaryStage.show();
-            } else {
-                System.err.println("PrimaryStage is null. Scene not set.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void start() {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("Bedrijven.fxml"));
+//            loader.setController(this);
+//            Parent root = loader.load();
+//            Scene scene = new Scene(root);
+//            String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
+//            Image image = new Image(url);
+//            delawareLogo.setImage(image);
+//            if (primaryStage != null) {
+//                primaryStage.setScene(scene);
+//                //primaryStage.setFullScreen(true);
+//                primaryStage.centerOnScreen();
+//
+//                primaryStage.show();
+//            } else {
+//                System.err.println("PrimaryStage is null. Scene not set.");
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void setController(DomeinController controller) {
         this.controller = controller;
     }
 
     public void initialize() {
+    	String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
+        Image image = new Image(url);
+        delawareLogo.setImage(image);
         naamColumn.setCellValueFactory(new PropertyValueFactory<>("naam"));
         isActiefColumn.setCellValueFactory(cellData -> {
             boolean isActief = cellData.getValue().isIsActief();
@@ -145,6 +155,8 @@ public class BedrijvenController {
 
         bedrijfTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+            	informatieVBox1.setVisible(true);
+            	
                 vulBedrijfDetailsTable(newSelection);
             }
         });

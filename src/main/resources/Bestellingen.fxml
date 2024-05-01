@@ -71,7 +71,7 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox layoutX="560.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="730.0" minWidth="423.0" prefHeight="730.0" prefWidth="423.0">
+            <VBox fx:id="BestellingenRechts" layoutX="560.0" layoutY="116.0" maxHeight="1022.0" maxWidth="785.0" minHeight="730.0" minWidth="423.0" prefHeight="730.0" prefWidth="423.0" visible="false">
                <children>
                   <TableView fx:id="bestellingDetailsTable" prefHeight="825.0" prefWidth="545.0">
                      <columns>

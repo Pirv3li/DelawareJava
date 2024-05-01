@@ -150,9 +150,10 @@ public class ProfielController {
         });
 
         opslaanButton.setOnAction(event -> {
-            List<String> selectedPaymentMethods = new ArrayList<>(betaalMethodes.getSelectionModel().getSelectedItems());
+        	String selectedPaymentMethods = betaalMethodes.getSelectionModel().getSelectedItems().toString();
 
-            lever.setBetaalMethodes(selectedPaymentMethods.toArray(new String[0]));
+            lever.setBetaalMethodes(selectedPaymentMethods);
+            System.out.println(lever.getBetaalMethodes());
             controller.updateLeverancier(lever);
            
             betaalMethodes.getItems().clear();

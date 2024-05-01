@@ -6,6 +6,7 @@ import domein.DomeinController;
 import domein.Notificatie;
 import domein.Product;
 import domein.ProductEnDetailsGecombineerd;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -91,6 +93,9 @@ public class BestellingController {
     @FXML
     private Button betalingsherinnering;
     
+    @FXML
+    private VBox BestellingenRechts;
+    
     public BestellingController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -103,8 +108,12 @@ public class BestellingController {
             Scene scene = new Scene(root);
             if (primaryStage != null) {
                 primaryStage.setScene(scene);
-                primaryStage.setFullScreen(true);
-                primaryStage.show();
+                //primaryStage.setFullScreen(true);
+
+                Platform.runLater(() -> {
+                    primaryStage.centerOnScreen();
+                    primaryStage.show(); 
+                });
             } else {
                 System.err.println("PrimaryStage is null. Scene not set.");
             }
@@ -119,7 +128,10 @@ public class BestellingController {
 		delawareLogo.setImage(image1);
         orderidColumn.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("datum"));
+        bedragColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
         orderstatusColumn.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
+        
+        
         betalingstatusColumn.setCellValueFactory(new PropertyValueFactory<>("betalingStatus"));
         productNaamColumn.setCellValueFactory(new PropertyValueFactory<>("productNaam"));
         stukprijsColumn.setCellValueFactory(new PropertyValueFactory<>("eenheidsPrijs"));
@@ -131,6 +143,7 @@ public class BestellingController {
 
         bestellingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+            	BestellingenRechts.setVisible(true);
                 vulBestellingDetailsTable(newSelection);
                 isbetaald(newSelection);
                 betalingsherinnering.setOnAction(stuurBetalingsherinnering(newSelection));

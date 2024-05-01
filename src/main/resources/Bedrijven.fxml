@@ -83,8 +83,7 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
-            <VBox fx:id="informatieVBox1" layoutX="570.0" layoutY="115.0" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0" minWidth="423.0" prefHeight="683.0" prefWidth="423.0">
+            <VBox fx:id="informatieVBox1" layoutX="570.0" layoutY="115.0" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0" minWidth="423.0" prefHeight="683.0" prefWidth="423.0" visible="false">
                <children>
                   <HBox prefHeight="35.0" prefWidth="74.0">
                      <children>

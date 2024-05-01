@@ -80,21 +80,16 @@ public class AanmeldenController {
             boolean loggedIn = controller.Aanmelden(username, password);
             if (loggedIn) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bestellingen.fxml"));
-                    BestellingController bestellingController = new BestellingController(primaryStage);
-                    bestellingController.setController(controller);
-                    loader.setController(bestellingController);
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
-
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
-
-                    bestellingController.start();
-
-                    if (loginStage != null) {
-                        loginStage.close();
-                    }
+                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bestellingen.fxml"));
+        			BestellingController bestellingController = new BestellingController(primaryStage);
+        			bestellingController.setController(controller);
+        	        loader.setController(bestellingController);
+        	        Parent root = loader.load();
+        	        Scene scene = new Scene(root);
+        	
+        	        primaryStage.setScene(scene);
+        	        primaryStage.centerOnScreen();
+        	        primaryStage.show();
                 } catch (IOException e) {
                     warningMessage.setText("login en wachtwoord combinatie is fout!!");
                     e.printStackTrace();
@@ -106,21 +101,16 @@ public class AanmeldenController {
             boolean loggedIn = controller.AanmeldenAdmin(username, password);
             if (loggedIn) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bedrijven.fxml"));
-                    BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
-                    bedrijvenController.setController(controller);
-                    loader.setController(bedrijvenController);
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
-
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
-
-                    bedrijvenController.start();
-
-                    if (loginStage != null) {
-                        loginStage.close();
-                    }
+                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bedrijven.fxml"));
+        			BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
+        			bedrijvenController.setController(controller);
+        	        loader.setController(bedrijvenController);
+        	        Parent root = loader.load();
+        	        Scene scene = new Scene(root);
+        	
+        	        primaryStage.setScene(scene);
+        	        primaryStage.centerOnScreen();
+        	        primaryStage.show();
                 } catch (IOException e) {
                     warningMessage.setText("login en wachtwoord combinatie is fout!!");
                     e.printStackTrace();

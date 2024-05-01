@@ -33,7 +33,7 @@ public class Leverancier extends Gebruiker implements Serializable {
     private int idLeverancier;
 
     private String leveranciernummer;
-    private String[] betaalMethodes;
+    private String betaalMethodes;
     private String email;
 
     public Leverancier() {
@@ -41,7 +41,7 @@ public class Leverancier extends Gebruiker implements Serializable {
     }
 
     public Leverancier(String gebruikersnaam, String password_Hash,
-            String leveranciernummer, String[] betaalMethodes,
+            String leveranciernummer, String betaalMethodes,
             String roles, int idLeverancier, String email) {
         super(gebruikersnaam, password_Hash);
         this.leveranciernummer = leveranciernummer;
@@ -51,7 +51,7 @@ public class Leverancier extends Gebruiker implements Serializable {
     }
 
     public Leverancier(String gebruikersnaam, String password_Hash,
-            String leveranciernummer, String[] betaalMethodes,
+            String leveranciernummer, String betaalMethodes,
             String roles, int idLeverancier) {
         super(gebruikersnaam, password_Hash);
         this.leveranciernummer = leveranciernummer;
@@ -97,7 +97,7 @@ public class Leverancier extends Gebruiker implements Serializable {
         }
     }
 
-    public void setBetaalMethodes(String[] betaalMethodes) {
+    public void setBetaalMethodes(String betaalMethodes) {
         this.betaalMethodes = betaalMethodes;
     }
     

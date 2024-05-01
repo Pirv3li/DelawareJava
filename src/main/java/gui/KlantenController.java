@@ -124,6 +124,8 @@ public class KlantenController {
 
 	private Stage primaryStage;
     
+	@FXML
+	private VBox KlantRechts;
     @FXML
     private VBox informatieVBox;
     @FXML
@@ -177,6 +179,7 @@ public class KlantenController {
         
         KlantenTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+            	KlantRechts.setVisible(true);
                 vulKlantDetailsTable(newSelection);
             }
         });
