@@ -66,6 +66,15 @@ public class AanmeldenController {
 			String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
 			Image image = new Image(url);
 			delawareLogo.setImage(image);
+			
+			
+		    gebruikersnaam.setOnMouseClicked(event -> {
+		    	warningMessage.setVisible(false);
+		    });
+
+		    wachtwoord.setOnMouseClicked(event -> {
+		    	warningMessage.setVisible(false);
+		    });
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -92,10 +101,12 @@ public class AanmeldenController {
         	        primaryStage.centerOnScreen();
 					primaryStage.show();
 				} catch (IOException e) {
+			    	warningMessage.setVisible(true);
 					warningMessage.setText("login en wachtwoord combinatie is fout!!");
 					e.printStackTrace();
 				}
 			} else {
+		    	warningMessage.setVisible(true);
 				warningMessage.setText("login en wachtwoord combinatie is fout!!");
 			}
 		} else {
@@ -114,10 +125,12 @@ public class AanmeldenController {
         	        primaryStage.centerOnScreen();
 					primaryStage.show();
 				} catch (IOException e) {
+			    	warningMessage.setVisible(true);
 					warningMessage.setText("login en wachtwoord combinatie is fout!!");
 					e.printStackTrace();
 				}
 			} else {
+		    	warningMessage.setVisible(true);
 				warningMessage.setText("login en wachtwoord combinatie is fout!!");
 			}
 		}
