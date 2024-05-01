@@ -52,11 +52,15 @@ public class AanmeldenController {
 
     public void start() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Aanmelden.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Aanmelden.fxml"));
             loader.setController(this);
             Parent root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.setTitle("delaware B2B-Portaal");
+            String url1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPBqAOQhpbb8mYBZiCv3WPum0MjflrbzxR-rOrjUVmKbtM6SVz7HBNZV6Wm_nzcgPqGU0&usqp=CAU";
+            Image image1 = new Image(url1);
+            primaryStage.getIcons().add(image1);
             primaryStage.show();
             loginStage = new Stage();
             String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
@@ -76,7 +80,7 @@ public class AanmeldenController {
             boolean loggedIn = controller.Aanmelden(username, password);
             if (loggedIn) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("bestellingen.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bestellingen.fxml"));
                     BestellingController bestellingController = new BestellingController(primaryStage);
                     bestellingController.setController(controller);
                     loader.setController(bestellingController);
@@ -102,7 +106,7 @@ public class AanmeldenController {
             boolean loggedIn = controller.AanmeldenAdmin(username, password);
             if (loggedIn) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Bedrijven.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bedrijven.fxml"));
                     BedrijvenController bedrijvenController = new BedrijvenController(primaryStage);
                     bedrijvenController.setController(controller);
                     loader.setController(bedrijvenController);

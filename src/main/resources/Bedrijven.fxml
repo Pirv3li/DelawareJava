@@ -55,13 +55,13 @@
             <FontAwesomeIconView glyphName="USERS" layoutX="27.0" layoutY="434.0" size="30" text="" visible="false" />
             <FontAwesomeIconView glyphName="LIST" layoutX="30.0" layoutY="374.0" size="30" text="" visible="false" />
             <FontAwesomeIconView layoutX="30.0" layoutY="252.0" size="30" text="" />
-            <FontAwesomeIconView layoutX="30.0" layoutY="815.0" size="30" text="" />
+            <FontAwesomeIconView layoutX="31.0" layoutY="815.0" size="30" text="" />
             <Text layoutX="2.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B-portaal" textAlignment="CENTER" wrappingWidth="276.955078125">
                <font>
                   <Font size="29.0" />
                </font>
             </Text>
-            <ImageView fx:id="delawareLogo" fitHeight="67.0" fitWidth="283.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="delawareLogo" fitHeight="90.0" fitWidth="283.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </left>

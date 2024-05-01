@@ -102,13 +102,10 @@ public class ProfielController {
 
     public void start() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profiel.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profiel.fxml"));
             loader.setController(this);
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
-            Image image = new Image(url);
-			delawareLogo.setImage(image);
             if (primaryStage != null) {
                 primaryStage.setScene(scene);
                 primaryStage.setFullScreen(true);
@@ -126,6 +123,9 @@ public class ProfielController {
     }
     
     public void initialize() {
+        String url1 = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
+        Image image1 = new Image(url1);
+		delawareLogo.setImage(image1);
     	Leverancier lever = controller.getLeverancier();;
     	Bedrijf bedrijf = lever.getBedrijf();
     	Adres adres = controller.getAdresByIdAdres(bedrijf.getIdAdres());
@@ -175,10 +175,6 @@ public class ProfielController {
         
     }
     
-    
-    
-    
-    
     @FXML
     public void uitloggen(ActionEvent event) {
         controller.uitloggen();
@@ -191,18 +187,35 @@ public class ProfielController {
     
     @FXML
     public void switchKlantenPagina(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        KlantenController klantenController = new KlantenController(new Stage());
-        klantenController.setController(controller);
-        klantenController.start();
+    	try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Klanten.fxml"));
+	    	KlantenController klantenController = new KlantenController(primaryStage);
+	    	klantenController.setController(controller);
+	        loader.setController(klantenController);
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root);
+	
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+		} catch (Exception e) {
+			System.out.println("fail");;
+		}
     }
     
     @FXML
     public void switchBestellingPagina(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        BestellingController bestellingController = new BestellingController(stage);
-        bestellingController.setController(controller);
-        bestellingController.start();
+    	try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Bestellingen.fxml"));
+			BestellingController bestellingController = new BestellingController(primaryStage);
+			bestellingController.setController(controller);
+	        loader.setController(bestellingController);
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root);
+	
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+		} catch (Exception e) {
+			System.out.println("fail");;
+		}
     }
 }

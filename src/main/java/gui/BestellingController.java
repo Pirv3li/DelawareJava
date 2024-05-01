@@ -15,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -95,13 +97,10 @@ public class BestellingController {
 
     public void start() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("bestellingen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/bestellingen.fxml"));
             loader.setController(this);
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
-            Image image = new Image(url);
-            delawareLogo.setImage(image);
             if (primaryStage != null) {
                 primaryStage.setScene(scene);
                 primaryStage.setFullScreen(true);
@@ -115,6 +114,9 @@ public class BestellingController {
     }
 
     public void initialize() {
+        String url1 = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
+        Image image1 = new Image(url1);
+		delawareLogo.setImage(image1);
         orderidColumn.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
         datumColumn.setCellValueFactory(new PropertyValueFactory<>("datum"));
         orderstatusColumn.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
@@ -181,6 +183,12 @@ public class BestellingController {
     public EventHandler<ActionEvent> stuurBetalingsherinnering(Bestelling bestelling) {
     	return event -> {
             controller.maakNotificatie(bestelling);
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Betallings herinnering");
+            alert.setHeaderText("Betallings herinnering");
+            alert.setContentText("Betallingsherinnering is verzonden");
+            alert.showAndWait();
+            
         };
 	}
 
@@ -196,19 +204,37 @@ public class BestellingController {
     
     @FXML
     public void switchKlantenPagina(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        KlantenController klantenController = new KlantenController(new Stage());
-        klantenController.setController(controller);
-        klantenController.start();
+    	try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Klanten.fxml"));
+	    	KlantenController klantenController = new KlantenController(primaryStage);
+	    	klantenController.setController(controller);
+	        loader.setController(klantenController);
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root);
+	
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+		} catch (Exception e) {
+			System.out.println("fail");;
+		}
+    	
     }
     
     @FXML
     public void switchProfielPagina(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        ProfielController profielController = new ProfielController(stage);
-        profielController.setController(controller);
-        profielController.start();
+    	try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profiel.fxml"));
+			ProfielController profielController = new ProfielController(primaryStage);
+			profielController.setController(controller);
+	        loader.setController(profielController);
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root);
+	
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+		} catch (Exception e) {
+			System.out.println("fail");;
+		}
     }
 
 }
