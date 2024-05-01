@@ -113,7 +113,7 @@
 						</GridPane>
 					</children>
 				</VBox>
-				<Button fx:id="opslaanButton" layoutX="759.0" layoutY="735.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="198.0" style="-fx-background-color: #326CFC;" text="Opslaan" textAlignment="CENTER" visible="false">
+				<Button fx:id="opslaanButton" layoutX="759.0" layoutY="735.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="198.0" style="-fx-background-color: #326CFC;" text="Opslaan" textAlignment="CENTER">
 					<font>
 						<Font size="23.0" />
 					</font>
