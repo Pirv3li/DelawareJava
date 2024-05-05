@@ -4,18 +4,18 @@ public class ProductEnDetailsGecombineerd {
 
 	private String productNaam;
 	private Double eenheidsPrijs;
-	private Double btwTarief;
+	private Double btw;
 	private int aantal;
 	private Double totaalPrijs;
 
 	public ProductEnDetailsGecombineerd() {
 	}
 
-	public ProductEnDetailsGecombineerd(String productNaam, Double eenheidsPrijs, Double btwTarief, int aantal) {
+	public ProductEnDetailsGecombineerd(String productNaam, Double eenheidsPrijs, Double btw, int aantal) {
 		super();
 		this.productNaam = productNaam;
 		this.eenheidsPrijs = eenheidsPrijs;
-		this.btwTarief = btwTarief;
+		this.btw = btw;
 		this.aantal = aantal;
 		setTotaalPrijs();
 
@@ -37,12 +37,12 @@ public class ProductEnDetailsGecombineerd {
 		this.eenheidsPrijs = eenheidsPrijs;
 	}
 
-	public Double getBtwTarief() {
-		return btwTarief;
+	public Double getBtw() {
+		return btw;
 	}
 
-	public void setBtwTarief(Double btwTarief) {
-		this.btwTarief = btwTarief;
+	public void setBtw(Double btwTarief) {
+		this.btw = btwTarief;
 	}
 
 	public int getAantal() {
@@ -58,8 +58,7 @@ public class ProductEnDetailsGecombineerd {
 	}
 
 	public void setTotaalPrijs() {
-		Double btw = btwTarief / 100.0;
-		this.totaalPrijs = (eenheidsPrijs + (eenheidsPrijs * btw)) * aantal;
+		this.totaalPrijs = (eenheidsPrijs + btw) * aantal;
 	}
 
 }

@@ -20,12 +20,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -130,7 +133,7 @@ public class BestellingController {
 		betalingstatusColumn.setCellValueFactory(new PropertyValueFactory<>("betalingStatus"));
 		productNaamColumn.setCellValueFactory(new PropertyValueFactory<>("productNaam"));
 		stukprijsColumn.setCellValueFactory(new PropertyValueFactory<>("eenheidsPrijs"));
-		btwPrijsColumn.setCellValueFactory(new PropertyValueFactory<>("btwTarief"));
+		btwPrijsColumn.setCellValueFactory(new PropertyValueFactory<>("btw"));
 		aantalColumn.setCellValueFactory(new PropertyValueFactory<>("aantal"));
 		totaalPrijsPerProductColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
 
@@ -144,6 +147,25 @@ public class BestellingController {
 				betalingsherinnering.setOnAction(stuurBetalingsherinnering(newSelection));
 			}
 
+		});
+
+		betalingstatusColumn.setCellFactory(column -> {
+			return new TableCell<Bestelling, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					setText(empty ? "" : getItem());
+					setGraphic(null);
+
+					if (!isEmpty()) {
+						if (item.equals("Betaald"))
+							setTextFill(Color.GREEN);
+						else
+							setTextFill(Color.RED);
+					}
+				}
+			};
 		});
 
 	}
@@ -173,13 +195,15 @@ public class BestellingController {
 			for (BestellingDetails bestellingDetails : details) {
 				Product product = controller.getProductByProductId(bestellingDetails);
 				gecombineerdeData.add(new ProductEnDetailsGecombineerd(product.getNaam(),
-						bestellingDetails.getEenheidsPrijs(), product.getBtwTarief(), product.getAantal()));
+						bestellingDetails.getEenheidsPrijs(), ((product.getBtwTarief()/100) * product.getEenheidsprijs() ), product.getAantal()));
 
 			}
 
-			bestellingDetailsTable.setItems(FXCollections.observableArrayList(gecombineerdeData));
-			double totaal = details.stream().mapToDouble(BestellingDetails::getTotaalPrijs).sum();
-			totaalProductenLabel.setText(String.format("€ %.2f", totaal));
+	        bestellingDetailsTable.setItems(FXCollections.observableArrayList(gecombineerdeData));
+	        double totaalPrijs = gecombineerdeData.stream()
+	            .mapToDouble(data -> (data.getEenheidsPrijs() + data.getBtw()) * data.getAantal())
+	            .sum();
+	        totaalProductenLabel.setText(String.format("€ %.2f", totaalPrijs));
 		}
 	}
 

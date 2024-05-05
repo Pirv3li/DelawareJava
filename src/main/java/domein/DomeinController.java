@@ -135,6 +135,12 @@ public class DomeinController {
 		
 		notificatieRepo.createNotification("Gelieve te betalen!", "Betalingsherinnering", false, new Date(), bestelling);
 	}
+	
+	public void veranderStatusOrder(String id, boolean Status) {
+		BestellingDaoJpa bestellingRepo = new BestellingDaoJpa();
+		
+		bestellingRepo.veranderBetalingStatus(id, Status);
+	}
 
 	//getters en setters
 

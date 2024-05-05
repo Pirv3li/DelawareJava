@@ -45,6 +45,9 @@ public class KlantenController {
 	private Label telefoonNummer;
 
 	@FXML
+	private Label lblBetalingStatus;
+
+	@FXML
 	private Label straat;
 
 	@FXML
@@ -55,6 +58,9 @@ public class KlantenController {
 
 	@FXML
 	private Button notificaties;
+
+	@FXML
+	private Button betalingStatus;
 
 	@FXML
 	private Button bestellingen;
@@ -132,6 +138,10 @@ public class KlantenController {
 
 	private DomeinController controller;
 
+	
+	private ObservableList<Klant> klantenList = FXCollections.observableArrayList();
+	private ObservableList<Bestelling> bestellingenList = FXCollections.observableArrayList();
+	
 	public static String convertToList(String input) {
 		// Remove brackets and split by comma
 		String[] tokens = input.replaceAll("\\[|\\]", "").split(", ");
@@ -191,8 +201,47 @@ public class KlantenController {
 			if (newSelection != null) {
 				KlantRechts.setVisible(true);
 				vulKlantDetailsTable(newSelection);
+
+
 			}
 		});
+
+		bestellingenView.setOnMouseClicked(event -> {
+			if (bestellingenView.getSelectionModel().getSelectedItem() != null) {
+				Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
+				lblBetalingStatus.setVisible(true);
+				betalingStatus.setVisible(true);
+			}
+		});
+
+		
+		
+		betalingStatus.setOnAction(event -> {
+			if (bestellingenView.getSelectionModel().getSelectedItem() != null) {
+				Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
+				String idOrder = selectedOrder.getIdOrder();
+
+				boolean hulp = false;
+				System.out.println(selectedOrder.getBetalingStatus());
+				if (selectedOrder.getBetalingStatus() == "Betaald") {
+					hulp = true;
+				}
+				
+				if(selectedOrder.getBetalingStatus() == "Niet betaald") {
+                    hulp = false;
+                }
+				controller.veranderStatusOrder(idOrder, hulp);
+
+				// Refresh the TableViews
+				KlantenTable.setItems(getKlanten());
+				if (KlantenTable.getSelectionModel().getSelectedItem() != null) {
+					bestellingenView.setItems(getBestellingen(KlantenTable.getSelectionModel().getSelectedItem()));
+				}
+			}
+		});
+		
+		
+
 	}
 
 	@FXML
@@ -227,6 +276,16 @@ public class KlantenController {
 		}
 		return FXCollections.observableArrayList(klanten);
 	}
+
+//	private void isbetaald(Bestelling newSelection) {
+//		if (newSelection.getBetalingStatus().equals("Niet betaald")) {
+//			lblBetalingStatus.setVisible(false);
+//			betalingStatus.setVisible(false);
+//		} else {
+//			lblBetalingStatus.setVisible(true);
+//			betalingStatus.setVisible(true);
+//		}
+//	}
 
 	private void vulKlantDetailsTable(Klant klant) {
 		Bedrijf bedrijf = controller.getBedrijfByKlant(klant);

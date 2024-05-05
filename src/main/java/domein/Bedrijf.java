@@ -1,6 +1,7 @@
 package domein;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -99,8 +100,9 @@ public class Bedrijf implements Serializable {
 		this.telefoonnummer = telefoonnummer;
 	}
 
-	public Date getGebruikerSinds() {
-		return this.gebruikerSinds;
+	public String getGebruikerSinds() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(this.gebruikerSinds);
 	}
 
 	public void setGebruikerSinds(Date gebruikerSinds) {
