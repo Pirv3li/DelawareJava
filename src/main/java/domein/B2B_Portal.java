@@ -15,6 +15,8 @@ import java.util.List;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class B2B_Portal {
 
@@ -72,28 +74,28 @@ public class B2B_Portal {
 
 	}
 	
-	public List<Klant> getKlantenByLeverancierId(int idLeverancier){
-		return klantRepo.getKlantenByLeverancierID(idLeverancier);
+	public ObservableList<Interface_Klant> getKlantenByLeverancierId(int idLeverancier){
+		return FXCollections.observableArrayList(klantRepo.getKlantenByLeverancierID(idLeverancier));
 	}
 	
-	public Klant getKlantById(int idKlant){
+	public Interface_Klant getKlantById(int idKlant){
 		return klantRepo.getKlantById(idKlant);
 	}
 
-	public List<Bestelling> getBestellingenByLeverancierId(Leverancier user) {
-		return bestellingRepo.getBestellingenByLeverancierId(user.getIdLeverancier());
+	public ObservableList<Interface_Bestelling> getBestellingenByLeverancierId(Interface_Leverancier user) {
+		return FXCollections.observableArrayList(bestellingRepo.getBestellingenByLeverancierId(user.getIdLeverancier()));
 	}
 
-	public List<Bestelling> getBestellingenByKlantId(Klant user) {
-		return bestellingRepo.getBestellingenByKlantId(user.getIdKlant());
+	public ObservableList<Interface_Bestelling> getBestellingenByKlantId(Interface_Klant user) {
+		return FXCollections.observableArrayList(bestellingRepo.getBestellingenByKlantId(user.getIdKlant()));
 	}
 	
-	public void setAantalBestellingenByKlant(Klant klant) {
+	public void setAantalBestellingenByKlant(Interface_Klant klant) {
 		List<Bestelling> bestellingen = bestellingRepo.getBestellingenByKlantId(klant.getIdKlant());
 		int countUnpaidOrders = 0;
 		int countAllorders = 0;
 
-		for (Bestelling bestelling : bestellingen) {
+		for (Interface_Bestelling bestelling : bestellingen) {
 			countAllorders ++;
 		    if (bestelling.getBetalingStatus()=="Niet betaald" || bestelling.getOrderStatus().contains("niet-verzonden")) {
 		        countUnpaidOrders++;
@@ -103,13 +105,13 @@ public class B2B_Portal {
 		klant.setTotaalBestellingen(countAllorders);
 	}
 	
-	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
-		List<BestellingDetails> bestellingDetails = bestellingDetailsRepo
-				.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder()));
+	public ObservableList<Interface_BestellingDetails> getBestellingDetails(Interface_Bestelling bestelling) {
+		ObservableList<Interface_BestellingDetails> bestellingDetails = FXCollections.observableArrayList(bestellingDetailsRepo
+				.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder())));
 		return bestellingDetails;
 	}
 
-	public Product getProductByProductId(int id) {
+	public Interface_Product getProductByProductId(int id) {
 		return productRepo.getProductByProductId(id);
 	}
 
@@ -124,23 +126,23 @@ public class B2B_Portal {
 		}
 	}
 
-	public List<Bedrijf> getBedrijven() {
-		return bedrijfRepo.getBedrijven();
+	public ObservableList<Interface_Bedrijf> getBedrijven() {
+		return FXCollections.observableArrayList(bedrijfRepo.getBedrijven());
 	}
 	
-	public Bedrijf getBedrijfByKlantId(int idKlant) {
+	public Interface_Bedrijf getBedrijfByKlantId(int idKlant) {
 		return bedrijfRepo.getBedrijfByKlantId(idKlant);
 	}
 
-	public Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
+	public Interface_Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
 		return leverancierRepo.getLeverancierByIdBedrijf(idBedrijf);
 	}
 
-	public Adres getAdresByIdAdres(int idAdres) {
+	public Interface_Adres getAdresByIdAdres(int idAdres) {
 		return adresRepo.getAdresById(idAdres);
 	}
 
-	public void updateLeverancier(Leverancier lever) {
+	public void updateLeverancier(Interface_Leverancier lever) {
 		leverancierRepo.updateLeverancier(lever);
 		
 	}

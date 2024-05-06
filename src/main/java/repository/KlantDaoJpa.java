@@ -1,6 +1,8 @@
 package repository;
 
 import java.util.List;
+
+import domein.Interface_Klant;
 import domein.Klant;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
@@ -23,7 +25,7 @@ public class KlantDaoJpa extends GenericDaoJpa<Klant> implements KlantDao {
     }
     
     
-    public Klant getKlantById(int klantId) throws EntityNotFoundException {
+    public Interface_Klant getKlantById(int klantId) throws EntityNotFoundException {
         try {
             return em.createNamedQuery("Klant.getKlantById", Klant.class)
                     .setParameter("idKlant", klantId)

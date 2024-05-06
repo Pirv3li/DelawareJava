@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 
 		@NamedQuery(name = "Bedrijf.getBedrijven", query = "SELECT b FROM Bedrijf b") })
 
-public class Bedrijf implements Serializable {
+public class Bedrijf implements Serializable, Interface_Bedrijf {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,109 +36,119 @@ public class Bedrijf implements Serializable {
 	private int idAdres;
 	private boolean isActief;
 
+	@Override
 	public int getIdBedrijf() {
 		return this.idBedrijf;
 	}
 
-	public void setIdBedrijf(int idBedrijf) {
+	private void setIdBedrijf(int idBedrijf) {
 		this.idBedrijf = idBedrijf;
 	}
 
+	@Override
 	public String getNaam() {
 		return this.naam;
 	}
 
-	public void setNaam(String naam) {
+	private void setNaam(String naam) {
 		this.naam = naam;
 	}
 
+	@Override
 	public String getLogo() {
 		return this.logo;
 	}
 
-	public void setLogo(String logo) {
+	private void setLogo(String logo) {
 		this.logo = logo;
 	}
 
+	@Override
 	public String getSector() {
 		return this.sector;
 	}
 
-	public void setSector(String sector) {
+	private void setSector(String sector) {
 		this.sector = sector;
 	}
 
+	@Override
 	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email) {
+	private void setEmail(String email) {
 		this.email = email;
 	}
 
+	@Override
 	public String getIban() {
 		return this.iban;
 	}
 
-	public void setIban(String iban) {
+	private void setIban(String iban) {
 		this.iban = iban;
 	}
 
+	@Override
 	public String getBtwNummer() {
 		return this.btwNummer;
 	}
 
-	public void setBtwNummer(String btwNummer) {
+	private void setBtwNummer(String btwNummer) {
 		this.btwNummer = btwNummer;
 	}
 
+	@Override
 	public int getTelefoonnummer() {
 		return this.telefoonnummer;
 	}
 
-	public void setTelefoonnummer(int telefoonnummer) {
+	private void setTelefoonnummer(int telefoonnummer) {
 		this.telefoonnummer = telefoonnummer;
 	}
 
+	@Override
 	public String getGebruikerSinds() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return formatter.format(this.gebruikerSinds);
 	}
 
-	public void setGebruikerSinds(Date gebruikerSinds) {
+	private void setGebruikerSinds(Date gebruikerSinds) {
 		this.gebruikerSinds = gebruikerSinds;
 	}
 
+	@Override
 	public boolean isIsActief() {
 		return this.isActief;
 	}
 
-	public void setIsActief(boolean isActief) {
+	private void setIsActief(boolean isActief) {
 		this.isActief = isActief;
 	}
 
+	@Override
 	public int getIdAdres() {
 		return idAdres;
 	}
 
-	public void setIdAdres(int idAdres) {
+	private void setIdAdres(int idAdres) {
 		this.idAdres = idAdres;
 	}
 
 	public Bedrijf(int idBedrijf, String naam, String logo, String sector, String email, String iban, String btwNummer,
 			int telefoonnummer, Date gebruikerSinds, int idAdres, boolean isActief) {
-		super();
-		this.idBedrijf = idBedrijf;
-		this.naam = naam;
-		this.logo = logo;
-		this.sector = sector;
-		this.email = email;
-		this.iban = iban;
-		this.btwNummer = btwNummer;
-		this.telefoonnummer = telefoonnummer;
-		this.gebruikerSinds = gebruikerSinds;
-		this.idAdres = idAdres;
-		this.isActief = isActief;
+		setIdBedrijf(idBedrijf);;
+		setNaam(naam);
+		setLogo(logo);
+		setSector(sector);
+		setEmail(email);
+		setIban(iban);
+		setBtwNummer(btwNummer);
+		setTelefoonnummer(telefoonnummer);
+		setGebruikerSinds(gebruikerSinds);
+		setIdAdres(idAdres);
+		setIsActief(isActief);
 	}
 
 	public Bedrijf() {

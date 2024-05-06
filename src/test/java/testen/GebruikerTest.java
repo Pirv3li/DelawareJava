@@ -3,6 +3,7 @@ package testen;
 import org.junit.jupiter.api.Test;
 
 import domein.Gebruiker;
+import domein.Interface_Gebruiker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,7 +12,7 @@ public class GebruikerTest {
     @Test
     public void testGetGebruikersnaam() {
         // Arrange
-        Gebruiker gebruiker = new Gebruiker("username", "password");
+        Interface_Gebruiker gebruiker = new Gebruiker("username", "password");
 
         // Act
         String username = gebruiker.getGebruikersnaam();

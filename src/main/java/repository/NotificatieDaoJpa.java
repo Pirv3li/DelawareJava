@@ -2,6 +2,7 @@ package repository;
 
 import domein.Notificatie;
 import domein.Bestelling;
+import domein.Interface_Bestelling;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
@@ -20,7 +21,7 @@ public class NotificatieDaoJpa extends GenericDaoJpa<Notificatie> {
         super(Notificatie.class);
     }
 
-    public void createNotification(String text, String onderwerp, boolean geopend, Date datum, Bestelling bestelling) {
+    public void createNotification(String text, String onderwerp, boolean geopend, Date datum, Interface_Bestelling bestelling) {
     	EntityTransaction transaction = em.getTransaction();
     	String idOrder = bestelling.getIdOrder();
     	try {

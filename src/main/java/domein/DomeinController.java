@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import repository.AdminDao;
 import repository.AdminDaoJpa;
 import repository.AdresDao;
@@ -55,13 +56,13 @@ public class DomeinController {
 	                     
 
 	public void uitloggen() {
-		this.leverancier = null;
-		this.admin = null;
+		setLeverancier(null);
+		setAdmin(null);
 	}
 
 	public boolean aanmeldenAdmin(String gebruikersnaam, String wachtwoord) {
 		boolean aangemeld = false;
-		this.admin = app.aanmeldenAdmin(gebruikersnaam, wachtwoord);
+		setAdmin(app.aanmeldenAdmin(gebruikersnaam, wachtwoord));
 		if (admin != null) {
 			aangemeld = true;
 		}
@@ -69,9 +70,10 @@ public class DomeinController {
 		return aangemeld;
 	};
 
+
 	public boolean aanmelden(String gebruikersnaam, String wachtwoord) {
 		boolean aangemeld = false;
-		this.leverancier = app.aanmelden(gebruikersnaam, wachtwoord);
+		setLeverancier(app.aanmelden(gebruikersnaam, wachtwoord));
 		if (leverancier != null) {
 			aangemeld = true;
 		}
@@ -79,58 +81,59 @@ public class DomeinController {
 		return aangemeld;
 	};
 	
-	public List<Klant> getKlantenByLeverancierId(){
+	public ObservableList<Interface_Klant> getKlantenByLeverancierId(){
 		return app.getKlantenByLeverancierId(leverancier.getIdLeverancier());
 	}
 	
-	public Klant getKlantById(int klantId) {
+	public Interface_Klant getKlantById(int klantId) {
 		return app.getKlantById(klantId);
 	}
 	
-	public List<Bestelling> findBestellingenByKlant(Klant klant) {
-		List<Bestelling> bestellingen = app.getBestellingenByKlantId(klant);
+	public ObservableList<Interface_Bestelling> findBestellingenByKlant(Interface_Klant klant) {
+		ObservableList<Interface_Bestelling> bestellingen = app.getBestellingenByKlantId(klant);
 		return bestellingen;
 	}
 	
-	public void setAantalBestellingen(Klant klant) {
+	public void setAantalBestellingen(Interface_Klant klant) {
 		app.setAantalBestellingenByKlant(klant);
 	}
 	
-	public List<Bestelling> findBestellingenByLeverancier() {
-		List<Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);
+	public ObservableList<Interface_Bestelling> findBestellingenByLeverancier() {
+		ObservableList<Interface_Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);
 		return bestellingen;
 	}
 
-	public List<BestellingDetails> getBestellingDetails(Bestelling bestelling) {
-		List<BestellingDetails> bestellingDetails = app.getBestellingDetails(bestelling);
+	public ObservableList<Interface_BestellingDetails> getBestellingDetails(Interface_Bestelling bestelling) {
+		ObservableList<Interface_BestellingDetails> bestellingDetails = app.getBestellingDetails(bestelling);
 		return bestellingDetails;
 	}
 
-	public Product getProductByProductId(BestellingDetails bestellingDetail) {
-		Product product = app.getProductByProductId(bestellingDetail.getIdProduct());
+	public Interface_Product getProductByProductId(Interface_BestellingDetails bestellingDetail) {
+		Interface_Product product = app.getProductByProductId(bestellingDetail.getIdProduct());
 		return product;
 	}
 
-	public List<Bedrijf> getBedrijven() {
-		List<Bedrijf> bedrijven = app.getBedrijven();
+	public ObservableList<Interface_Bedrijf> getBedrijven() {
+		ObservableList<Interface_Bedrijf> bedrijven = app.getBedrijven();
 		return bedrijven;
 	}
-
-	public Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
-		Leverancier lever = app.getLeverancierGegevensByIdBedrijf(idBedrijf);
-		return lever;
-	}
 	
-	public Bedrijf getBedrijfByKlant(Klant klant) {
+	public Interface_Bedrijf getBedrijfByKlant(Interface_Klant klant) {
 		return app.getBedrijfByKlantId(klant.getIdKlant());
 	}
 
-	public Adres getAdresByIdAdres(int idAdres) {
-		Adres adres = app.getAdresByIdAdres(idAdres);
+	public Interface_Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
+		Interface_Leverancier lever = app.getLeverancierGegevensByIdBedrijf(idBedrijf);
+		return lever;
+	}
+	
+
+	public Interface_Adres getAdresByIdAdres(int idAdres) {
+		Interface_Adres adres = app.getAdresByIdAdres(idAdres);
 		return adres;
 	}
 	
-	public void maakNotificatie(Bestelling bestelling) {
+	public void maakNotificatie(Interface_Bestelling bestelling) {
 		NotificatieDaoJpa notificatieRepo = new NotificatieDaoJpa();
 		
 		notificatieRepo.createNotification("Gelieve te betalen!", "Betalingsherinnering", false, new Date(), bestelling);
@@ -148,19 +151,23 @@ public class DomeinController {
 		this.app = app;
 	}
 
-	public Leverancier getLeverancier() {
+	public Interface_Leverancier getLeverancier() {
 		return leverancier;
 	}
 
 	public void setLeverancier(Leverancier leverancier) {
 		this.leverancier = leverancier;
 	}
+	
+	private void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
 
 	public Admin getAdmin() {
 		return admin;
 	}
 
-	public void updateLeverancier(Leverancier lever) {
+	public void updateLeverancier(Interface_Leverancier lever) {
 		app.updateLeverancier(lever);
 	}
 }

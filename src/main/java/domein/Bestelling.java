@@ -17,7 +17,7 @@ import jakarta.persistence.NamedQueries;
 		@NamedQuery(name = "Bestelling.getBestellingenByLeverancierId", query = "select b FROM Bestelling b where b.idLeverancier = :idLeverancier"),
 		@NamedQuery(name = "Bestelling.getBestellingenByKlantId", query = "select b FROM Bestelling b where b.idKlant = :idKlant"),
 		@NamedQuery(name = "Bestelling.veranderBetalingStatus", query = "UPDATE Bestelling b Set  b.betalingStatus = :betalingStatus where b.idOrder = :idOrder"),})
-public class Bestelling implements Serializable {
+public class Bestelling implements Serializable, Interface_Bestelling {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,61 +43,69 @@ public class Bestelling implements Serializable {
 		setOrderStatus(orderStatus);
 		setBetalingStatus(betalingStatus);
 		setTotaalPrijs(totaalPrijs);
+		setIdAdres(idAdres);
 	}
 
 	public Bestelling() {
 
 	}
 
+	@Override
 	public String getIdOrder() {
 		return this.idOrder;
 	}
 
-	public void setIdOrder(String idOrder) {
+	private void setIdOrder(String idOrder) {
 		this.idOrder = idOrder;
 	}
 
+	@Override
 	public int getIdKlant() {
 		return this.idKlant;
 	}
 
-	public void setIdKlant(int idKlant) {
+	private void setIdKlant(int idKlant) {
 		this.idKlant = idKlant;
 	}
 
+	@Override
 	public int getIdLeverancier() {
 		return this.idLeverancier;
 	}
 
-	public void setIdLeverancier(int idLeverancier) {
+	private void setIdLeverancier(int idLeverancier) {
 		this.idLeverancier = idLeverancier;
 	}
 
+	@Override
 	public int getIdAdres() {
 		return this.idAdres;
 	}
 
-	public void setIdAdres(int idAdres) {
+	private void setIdAdres(int idAdres) {
 		this.idAdres = idAdres;
 	}
 
+	@Override
 	public String getDatum() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return formatter.format(this.datum);
 	}
 
-	public void setDatum(Date datum) {
+	private void setDatum(Date datum) {
 		this.datum = datum;
 	}
 
+	@Override
 	public String getOrderStatus() {
 		return this.orderStatus;
 	}
 
-	public void setOrderStatus(String orderStatus) {
+	private void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 
+	@Override
 	public String getBetalingStatus() {
 		String betalingStatus;
 		if (this.betalingStatus) {
@@ -108,15 +116,16 @@ public class Bestelling implements Serializable {
 		return betalingStatus;
 	}
 
-	public void setBetalingStatus(boolean betalingStatus) {
+	private void setBetalingStatus(boolean betalingStatus) {
 		this.betalingStatus = betalingStatus;
 	}
 
+	@Override
 	public double getTotaalPrijs() {
 		return this.totaalPrijs;
 	}
 
-	public void setTotaalPrijs(double totaalPrijs) {
+	private void setTotaalPrijs(double totaalPrijs) {
 		this.totaalPrijs = totaalPrijs;
 	}
 

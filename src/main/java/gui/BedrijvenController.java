@@ -1,9 +1,7 @@
 package gui;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,17 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
-import java.io.IOException;
-import java.util.List;
-import domein.Adres;
-import domein.Bedrijf;
 import domein.DomeinController;
-import domein.Leverancier;
+import domein.Interface_Adres;
+import domein.Interface_Bedrijf;
+import domein.Interface_Leverancier;
 
 public class BedrijvenController {
 
@@ -72,13 +66,13 @@ public class BedrijvenController {
     private Label gebruikersnaamLeverancier;
 
     @FXML
-    private TableView<Bedrijf> bedrijfTable;
+    private TableView<Interface_Bedrijf> bedrijfTable;
 
     @FXML
-    private TableColumn<Bedrijf, String> naamColumn;
+    private TableColumn<Interface_Bedrijf, String> naamColumn;
 
     @FXML
-    private TableColumn<Bedrijf, String> isActiefColumn;
+    private TableColumn<Interface_Bedrijf, String> isActiefColumn;
 
     @FXML
     private Button switchBedrijf;
@@ -187,13 +181,13 @@ public class BedrijvenController {
         }
     }
 
-    private ObservableList<Bedrijf> getBedrijven() {
-        List<Bedrijf> bedrijven = controller.getBedrijven();
-        return FXCollections.observableArrayList(bedrijven);
+    private ObservableList<Interface_Bedrijf> getBedrijven() {
+        ObservableList<Interface_Bedrijf> bedrijven = controller.getBedrijven();
+        return bedrijven;
     }
 
-    private void vulBedrijfDetailsTable(Bedrijf bedrijf) {
-        Adres adres = controller.getAdresByIdAdres(bedrijf.getIdAdres());
+    private void vulBedrijfDetailsTable(Interface_Bedrijf bedrijf) {
+        Interface_Adres adres = controller.getAdresByIdAdres(bedrijf.getIdAdres());
 
         if (bedrijf != null) {
             String url = bedrijf.getLogo();
@@ -215,8 +209,8 @@ public class BedrijvenController {
         }
     }
 
-    public void setupLeverancierInformatie(Bedrijf bedrijf) {
-        Leverancier lever = controller.getLeverancierGegevensByIdBedrijf(bedrijf.getIdBedrijf());
+    public void setupLeverancierInformatie(Interface_Bedrijf bedrijf) {
+        Interface_Leverancier lever = controller.getLeverancierGegevensByIdBedrijf(bedrijf.getIdBedrijf());
         String leverancierNummer = lever.getLeveranciernummer();
         String gebruikersnaam = lever.getGebruikersnaam();
         String email = lever.getEmail();

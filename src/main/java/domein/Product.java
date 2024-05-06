@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Table(name = "product")
 @NamedQueries({
 		@NamedQuery(name = "Product.getProductByProductId", query = "select p FROM Product p where p.idProduct = :idProduct") })
-public class Product implements Serializable {
+public class Product implements Serializable, Interface_Product {
 
 	private static final long serialVersionUID = 1L;
 
@@ -29,6 +29,7 @@ public class Product implements Serializable {
 	private String beschrijving;
 	private String categorie;
 
+	@Override
 	public int getIdProduct() {
 		return this.idProduct;
 	}
@@ -37,71 +38,79 @@ public class Product implements Serializable {
 
 	}
 
-	public void setIdProduct(int idProduct) {
+	private void setIdProduct(int idProduct) {
 		this.idProduct = idProduct;
 	}
 
+	@Override
 	public int getIdLeverancier() {
 		return this.idLeverancier;
 	}
 
-	public void setIdLeverancier(int idLeverancier) {
+	private void setIdLeverancier(int idLeverancier) {
 		this.idLeverancier = idLeverancier;
 	}
 
+	@Override
 	public String getNaam() {
 		return this.naam;
 	}
 
-	public void setNaam(String naam) {
+	private void setNaam(String naam) {
 		this.naam = naam;
 	}
 
+	@Override
 	public double getEenheidsprijs() {
 		return this.eenheidsprijs;
 	}
 
-	public void setEenheidsprijs(double eenheidsprijs) {
+	private void setEenheidsprijs(double eenheidsprijs) {
 		this.eenheidsprijs = eenheidsprijs;
 	}
 
+	@Override
 	public double getBtwTarief() {
 		return this.btwTarief;
 	}
 
-	public void setBtwTarief(int btwTarief) {
+	private void setBtwTarief(int btwTarief) {
 		this.btwTarief = btwTarief;
 	}
 
+	@Override
 	public String getFoto() {
 		return this.foto;
 	}
 
-	public void setFoto(String foto) {
+	private void setFoto(String foto) {
 		this.foto = foto;
 	}
 
+	@Override
 	public int getAantal() {
 		return this.aantal;
 	}
 
-	public void setAantal(int aantal) {
+	private void setAantal(int aantal) {
 		this.aantal = aantal;
 	}
 
+	@Override
 	public String getBeschrijving() {
 		return this.beschrijving;
 	}
 
-	public void setBeschrijving(String beschrijving) {
+	private void setBeschrijving(String beschrijving) {
 		this.beschrijving = beschrijving;
 	}
 
+	@Override
 	public String getCategorie() {
 		return this.categorie;
 	}
 
-	public void setCategorie(String categorie) {
+	private void setCategorie(String categorie) {
 		this.categorie = categorie;
 	}
 
@@ -119,8 +128,15 @@ public class Product implements Serializable {
 	 */
 	public Product(int idProduct, int idLeverancier, String naam, double eenheidsprijs, int btwTarief, String foto,
 			int aantal, String beschrijving, String categorie) {
-		// TODO - implement Product.Product
-		throw new UnsupportedOperationException();
+		setIdProduct(idProduct);
+		setIdLeverancier(idLeverancier);
+		setAantal(aantal);
+		setBeschrijving(beschrijving);
+		setBtwTarief(btwTarief);
+		setEenheidsprijs(eenheidsprijs);
+		setFoto(foto);
+		setCategorie(categorie);
+		setNaam(naam);
 	}
 
 }

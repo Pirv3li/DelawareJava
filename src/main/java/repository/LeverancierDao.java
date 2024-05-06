@@ -1,5 +1,6 @@
 package repository;
 
+import domein.Interface_Leverancier;
 import domein.Leverancier;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -9,5 +10,5 @@ public interface LeverancierDao extends GenericDao<Leverancier>{
 
 	public Leverancier getLeverancierByIdBedrijf(int idBedrijf) throws EntityNotFoundException;
 
-	public void updateLeverancier(Leverancier lever) throws EntityNotFoundException;  
+	public void updateLeverancier(Interface_Leverancier lever) throws EntityNotFoundException;  
 }

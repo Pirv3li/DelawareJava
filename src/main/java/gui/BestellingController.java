@@ -1,12 +1,10 @@
 package gui;
 
-import domein.Bestelling;
-import domein.BestellingDetails;
 import domein.DomeinController;
-import domein.Notificatie;
-import domein.Product;
+import domein.Interface_Bestelling;
+import domein.Interface_BestellingDetails;
+import domein.Interface_Product;
 import domein.ProductEnDetailsGecombineerd;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -40,7 +37,7 @@ public class BestellingController {
 	private Stage primaryStage;
 
 	@FXML
-	private TableView<Bestelling> bestellingTable;
+	private TableView<Interface_Bestelling> bestellingTable;
 
 	@FXML
 	private TableView<ProductEnDetailsGecombineerd> bestellingDetailsTable;
@@ -49,31 +46,31 @@ public class BestellingController {
 	private Label totaalProductenLabel;
 
 	@FXML
-	private TableColumn<Bestelling, String> orderidColumn;
+	private TableColumn<Interface_Bestelling, String> orderidColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> datumColumn;
+	private TableColumn<Interface_Bestelling, String> datumColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> orderstatusColumn;
+	private TableColumn<Interface_Bestelling, String> orderstatusColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> betalingstatusColumn;
+	private TableColumn<Interface_Bestelling, String> betalingstatusColumn;
 
 	@FXML
-	private TableColumn<BestellingDetails, String> productNaamColumn;
+	private TableColumn<Interface_BestellingDetails, String> productNaamColumn;
 
 	@FXML
-	private TableColumn<BestellingDetails, Double> stukprijsColumn;
+	private TableColumn<Interface_BestellingDetails, Double> stukprijsColumn;
 
 	@FXML
-	private TableColumn<BestellingDetails, Double> btwPrijsColumn;
+	private TableColumn<Interface_BestellingDetails, Double> btwPrijsColumn;
 
 	@FXML
-	private TableColumn<BestellingDetails, Integer> aantalColumn;
+	private TableColumn<Interface_BestellingDetails, Integer> aantalColumn;
 
 	@FXML
-	private TableColumn<BestellingDetails, Double> totaalPrijsPerProductColumn;
+	private TableColumn<Interface_BestellingDetails, Double> totaalPrijsPerProductColumn;
 
 	@FXML
 	private ImageView delawareLogo;
@@ -150,7 +147,7 @@ public class BestellingController {
 		});
 
 		betalingstatusColumn.setCellFactory(column -> {
-			return new TableCell<Bestelling, String>() {
+			return new TableCell<Interface_Bestelling, String>() {
 				@Override
 				protected void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
@@ -170,7 +167,7 @@ public class BestellingController {
 
 	}
 
-	private void isbetaald(Bestelling newSelection) {
+	private void isbetaald(Interface_Bestelling newSelection) {
 		if (newSelection.getBetalingStatus().equals("Betaald")) {
 			betalingsherinnering.setVisible(false);
 		} else {
@@ -178,22 +175,22 @@ public class BestellingController {
 		}
 	}
 
-	private ObservableList<Bestelling> getBestellingen() {
-		List<Bestelling> bestellingen = controller.findBestellingenByLeverancier();
-		return FXCollections.observableArrayList(bestellingen);
+	private ObservableList<Interface_Bestelling> getBestellingen() {
+		ObservableList<Interface_Bestelling> bestellingen = controller.findBestellingenByLeverancier();
+		return bestellingen;
 	}
 
 	public void setController(DomeinController controller) {
 		this.controller = controller;
 	}
 
-	private void vulBestellingDetailsTable(Bestelling bestelling) {
+	private void vulBestellingDetailsTable(Interface_Bestelling bestelling) {
 		if (bestelling != null) {
-			List<BestellingDetails> details = controller.getBestellingDetails(bestelling);
+			ObservableList<Interface_BestellingDetails> details = controller.getBestellingDetails(bestelling);
 			List<ProductEnDetailsGecombineerd> gecombineerdeData = new ArrayList<>();
 
-			for (BestellingDetails bestellingDetails : details) {
-				Product product = controller.getProductByProductId(bestellingDetails);
+			for (Interface_BestellingDetails bestellingDetails : details) {
+				Interface_Product product = controller.getProductByProductId(bestellingDetails);
 				gecombineerdeData.add(new ProductEnDetailsGecombineerd(product.getNaam(),
 						bestellingDetails.getEenheidsPrijs(), ((product.getBtwTarief()/100) * product.getEenheidsprijs() ), product.getAantal()));
 
@@ -207,7 +204,7 @@ public class BestellingController {
 		}
 	}
 
-	public EventHandler<ActionEvent> stuurBetalingsherinnering(Bestelling bestelling) {
+	public EventHandler<ActionEvent> stuurBetalingsherinnering(Interface_Bestelling bestelling) {
 		return event -> {
 			controller.maakNotificatie(bestelling);
 			Alert alert = new Alert(AlertType.INFORMATION);

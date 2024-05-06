@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
         @NamedQuery(name = "Leverancier.getLeverancierByGebruikersnaam", query = "SELECT l FROM Leverancier l WHERE l.gebruikersnaam = :gebruikersnaam"),
         @NamedQuery(name = "Leverancier.getLeverancierByIdBedrijf", query = "SELECT l from Leverancier l where l.bedrijf.idBedrijf = :idBedrijf"),
         @NamedQuery(name = "Leverancier.updateLeverancierBetaalMethodes", query = "UPDATE Leverancier l SET l.betaalMethodes = :betaalMethodes WHERE l.idLeverancier = :idLeverancier") })
-public class Leverancier extends Gebruiker implements Serializable {
+public class Leverancier extends Gebruiker implements Serializable, Interface_Leverancier {
 
     private static final long serialVersionUID = 1L;
     
@@ -44,67 +44,76 @@ public class Leverancier extends Gebruiker implements Serializable {
             String leveranciernummer, String betaalMethodes,
             String roles, int idLeverancier, String email) {
         super(gebruikersnaam, password_Hash);
-        this.leveranciernummer = leveranciernummer;
-        this.betaalMethodes = betaalMethodes;
-        this.idLeverancier = idLeverancier;
-        this.email = email;
+        setLeveranciernummer(leveranciernummer);
+        setBetaalMethodes(betaalMethodes);
+        setIdLeverancier(idLeverancier);
+        setEmail(email);
     }
 
     public Leverancier(String gebruikersnaam, String password_Hash,
             String leveranciernummer, String betaalMethodes,
             String roles, int idLeverancier) {
         super(gebruikersnaam, password_Hash);
-        this.leveranciernummer = leveranciernummer;
-        this.betaalMethodes = betaalMethodes;
-        this.idLeverancier = idLeverancier;
+        setLeveranciernummer(leveranciernummer);
+        setBetaalMethodes(betaalMethodes);
+        setIdLeverancier(idLeverancier);
     }
 
     public Leverancier(String gebruikersnaam, String password_Hash,
             boolean isActief, String leveranciernummer,
             String roles, int idLeverancier) {
         super(gebruikersnaam, password_Hash);
-        this.leveranciernummer = leveranciernummer;
-        this.idLeverancier = idLeverancier;
+        setLeveranciernummer(leveranciernummer);
+        setIdLeverancier(idLeverancier);
     }
 
     public Leverancier(String gebruikersnaam, String password_Hash,
             String roles, int idLeverancier) {
         super(gebruikersnaam, password_Hash);
-        this.idLeverancier = idLeverancier;
+        setLeveranciernummer(leveranciernummer);
     }
 
-    public int getIdLeverancier() {
+    @Override
+	public int getIdLeverancier() {
         return idLeverancier;
     }
 
-    public void setIdLeverancier(int idLeverancier) {
+    private void setIdLeverancier(int idLeverancier) {
         this.idLeverancier = idLeverancier;
     }
 
-    public String getLeveranciernummer() {
+    @Override
+	public String getLeveranciernummer() {
         return leveranciernummer;
     }
 
-    public void setLeveranciernummer(String leveranciernummer) {
+    private void setLeveranciernummer(String leveranciernummer) {
         this.leveranciernummer = leveranciernummer;
     }
 
-    public String getBetaalMethodes() {
+    @Override
+	public String getBetaalMethodes() {
         if (betaalMethodes != null) {
             return String.join(", ", betaalMethodes);
         } else {
             return "";
         }
     }
+    
+    private void setEmail(String email) {
+    	this.email = email;
+    }
 
     public void setBetaalMethodes(String betaalMethodes) {
         this.betaalMethodes = betaalMethodes;
     }
     
+	@Override
 	public Bedrijf getBedrijf() {
 		return bedrijf;
 	}
 
+	@Override
 	public String getEmail() {
         return this.email;
     }

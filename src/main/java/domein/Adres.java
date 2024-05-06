@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "Adres.getAdresById", query = "select  a FROM Adres a where a.idAdres = :idAdres") })
 
-public class Adres implements Serializable {
+public class Adres implements Serializable, Interface_Adres {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -30,62 +30,68 @@ public class Adres implements Serializable {
 
 	public Adres(int idAdres, String straat, int nummer, String stad, int postcode, Date laatstGebruikt) {
 		super();
-		this.idAdres = idAdres;
-		this.straat = straat;
-		this.nummer = nummer;
-		this.stad = stad;
-		this.postcode = postcode;
-		this.laatstGebruikt = laatstGebruikt;
+		setIdAdres(idAdres);
+		setStraat(straat);
+		setNummer(nummer);
+		setStad(stad);
+		setPostcode(postcode);
+		setLaatstGebruikt(laatstGebruikt);
 	}
 
 	public Adres() {
 		super();
 	}
 
+	@Override
 	public int getIdAdres() {
 		return idAdres;
 	}
 
-	public void setIdAdres(int idAdres) {
+	private void setIdAdres(int idAdres) {
 		this.idAdres = idAdres;
 	}
 
-	public void setStraat(String straat) {
+	private void setStraat(String straat) {
 		this.straat = straat;
 	}
 
+	@Override
 	public int getNummer() {
 		return nummer;
 	}
 
-	public void setNummer(int nummer) {
+	private void setNummer(int nummer) {
 		this.nummer = nummer;
 	}
 
-	public void setStad(String stad) {
+	private void setStad(String stad) {
 		this.stad = stad;
 	}
 
+	@Override
 	public int getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(int postcode) {
+	private void setPostcode(int postcode) {
 		this.postcode = postcode;
 	}
 
+	@Override
 	public Date getLaatstGebruikt() {
 		return laatstGebruikt;
 	}
 
-	public void setLaatstGebruikt(Date laatstGebruikt) {
+	private void setLaatstGebruikt(Date laatstGebruikt) {
 		this.laatstGebruikt = laatstGebruikt;
 	}
 
+	@Override
 	public String getStraat() {
 		return straat + " " + nummer;
 	}
 
+	@Override
 	public String getStad() {
 		return stad + ", " + postcode;
 	}

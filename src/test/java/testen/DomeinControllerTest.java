@@ -9,8 +9,16 @@ import domein.Bedrijf;
 import domein.Bestelling;
 import domein.BestellingDetails;
 import domein.DomeinController;
+import domein.Interface_Adres;
+import domein.Interface_Bedrijf;
+import domein.Interface_Bestelling;
+import domein.Interface_BestellingDetails;
+import domein.Interface_Leverancier;
+import domein.Interface_Product;
 import domein.Leverancier;
 import domein.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -63,14 +71,14 @@ public class DomeinControllerTest {
     public void testFindbestellingenByLeverancier() {
         B2B_Portal mockApp = mock(B2B_Portal.class);
         Leverancier mockLeverancier = mock(Leverancier.class);
-        List<Bestelling> mockBestellingen = new ArrayList<>();
+        ObservableList<Interface_Bestelling> mockBestellingen = FXCollections.observableArrayList();
         when(mockApp.getBestellingenByLeverancierId(mockLeverancier)).thenReturn(mockBestellingen);
 
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
         controller.setLeverancier(mockLeverancier);
 
-        List<Bestelling> bestellingen = controller.findBestellingenByLeverancier();
+        List<Interface_Bestelling> bestellingen = controller.findBestellingenByLeverancier();
 
         assertEquals(mockBestellingen, bestellingen);
     }
@@ -78,14 +86,14 @@ public class DomeinControllerTest {
     @Test
     public void testGetBestellingDetails() {
         B2B_Portal mockApp = mock(B2B_Portal.class);
-        Bestelling mockBestelling = mock(Bestelling.class);
-        List<BestellingDetails> mockBestellingDetails = new ArrayList<>();
+        Interface_Bestelling mockBestelling = mock(Bestelling.class);
+        ObservableList<Interface_BestellingDetails> mockBestellingDetails = FXCollections.observableArrayList();
         when(mockApp.getBestellingDetails(mockBestelling)).thenReturn(mockBestellingDetails);
 
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
 
-        List<BestellingDetails> bestellingDetails = controller.getBestellingDetails(mockBestelling);
+        List<Interface_BestellingDetails> bestellingDetails = controller.getBestellingDetails(mockBestelling);
 
         assertEquals(mockBestellingDetails, bestellingDetails);
     }
@@ -93,14 +101,14 @@ public class DomeinControllerTest {
     @Test
     public void testGetProductByProductId() {
         B2B_Portal mockApp = mock(B2B_Portal.class);
-        BestellingDetails mockBestellingDetail = mock(BestellingDetails.class);
+        Interface_BestellingDetails mockBestellingDetail = mock(BestellingDetails.class);
         Product mockProduct = mock(Product.class);
         when(mockApp.getProductByProductId(mockBestellingDetail.getIdProduct())).thenReturn(mockProduct);
 
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
 
-        Product product = controller.getProductByProductId(mockBestellingDetail);
+        Interface_Product product = controller.getProductByProductId(mockBestellingDetail);
 
         assertEquals(mockProduct, product);
     }
@@ -108,13 +116,13 @@ public class DomeinControllerTest {
     @Test
     public void testGetBedrijven() {
         B2B_Portal mockApp = mock(B2B_Portal.class);
-        List<Bedrijf> mockBedrijven = new ArrayList<>();
+        ObservableList<Interface_Bedrijf> mockBedrijven = FXCollections.observableArrayList();
         when(mockApp.getBedrijven()).thenReturn(mockBedrijven);
 
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
 
-        List<Bedrijf> bedrijven = controller.getBedrijven();
+        List<Interface_Bedrijf> bedrijven = controller.getBedrijven();
 
         assertEquals(mockBedrijven, bedrijven);
     }
@@ -128,7 +136,7 @@ public class DomeinControllerTest {
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
 
-        Leverancier leverancier = controller.getLeverancierGegevensByIdBedrijf(1);
+        Interface_Leverancier leverancier = controller.getLeverancierGegevensByIdBedrijf(1);
 
         assertEquals(mockLeverancier, leverancier);
     }
@@ -142,7 +150,7 @@ public class DomeinControllerTest {
         DomeinController controller = new DomeinController();
         controller.setApp(mockApp);
 
-        Adres adres = controller.getAdresByIdAdres(1);
+        Interface_Adres adres = controller.getAdresByIdAdres(1);
 
         assertEquals(mockAdres, adres);
     }

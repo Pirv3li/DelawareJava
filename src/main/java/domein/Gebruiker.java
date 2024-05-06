@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Gebruiker implements Serializable {
+public class Gebruiker implements Serializable, Interface_Gebruiker {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,6 +22,7 @@ public class Gebruiker implements Serializable {
 	public Gebruiker() {
 	}
 
+	@Override
 	public String getGebruikersnaam() {
 		return gebruikersnaam;
 	}

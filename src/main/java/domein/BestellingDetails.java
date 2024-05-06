@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 		@NamedQuery(name = "BestellingDetails.getBestellingDetailsByOrderId", query = "select b FROM BestellingDetails b where b.idOrder = :idOrder")
 })
 
-public class BestellingDetails implements Serializable {
+public class BestellingDetails implements Serializable, Interface_BestellingDetails {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,10 +42,12 @@ public class BestellingDetails implements Serializable {
 
 	}
 
+	@Override
 	public double getEenheidsPrijs() {
 		return eenheidsPrijs;
 	}
 
+	@Override
 	public double getTotaalPrijs() {
 
 		return (eenheidsPrijs * aantal) + 0;
@@ -53,39 +55,43 @@ public class BestellingDetails implements Serializable {
 		// 0 MOET PRODUCT BTW WORDEN
 	}
 
-	public void setEenheidsPrijs(double eenheidsPrijs) {
+	private void setEenheidsPrijs(double eenheidsPrijs) {
 		this.eenheidsPrijs = eenheidsPrijs;
 	}
 
+	@Override
 	public int getIdOrderDetails() {
 		return this.idOrderDetails;
 	}
 
-	public void setIdOrderDetails(int idOrderDetails) {
+	private void setIdOrderDetails(int idOrderDetails) {
 		this.idOrderDetails = idOrderDetails;
 	}
 
+	@Override
 	public int getIdProduct() {
 		return this.idProduct;
 	}
 
-	public void setIdProduct(int idProduct) {
+	private void setIdProduct(int idProduct) {
 		this.idProduct = idProduct;
 	}
 
+	@Override
 	public int getAantal() {
 		return this.aantal;
 	}
 
-	public void setAantal(int aantal) {
+	private void setAantal(int aantal) {
 		this.aantal = aantal;
 	}
 
+	@Override
 	public String getIdOrder() {
 		return idOrder;
 	}
 
-	public void setIdOrder(String idOrder) {
+	private void setIdOrder(String idOrder) {
 		this.idOrder = idOrder;
 	}
 

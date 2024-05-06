@@ -1,5 +1,6 @@
 package repository;
 
+import domein.Interface_Leverancier;
 import domein.Leverancier;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.EntityTransaction;
@@ -31,7 +32,7 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 		}
 	}
 	
-	public void updateLeverancier(Leverancier lever) throws EntityNotFoundException {
+	public void updateLeverancier(Interface_Leverancier lever) throws EntityNotFoundException {
 	    EntityTransaction transaction = em.getTransaction();
 	    
 	    try {

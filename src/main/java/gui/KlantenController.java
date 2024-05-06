@@ -1,6 +1,5 @@
 package gui;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,20 +17,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import domein.Adres;
 import domein.Klant;
-import domein.Bedrijf;
-import domein.Bestelling;
 import domein.DomeinController;
-import domein.Leverancier;
+import domein.Interface_Adres;
+import domein.Interface_Bedrijf;
+import domein.Interface_Bestelling;
+import domein.Interface_Klant;
 
 public class KlantenController {
 
@@ -93,34 +89,34 @@ public class KlantenController {
 	private FontAwesomeIconView LIST;
 
 	@FXML
-	private TableView<Klant> KlantenTable;
+	private TableView<Interface_Klant> KlantenTable;
 
 	@FXML
-	private TableView<Bestelling> bestellingenView;
+	private TableView<Interface_Bestelling> bestellingenView;
 
 	@FXML
-	private TableColumn<Klant, String> klantNaamColumn;
+	private TableColumn<Interface_Klant, String> klantNaamColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> aantalBestellingenColumn;
+	private TableColumn<Interface_Bestelling, String> aantalBestellingenColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> orderIDColumn;
+	private TableColumn<Interface_Bestelling, String> orderIDColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> datumColumn;
+	private TableColumn<Interface_Bestelling, String> datumColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> bedragColumn;
+	private TableColumn<Interface_Bestelling, String> bedragColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> orderStatusColumn;
+	private TableColumn<Interface_Bestelling, String> orderStatusColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> betalingStatusColumn;
+	private TableColumn<Interface_Bestelling, String> betalingStatusColumn;
 
 	@FXML
-	private TableColumn<Bestelling, String> totaleBestellingen;
+	private TableColumn<Interface_Bestelling, String> totaleBestellingen;
 
 	@FXML
 	private GridPane KlantView;
@@ -140,7 +136,7 @@ public class KlantenController {
 
 	
 	private ObservableList<Klant> klantenList = FXCollections.observableArrayList();
-	private ObservableList<Bestelling> bestellingenList = FXCollections.observableArrayList();
+	private ObservableList<Interface_Bestelling> bestellingenList = FXCollections.observableArrayList();
 	
 	public static String convertToList(String input) {
 		// Remove brackets and split by comma
@@ -208,7 +204,7 @@ public class KlantenController {
 
 		bestellingenView.setOnMouseClicked(event -> {
 			if (bestellingenView.getSelectionModel().getSelectedItem() != null) {
-				Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
+				Interface_Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
 				lblBetalingStatus.setVisible(true);
 				betalingStatus.setVisible(true);
 			}
@@ -218,11 +214,10 @@ public class KlantenController {
 		
 		betalingStatus.setOnAction(event -> {
 			if (bestellingenView.getSelectionModel().getSelectedItem() != null) {
-				Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
+				Interface_Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
 				String idOrder = selectedOrder.getIdOrder();
 
 				boolean hulp = false;
-				System.out.println(selectedOrder.getBetalingStatus());
 				if (selectedOrder.getBetalingStatus() == "Betaald") {
 					hulp = true;
 				}
@@ -269,12 +264,12 @@ public class KlantenController {
 		}
 	}
 
-	private ObservableList<Klant> getKlanten() {
-		List<Klant> klanten = controller.getKlantenByLeverancierId();
-		for (Klant klant : klanten) {
+	private ObservableList<Interface_Klant> getKlanten() {
+		ObservableList<Interface_Klant> klanten = controller.getKlantenByLeverancierId();
+		for (Interface_Klant klant : klanten) {
 			controller.setAantalBestellingen(klant);
 		}
-		return FXCollections.observableArrayList(klanten);
+		return klanten;
 	}
 
 //	private void isbetaald(Bestelling newSelection) {
@@ -287,10 +282,10 @@ public class KlantenController {
 //		}
 //	}
 
-	private void vulKlantDetailsTable(Klant klant) {
-		Bedrijf bedrijf = controller.getBedrijfByKlant(klant);
+	private void vulKlantDetailsTable(Interface_Klant klant) {
+		Interface_Bedrijf bedrijf = controller.getBedrijfByKlant(klant);
 		String telNr = String.valueOf(bedrijf.getTelefoonnummer());
-		Adres adres = controller.getAdresByIdAdres(bedrijf.getIdAdres());
+		Interface_Adres adres = controller.getAdresByIdAdres(bedrijf.getIdAdres());
 
 		if (klant != null) {
 			String url = bedrijf.getLogo();
@@ -306,7 +301,7 @@ public class KlantenController {
 		}
 	}
 
-	public void setupKlantBestellingen(Klant klant) {
+	public void setupKlantBestellingen(Interface_Klant klant) {
 		orderIDColumn.setCellValueFactory(new PropertyValueFactory<>("IdOrder"));
 		datumColumn.setCellValueFactory(new PropertyValueFactory<>("Datum"));
 		bedragColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
@@ -316,9 +311,9 @@ public class KlantenController {
 		bestellingenView.setItems(getBestellingen(klant));
 	}
 
-	private ObservableList<Bestelling> getBestellingen(Klant klant) {
-		List<Bestelling> bestellingen = controller.findBestellingenByKlant(klant);
-		return FXCollections.observableArrayList(bestellingen);
+	private ObservableList<Interface_Bestelling> getBestellingen(Interface_Klant klant) {
+		ObservableList<Interface_Bestelling> bestellingen = controller.findBestellingenByKlant(klant);
+		return bestellingen;
 	}
 
 	@FXML

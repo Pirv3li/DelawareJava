@@ -19,7 +19,7 @@ import jakarta.persistence.Transient;
     @NamedQuery(name = "Klant.getKlantenByLeverancierID", query = "SELECT DISTINCT k FROM Klant k JOIN Bestelling o ON k.idKlant = o.klantId WHERE o.idLeverancier = :idLeverancier"),
     @NamedQuery(name = "Klant.getKlantById", query = "SELECT k FROM Klant k WHERE k.idKlant = :idKlant")
 })
-public class Klant implements Serializable {
+public class Klant implements Serializable, Interface_Klant {
 
     private static final long serialVersionUID = 1L;
     
@@ -43,70 +43,75 @@ public class Klant implements Serializable {
     }
 
     public Klant(String gebruikersnaam, String klantnummer, String[] betaalMethodes, String email, int idBedrijf) {
-        this.gebruikersnaam = gebruikersnaam;
-        this.klantnummer = klantnummer;
-        this.email = email;
-        this.idBedrijf = idBedrijf;
+        setGebruikersnaam(gebruikersnaam);
+        setKlantnummer(klantnummer);
+        setEmail(email);
+        setIdBedrijf(idBedrijf);
     }
 
     public Klant(String gebruikersnaam, String klantnummer, String[] betaalMethodes, String email) {
-        this.gebruikersnaam = gebruikersnaam;
-        this.klantnummer = klantnummer;
-        this.email = email;
+        setGebruikersnaam(gebruikersnaam);
+        setKlantnummer(klantnummer);
+        setEmail(email);
     }
 
-    public int getIdKlant() {
+    @Override
+	public int getIdKlant() {
         return idKlant;
     }
 
-    public void setIdKlant(int idKlant) {
-        this.idKlant = idKlant;
-    }
-
-    public String getGebruikersnaam() {
+    @Override
+	public String getGebruikersnaam() {
         return gebruikersnaam;
     }
 
-    public void setGebruikersnaam(String gebruikersnaam) {
+    private void setGebruikersnaam(String gebruikersnaam) {
         this.gebruikersnaam = gebruikersnaam;
     }
 
-    public String getKlantnummer() {
+    @Override
+	public String getKlantnummer() {
         return klantnummer;
     }
 
-    public void setKlantnummer(String klantnummer) {
+    private void setKlantnummer(String klantnummer) {
         this.klantnummer = klantnummer;
     }
 
-    public String getEmail() {
+    @Override
+	public String getEmail() {
         return this.email;
     }
 
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         this.email = email;
     }
 
-    public int getIdBedrijf() {
+    @Override
+	public int getIdBedrijf() {
         return idBedrijf;
     }
 
-    public void setIdBedrijf(int idBedrijf) {
+    private void setIdBedrijf(int idBedrijf) {
         this.idBedrijf = idBedrijf;
     }
 
+	@Override
 	public int getAantalBestellingen() {
 		return aantalBestellingen;
 	}
 
+	@Override
 	public int getTotaalBestellingen() {
 		return totaalBestellingen;
 	}
 	
+	@Override
 	public void setAantalBestellingen(int aantalBestellingen) {
 		this.aantalBestellingen = aantalBestellingen;
 	}
 
+	@Override
 	public void setTotaalBestellingen(int aantalBestellingen) {
 		this.totaalBestellingen = aantalBestellingen;
 	}
