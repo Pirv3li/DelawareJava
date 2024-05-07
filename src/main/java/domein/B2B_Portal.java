@@ -75,7 +75,13 @@ public class B2B_Portal {
 	}
 	
 	public ObservableList<Interface_Klant> getKlantenByLeverancierId(int idLeverancier){
-		return FXCollections.observableArrayList(klantRepo.getKlantenByLeverancierID(idLeverancier));
+		ObservableList<Interface_Klant> klanten = FXCollections.observableArrayList(klantRepo.getKlantenByLeverancierID(idLeverancier));
+		
+		for (Interface_Klant klant : klanten) {
+			setAantalBestellingenByKlant(klant);
+		}
+		
+		return klanten;
 	}
 	
 	public Interface_Klant getKlantById(int idKlant){

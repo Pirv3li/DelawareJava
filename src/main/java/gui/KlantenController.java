@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,8 +42,7 @@ public class KlantenController {
 	@FXML
 	private Label telefoonNummer;
 
-	@FXML
-	private Label lblBetalingStatus;
+
 
 	@FXML
 	private Label straat;
@@ -197,7 +198,7 @@ public class KlantenController {
 			if (newSelection != null) {
 				KlantRechts.setVisible(true);
 				vulKlantDetailsTable(newSelection);
-
+				betalingStatus.setVisible(false);
 
 			}
 		});
@@ -205,7 +206,6 @@ public class KlantenController {
 		bestellingenView.setOnMouseClicked(event -> {
 			if (bestellingenView.getSelectionModel().getSelectedItem() != null) {
 				Interface_Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
-				lblBetalingStatus.setVisible(true);
 				betalingStatus.setVisible(true);
 			}
 		});
@@ -228,13 +228,36 @@ public class KlantenController {
 				controller.veranderStatusOrder(idOrder, hulp);
 
 				// Refresh the TableViews
-				KlantenTable.setItems(getKlanten());
-				if (KlantenTable.getSelectionModel().getSelectedItem() != null) {
-					bestellingenView.setItems(getBestellingen(KlantenTable.getSelectionModel().getSelectedItem()));
-				}
+				
+				KlantenTable.refresh();
+				bestellingenView.refresh();
+				
+				
+//				if (KlantenTable.getSelectionModel().getSelectedItem() != null) {
+//					bestellingenView.setItems(getBestellingen(KlantenTable.getSelectionModel().getSelectedItem()));
+//				}
 			}
 		});
 		
+		
+		betalingStatusColumn.setCellFactory(column -> {
+			return new TableCell<Interface_Bestelling, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					setText(empty ? "" : getItem());
+					setGraphic(null);
+
+					if (!isEmpty()) {
+						if (item.equals("Betaald"))
+							setTextFill(Color.GREEN);
+						else
+							setTextFill(Color.RED);
+					}
+				}
+			};
+		});
 		
 
 	}
@@ -265,11 +288,8 @@ public class KlantenController {
 	}
 
 	private ObservableList<Interface_Klant> getKlanten() {
-		ObservableList<Interface_Klant> klanten = controller.getKlantenByLeverancierId();
-		for (Interface_Klant klant : klanten) {
-			controller.setAantalBestellingen(klant);
-		}
-		return klanten;
+
+		return controller.getKlantenByLeverancierId();
 	}
 
 //	private void isbetaald(Bestelling newSelection) {
@@ -312,8 +332,8 @@ public class KlantenController {
 	}
 
 	private ObservableList<Interface_Bestelling> getBestellingen(Interface_Klant klant) {
-		ObservableList<Interface_Bestelling> bestellingen = controller.findBestellingenByKlant(klant);
-		return bestellingen;
+		
+		return controller.findBestellingenByKlant(klant);
 	}
 
 	@FXML

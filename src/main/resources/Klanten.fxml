@@ -109,8 +109,7 @@
 		                        <Label fx:id="stad" prefHeight="64.0" prefWidth="318.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 		                     </children>
 		                  </GridPane>
-                        <Label fx:id="lblBetalingStatus" text="Verander betalingsstatus" visible="false" />
-                        <Button fx:id="betalingStatus" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" prefHeight="90.0" prefWidth="56.0" text="Betaald" visible="false" />
+                        <Button fx:id="betalingStatus" minHeight="39.0" minWidth="100.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="181.0" text="Wijzig Betaling-Status" visible="false" />
 		                  <TableView fx:id="bestellingenView" prefHeight="324.0" prefWidth="423.0" visible="false">
 		                    <columns>
 		                      <TableColumn fx:id="orderIDColumn" prefWidth="75.0" text="OrderID" />

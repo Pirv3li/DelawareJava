@@ -82,7 +82,10 @@ public class DomeinController {
 	};
 	
 	public ObservableList<Interface_Klant> getKlantenByLeverancierId(){
+		
+
 		return app.getKlantenByLeverancierId(leverancier.getIdLeverancier());
+		
 	}
 	
 	public Interface_Klant getKlantById(int klantId) {
@@ -140,9 +143,10 @@ public class DomeinController {
 	}
 	
 	public void veranderStatusOrder(String id, boolean Status) {
-		BestellingDaoJpa bestellingRepo = new BestellingDaoJpa();
+
 		
 		bestellingRepo.veranderBetalingStatus(id, Status);
+		
 	}
 
 	//getters en setters
