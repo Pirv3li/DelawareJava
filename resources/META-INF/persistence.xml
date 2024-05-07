@@ -16,6 +16,8 @@
     <class>domein.Product</class>
     <class>domein.Notificatie</class>
     <class>domein.Klant</class>
+    <class>domein.GoedKeuringLeverancier</class>
+    
     
     
     
