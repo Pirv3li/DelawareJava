@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import domein.Klant;
 import domein.DomeinController;
 import domein.Interface_Adres;
 import domein.Interface_Bedrijf;
@@ -114,7 +115,7 @@ public class KlantenController {
 	private TableColumn<Interface_Bestelling, String> orderStatusColumn;
 
 	@FXML
-	private TableColumn<Interface_Bestelling, String> betalingStatusColumn;
+	private TableColumn<Interface_Bestelling, Boolean> betalingStatusColumn;
 
 	@FXML
 	private TableColumn<Interface_Bestelling, String> totaleBestellingen;
@@ -134,10 +135,6 @@ public class KlantenController {
 	private ImageView delawareLogo;
 
 	private DomeinController controller;
-
-	
-	private ObservableList<Klant> klantenList = FXCollections.observableArrayList();
-	private ObservableList<Interface_Bestelling> bestellingenList = FXCollections.observableArrayList();
 	
 	public static String convertToList(String input) {
 		// Remove brackets and split by comma
@@ -206,7 +203,7 @@ public class KlantenController {
 		bestellingenView.setOnMouseClicked(event -> {
 			if (bestellingenView.getSelectionModel().getSelectedItem() != null) {
 				Interface_Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
-				betalingStatus.setVisible(true);
+				isbetaald(selectedOrder);
 			}
 		});
 
@@ -217,50 +214,21 @@ public class KlantenController {
 				Interface_Bestelling selectedOrder = bestellingenView.getSelectionModel().getSelectedItem();
 				String idOrder = selectedOrder.getIdOrder();
 
-				boolean hulp = false;
-				if (selectedOrder.getBetalingStatus() == "Betaald") {
-					hulp = true;
-				}
-				
-				if(selectedOrder.getBetalingStatus() == "Niet betaald") {
-                    hulp = false;
-                }
-				controller.veranderStatusOrder(idOrder, hulp);
+				controller.veranderStatusOrder(idOrder);
 
 				// Refresh the TableViews
 				
 				KlantenTable.refresh();
 				bestellingenView.refresh();
 				
-				
-//				if (KlantenTable.getSelectionModel().getSelectedItem() != null) {
-//					bestellingenView.setItems(getBestellingen(KlantenTable.getSelectionModel().getSelectedItem()));
-//				}
+			
 			}
-		});
-		
-		
-		betalingStatusColumn.setCellFactory(column -> {
-			return new TableCell<Interface_Bestelling, String>() {
-				@Override
-				protected void updateItem(String item, boolean empty) {
-					super.updateItem(item, empty);
-
-					setText(empty ? "" : getItem());
-					setGraphic(null);
-
-					if (!isEmpty()) {
-						if (item.equals("Betaald"))
-							setTextFill(Color.GREEN);
-						else
-							setTextFill(Color.RED);
-					}
-				}
-			};
 		});
 		
 
 	}
+		
+
 
 	@FXML
 	private void switchToKlant() {
@@ -292,15 +260,13 @@ public class KlantenController {
 		return controller.getKlantenByLeverancierId();
 	}
 
-//	private void isbetaald(Bestelling newSelection) {
-//		if (newSelection.getBetalingStatus().equals("Niet betaald")) {
-//			lblBetalingStatus.setVisible(false);
-//			betalingStatus.setVisible(false);
-//		} else {
-//			lblBetalingStatus.setVisible(true);
-//			betalingStatus.setVisible(true);
-//		}
-//	}
+	private void isbetaald(Interface_Bestelling newSelection) {
+		if (newSelection.getBetalingStatus()) {
+			betalingStatus.setVisible(false);
+		} else {
+			betalingStatus.setVisible(true);
+		}
+	}
 
 	private void vulKlantDetailsTable(Interface_Klant klant) {
 		Interface_Bedrijf bedrijf = controller.getBedrijfByKlant(klant);
@@ -326,9 +292,18 @@ public class KlantenController {
 		datumColumn.setCellValueFactory(new PropertyValueFactory<>("Datum"));
 		bedragColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
 		orderStatusColumn.setCellValueFactory(new PropertyValueFactory<>("OrderStatus"));
-		betalingStatusColumn.setCellValueFactory(new PropertyValueFactory<>("BetalingStatus"));
+		betalingStatusColumn.setCellValueFactory(cellData -> {
+			BooleanProperty betalingStatusProperty = cellData.getValue().betalingStatusProperty();
+		    return betalingStatusProperty.asObject();
+		});
 
 		bestellingenView.setItems(getBestellingen(klant));
+		bestellingenView.getItems().forEach(item -> {
+		    item.betalingStatusProperty().addListener((observable, oldValue, newValue) -> {
+		    	System.out.println("verandering opgemerkt");
+		        bestellingenView.refresh();
+		    });
+		});
 	}
 
 	private ObservableList<Interface_Bestelling> getBestellingen(Interface_Klant klant) {

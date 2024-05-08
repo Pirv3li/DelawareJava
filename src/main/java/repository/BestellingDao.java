@@ -12,7 +12,7 @@ public interface BestellingDao extends GenericDao<Bestelling> {
 
     public ObservableList<Bestelling> getBestellingenByKlantId(int id) throws EntityNotFoundException;   
 
-    public void veranderBetalingStatus(String id, Boolean betalingStatus) throws EntityNotFoundException;  
+    public void veranderBetalingStatus(String id) throws EntityNotFoundException;  
     
     
 }

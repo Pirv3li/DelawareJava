@@ -4,6 +4,7 @@ import domein.DomeinController;
 import gui.AanmeldenController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import repository.DatabasePoller;
 
 public class startUp extends Application {
     private static DomeinController dc;
@@ -19,5 +20,6 @@ public class startUp extends Application {
 
         start = new AanmeldenController(dc, primaryStage);
         start.start();
+        
     }
 }

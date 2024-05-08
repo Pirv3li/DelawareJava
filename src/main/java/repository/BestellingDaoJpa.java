@@ -37,14 +37,9 @@ public class BestellingDaoJpa extends GenericDaoJpa<Bestelling> implements Beste
 		}
 	}
 
-	public void veranderBetalingStatus(String id, Boolean betalingStatus) throws EntityNotFoundException {
+	public void veranderBetalingStatus(String id) throws EntityNotFoundException {
 		EntityTransaction transaction = em.getTransaction();
-		boolean hulp = false;
-		if (betalingStatus) {
-			hulp = false;
-		} else if (!betalingStatus) {
-			hulp = true;
-		}
+		boolean hulp = true;
 
 		try {
 			transaction.begin();

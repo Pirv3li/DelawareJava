@@ -1,5 +1,7 @@
 package domein;
 
+import javafx.beans.property.BooleanProperty;
+
 public interface Interface_Bestelling {
 
 	String getIdOrder();
@@ -14,8 +16,10 @@ public interface Interface_Bestelling {
 
 	String getOrderStatus();
 
-	String getBetalingStatus();
+    boolean getBetalingStatus();
 
 	double getTotaalPrijs();
+
+	BooleanProperty betalingStatusProperty();
 
 }

@@ -2,6 +2,10 @@ package domein;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.text.SimpleDateFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,20 +27,22 @@ public class Bestelling implements Serializable, Interface_Bestelling {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private String idOrder;
 	private int idKlant;
 	private int idLeverancier;
 	private int idAdres;
 	private Date datum;
 	private String orderStatus;
-	private boolean betalingStatus;
 	private double totaalPrijs;
+	private boolean betalingStatus;
+	
+	private transient BooleanProperty betalingStatusProperty;
+
+
 
 	public Bestelling(String idOrder, int idKlant, int idLeverancier, int idAdres, Date datum, String orderStatus,
-			boolean betalingStatus, double totaalPrijs) {
+		boolean betalingStatus, double totaalPrijs) {
 		setIdOrder(idOrder);
-		setIdKlant(idKlant);
 		setIdLeverancier(idLeverancier);
 		setIdKlant(idKlant);
 		setDatum(datum);
@@ -44,11 +50,22 @@ public class Bestelling implements Serializable, Interface_Bestelling {
 		setBetalingStatus(betalingStatus);
 		setTotaalPrijs(totaalPrijs);
 		setIdAdres(idAdres);
+		this.betalingStatusProperty = new SimpleBooleanProperty(betalingStatus);
 	}
 
 	public Bestelling() {
 
 	}
+	
+	private void ensureBetalingStatusPropertyInitialized() {
+        if (betalingStatusProperty == null) {
+            betalingStatusProperty = new SimpleBooleanProperty(betalingStatus);
+            betalingStatusProperty.addListener((observable, oldValue, newValue) -> {
+                System.out.println("Property invalidated");
+                System.out.println("" + this.betalingStatusProperty + oldValue);
+            });
+        }
+    }
 
 	@Override
 	public String getIdOrder() {
@@ -104,21 +121,29 @@ public class Bestelling implements Serializable, Interface_Bestelling {
 	private void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
+	
+	 @Override
+	    public BooleanProperty betalingStatusProperty() {
+	        ensureBetalingStatusPropertyInitialized();
+	        return betalingStatusProperty;
+	    }
 
-	@Override
-	public String getBetalingStatus() {
-		String betalingStatus;
-		if (this.betalingStatus) {
-			betalingStatus = "Betaald";
-		} else {
-			betalingStatus = "Niet betaald";
-		}
-		return betalingStatus;
-	}
+	    @Override
+	    public boolean getBetalingStatus() {
+	        ensureBetalingStatusPropertyInitialized();
+	        return betalingStatusProperty.get();
+	    }
 
-	private void setBetalingStatus(boolean betalingStatus) {
-		this.betalingStatus = betalingStatus;
-	}
+	    public void setBetalingStatus(boolean betalingStatus) {
+	        this.betalingStatus = betalingStatus;
+	        ensureBetalingStatusPropertyInitialized();
+	        betalingStatusProperty.set(betalingStatus);
+	    }
+
+	    public void updateBetalingStatus(boolean isBetaald) {
+	        ensureBetalingStatusPropertyInitialized();
+	        betalingStatusProperty.set(isBetaald);
+	    }
 
 	@Override
 	public double getTotaalPrijs() {

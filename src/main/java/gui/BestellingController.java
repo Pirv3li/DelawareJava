@@ -31,6 +31,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+
+
 public class BestellingController {
 
 	private DomeinController controller;
@@ -55,7 +60,7 @@ public class BestellingController {
 	private TableColumn<Interface_Bestelling, String> orderstatusColumn;
 
 	@FXML
-	private TableColumn<Interface_Bestelling, String> betalingstatusColumn;
+	private TableColumn<Interface_Bestelling, Boolean> betalingstatusColumn;
 
 	@FXML
 	private TableColumn<Interface_BestellingDetails, String> productNaamColumn;
@@ -126,7 +131,6 @@ public class BestellingController {
 		orderidColumn.setCellValueFactory(new PropertyValueFactory<>("idOrder"));
 		datumColumn.setCellValueFactory(new PropertyValueFactory<>("datum"));
 		orderstatusColumn.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
-
 		betalingstatusColumn.setCellValueFactory(new PropertyValueFactory<>("betalingStatus"));
 		productNaamColumn.setCellValueFactory(new PropertyValueFactory<>("productNaam"));
 		stukprijsColumn.setCellValueFactory(new PropertyValueFactory<>("eenheidsPrijs"));
@@ -145,30 +149,18 @@ public class BestellingController {
 			}
 
 		});
-
-		betalingstatusColumn.setCellFactory(column -> {
-			return new TableCell<Interface_Bestelling, String>() {
-				@Override
-				protected void updateItem(String item, boolean empty) {
-					super.updateItem(item, empty);
-
-					setText(empty ? "" : getItem());
-					setGraphic(null);
-
-					if (!isEmpty()) {
-						if (item.equals("Betaald"))
-							setTextFill(Color.GREEN);
-						else
-							setTextFill(Color.RED);
-					}
-				}
-			};
+		
+		betalingstatusColumn.setCellValueFactory(cellData -> {
+		    BooleanProperty betalingStatusProperty = cellData.getValue().betalingStatusProperty();
+		    return betalingStatusProperty.asObject();
 		});
+
+
 
 	}
 
 	private void isbetaald(Interface_Bestelling newSelection) {
-		if (newSelection.getBetalingStatus().equals("Betaald")) {
+		if (newSelection.getBetalingStatus()) {
 			betalingsherinnering.setVisible(false);
 		} else {
 			betalingsherinnering.setVisible(true);
