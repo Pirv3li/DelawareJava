@@ -37,6 +37,9 @@ public class GoedKeuringController {
 	private DomeinController controller;
 	private Stage primaryStage;
 
+	private Interface_Leverancier gekozenLeverancier;
+	
+	private int idLeverancier;
 	@FXML
 	private ImageView delawareLogo;
 	
@@ -171,14 +174,13 @@ public class GoedKeuringController {
 		
 		
 		btnAfwijzen.setOnAction(e -> {
-			System.out.println("afgekeurd");
 			controller.updateGoedkeuringLeverancier((""+goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier()),"afgekeurd");
 			
 		});
 		
 		btnAkkoord.setOnAction(e -> {
-			
-			
+			controller.updateGoedkeuringLeverancier((""+goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier()),"goedgekeurd");
+			controller.updateLeverancierById(idLeverancier, aGebruikersnaam.getText(), aEmail.getText(), aIban.getText(), aBtw.getText(), aTelefoon.getText(), aSector.getText(), aStraat.getText(), aNummer.getText(), aStad.getText(), aPostcode.getText());
 		});
 	}
 	
@@ -197,6 +199,8 @@ public class GoedKeuringController {
 		aNummer.setText(goedkeuringLeverancier.getNummer());
 		
 		Interface_Leverancier l = controller.getLeverancierById(Integer.valueOf(goedkeuringLeverancier.getIdLeverancier()));
+		idLeverancier = l.getIdLeverancier();
+		
 		Interface_Bedrijf b = l.getBedrijf();
 		
 		

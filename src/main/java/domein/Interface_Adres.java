@@ -6,9 +6,9 @@ public interface Interface_Adres {
 
 	int getIdAdres();
 
-	int getNummer();
+	String getNummer();
 
-	int getPostcode();
+	String getPostcode();
 
 	Date getLaatstGebruikt();
 

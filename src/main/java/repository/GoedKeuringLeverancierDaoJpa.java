@@ -21,11 +21,6 @@ public class GoedKeuringLeverancierDaoJpa extends GenericDaoJpa<GoedKeuringLever
 	public void keuringVeranderVerzoekenLeverancier(String id, String afgehandeld) throws EntityNotFoundException {
 		System.out.println("id: " + id + " afgehandeld: " + afgehandeld);
 		EntityTransaction transaction = em.getTransaction();
-		boolean doen = false;
-		if (afgehandeld == "goedgekeurd") {
-			doen = true;
-		}
-
 			try {
 				transaction.begin();
 

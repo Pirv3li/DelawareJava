@@ -20,6 +20,10 @@ import jakarta.persistence.Table;
         @NamedQuery(name = "Leverancier.getLeverancierByIdBedrijf", query = "SELECT l from Leverancier l where l.bedrijf.idBedrijf = :idBedrijf"),
         @NamedQuery(name = "Leverancier.updateLeverancierBetaalMethodes", query = "UPDATE Leverancier l SET l.betaalMethodes = :betaalMethodes WHERE l.idLeverancier = :idLeverancier"),
         @NamedQuery(name = "Leverancier.getLeverancierById", query = "SELECT l from Leverancier l where l.idLeverancier = :idLeverancier"),
+        @NamedQuery(name = "Leverancier.updateLeverancierById", query = "UPDATE Leverancier l "
+        		+ "SET l.gebruikersnaam = :gebruikersnaam,l.email = :email "
+        		+ "WHERE l.idLeverancier = :idLeverancier"),
+
 })
 public class Leverancier extends Gebruiker implements Serializable, Interface_Leverancier {
 
@@ -114,6 +118,11 @@ public class Leverancier extends Gebruiker implements Serializable, Interface_Le
 	public Bedrijf getBedrijf() {
 		return bedrijf;
 	}
+	
+	@Override
+    public void setBedrijf(Bedrijf bedrijf) {
+        this.bedrijf = bedrijf;
+    }
 
 	@Override
 	public String getEmail() {
