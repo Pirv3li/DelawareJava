@@ -183,6 +183,8 @@ public class GoedKeuringController {
 	}
 	
 	private void vulBestellingDetailsTable(Interface_GoedKeuringLeverancier goedkeuringLeverancier) {
+		
+		
 		aGebruikersnaam.setText(goedkeuringLeverancier.getGebruikersnaam());
 		aEmail.setText(goedkeuringLeverancier.getEmail());
 		aIban.setText(goedkeuringLeverancier.getIban());
@@ -215,7 +217,26 @@ public class GoedKeuringController {
 		vStraat.setText(strS.substring(0, strS.indexOf(' ')).trim());
 		vNummer.setText(""+a.getNummer());
 		
+	    compareAndSetColor(aGebruikersnaam, vGebruikersnaam);
+	    compareAndSetColor(aEmail, vEmail);
+	    compareAndSetColor(aIban, vIban);
+	    compareAndSetColor(aBtw, vBtw);
+	    compareAndSetColor(aTelefoon, vTelefoon);
+	    compareAndSetColor(aSector, vSector);
+	    compareAndSetColor(aStad, vStad);
+	    compareAndSetColor(aPostcode, vPostcode);
+	    compareAndSetColor(aStraat, vStraat);
+	    compareAndSetColor(aNummer, vNummer);
+		
 	}
+	
+	private void compareAndSetColor(Label aLabel, Label vLabel) {
+	    if (!aLabel.getText().equals(vLabel.getText())) {
+	        aLabel.setStyle("-fx-text-fill: red;");
+	    } else {
+	        aLabel.setStyle("-fx-text-fill: black;");
+	    }}
+	  
 	
 	
 
