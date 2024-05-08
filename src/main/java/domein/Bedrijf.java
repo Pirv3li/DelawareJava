@@ -16,7 +16,8 @@ import jakarta.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "Bedrijf.getBedrijfById", query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf"),
 
-		@NamedQuery(name = "Bedrijf.getBedrijven", query = "SELECT b FROM Bedrijf b") })
+		@NamedQuery(name = "Bedrijf.getBedrijven", query = "SELECT b FROM Bedrijf b"),
+		@NamedQuery(name = "Bedrijf.getBedrijfById", query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf"),})
 
 public class Bedrijf implements Serializable, Interface_Bedrijf {
 

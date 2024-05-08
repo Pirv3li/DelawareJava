@@ -11,8 +11,7 @@ import jakarta.persistence.Query;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class GoedKeuringLeverancierDaoJpa extends GenericDaoJpa<GoedKeuringLeverancier>
-		implements GoedKeuringLeverancierDao {
+public class GoedKeuringLeverancierDaoJpa extends GenericDaoJpa<GoedKeuringLeverancier> implements GoedKeuringLeverancierDao {
 
 	public GoedKeuringLeverancierDaoJpa() {
 		super(GoedKeuringLeverancier.class);
@@ -20,19 +19,21 @@ public class GoedKeuringLeverancierDaoJpa extends GenericDaoJpa<GoedKeuringLever
 
 	@Override
 	public void keuringVeranderVerzoekenLeverancier(String id, String afgehandeld) throws EntityNotFoundException {
+		System.out.println("id: " + id + " afgehandeld: " + afgehandeld);
 		EntityTransaction transaction = em.getTransaction();
 		boolean doen = false;
 		if (afgehandeld == "goedgekeurd") {
 			doen = true;
+		}
 
 			try {
 				transaction.begin();
 
-				Query query = em.createNamedQuery("GoedKeuringLeverancier.veranderBetalingStatus");
+				Query query = em.createNamedQuery("GoedKeuringLeverancier.keuringVeranderVerzoekenLeverancier");
 
-				query.setParameter("idGoedkeuringLeverancier", id);
+				query.setParameter("idGoedkeuringLeverancier", Integer.parseInt(id));
+				
 				query.setParameter("afgehandeld", afgehandeld);
-
 				int updatedEntities = query.executeUpdate();
 
 				if (updatedEntities == 0) {
@@ -48,7 +49,7 @@ public class GoedKeuringLeverancierDaoJpa extends GenericDaoJpa<GoedKeuringLever
 			}
 		}
 
-	}
+	
 
 	@Override
 	public ObservableList<GoedKeuringLeverancier> getAllByStatusAfhandeling(String afgehandeld)

@@ -2,6 +2,7 @@ package gui;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,6 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -235,5 +238,25 @@ public class BedrijvenController {
         AanmeldenController aanmeldenController = new AanmeldenController(controller, new Stage());
         aanmeldenController.start();
     }
+    
+    
+    @FXML
+	public void switchGoedKeuring(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/BedrijfWijziging.fxml"));
+			GoedKeuringController goedKeuringController = new GoedKeuringController(primaryStage);
+			goedKeuringController.setController(controller);
+			loader.setController(goedKeuringController);
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+
+			primaryStage.setScene(scene);
+//			primaryStage.setFullScreen(true);
+			primaryStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+	}
 
 }

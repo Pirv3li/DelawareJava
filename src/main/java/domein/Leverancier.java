@@ -18,7 +18,9 @@ import jakarta.persistence.Table;
 @NamedQueries({
         @NamedQuery(name = "Leverancier.getLeverancierByGebruikersnaam", query = "SELECT l FROM Leverancier l WHERE l.gebruikersnaam = :gebruikersnaam"),
         @NamedQuery(name = "Leverancier.getLeverancierByIdBedrijf", query = "SELECT l from Leverancier l where l.bedrijf.idBedrijf = :idBedrijf"),
-        @NamedQuery(name = "Leverancier.updateLeverancierBetaalMethodes", query = "UPDATE Leverancier l SET l.betaalMethodes = :betaalMethodes WHERE l.idLeverancier = :idLeverancier") })
+        @NamedQuery(name = "Leverancier.updateLeverancierBetaalMethodes", query = "UPDATE Leverancier l SET l.betaalMethodes = :betaalMethodes WHERE l.idLeverancier = :idLeverancier"),
+        @NamedQuery(name = "Leverancier.getLeverancierById", query = "SELECT l from Leverancier l where l.idLeverancier = :idLeverancier"),
+})
 public class Leverancier extends Gebruiker implements Serializable, Interface_Leverancier {
 
     private static final long serialVersionUID = 1L;

@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "goedkeuringleverancier")
 @NamedQueries({
-    @NamedQuery(name = "GoedKeuringLeverancier.updateLeverancierBetaalMethodes", query = "UPDATE GoedKeuringLeverancier g SET g.afgehandeld = :afgehandeld WHERE g.idGoedkeuringLeverancier = :id"),
+    @NamedQuery(name = "GoedKeuringLeverancier.keuringVeranderVerzoekenLeverancier", query = "UPDATE GoedKeuringLeverancier g SET g.afgehandeld = :afgehandeld WHERE g.idGoedkeuringLeverancier = :idGoedkeuringLeverancier"),
     @NamedQuery(name = "GoedKeuringLeverancier.getAllByStatusAfhandeling", query = "select g FROM GoedKeuringLeverancier g where g.afgehandeld = :afgehandeld"),
     })
 
@@ -183,67 +183,67 @@ public class GoedKeuringLeverancier implements Serializable, Interface_GoedKeuri
 	    return this.idGoedkeuringLeverancier;
 	}
 	@Override
-	public String getleverancierNummer() {
+	public String getLeverancierNummer() {
 		        return this.leverancierNummer;
 	}
 	@Override
-	public String getgebruikersnaam() {
+	public String getGebruikersnaam() {
 		return this.gebruikersnaam;
 	}
 	@Override
-	public String getemail() {
+	public String getEmail() {
 		return this.email;
 	}
 	@Override
-	public boolean getisActief() {
+	public boolean getIsActief() {
 		return this.isActief;
 	}
 	@Override
-	public String getroles() {
+	public String getRoles() {
 		return this.roles;
 	}
 	@Override
-	public String getiban() {
+	public String getIban() {
 		return this.iban;
 	}
 	@Override
-	public String getbtwNummer() {
+	public String getBtwNummer() {
 		return this.btwNummer;
 	}
 	@Override
-	public String gettelefoonnummer() {
+	public String getTelefoonnummer() {
 		return this.telefoonnummer;
 	}
 	@Override
-	public String getsector() {
+	public String getSector() {
 		return this.sector;
 	}
 	@Override
-	public String getstraat() {
+	public String getStraat() {
 		return this.straat;
 	}
 	@Override
-	public String getnummer() {
+	public String getNummer() {
 		return this.nummer;
 	}
 	@Override
-	public String getstad() {
+	public String getStad() {
 		return this.stad;
 	}
 	@Override
-	public String getpostcode() {
+	public String getPostcode() {
 		return this.postcode;
 	}
 	@Override
-	public String getafgehandeld() {
+	public String getAfgehandeld() {
 		return this.afgehandeld;
 	}
 	@Override
-	public Date getdatumAanvraag() {
+	public Date getDatumAanvraag() {
 		return this.datumAanvraag;
 	}
 	@Override
-	public int getidLeverancier() {
+	public int getIdLeverancier() {
 		return this.idLeverancier;
 	}
 }

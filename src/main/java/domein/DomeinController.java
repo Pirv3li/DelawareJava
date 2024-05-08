@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import repository.AdminDao;
 import repository.AdminDaoJpa;
@@ -24,6 +25,9 @@ import repository.LeverancierDaoJpa;
 import repository.NotificatieDaoJpa;
 import repository.ProductDao;
 import repository.ProductDaoJpa;
+import repository.GoedKeuringLeverancierDaoJpa;
+import repository.GoedKeuringLeverancierDao;
+
 
 public class DomeinController {
 
@@ -39,6 +43,8 @@ public class DomeinController {
     private AdresDao adresRepo;
     private AdminDao adminRepo;
     private KlantDao klantRepo;
+    private GoedKeuringLeverancierDao goedKeuringLeverancieRepo;
+
 
 	 public DomeinController() {
 	        this.bedrijfRepo = new BedrijfDaoJpa();
@@ -49,9 +55,10 @@ public class DomeinController {
 	        this.adresRepo = new AdresDaoJpa();
 	        this.adminRepo = new AdminDaoJpa();
 	        this.klantRepo = new KlantDaoJpa();
+	        this.goedKeuringLeverancieRepo = new GoedKeuringLeverancierDaoJpa();
 	        
 	        this.app = new B2B_Portal(bedrijfRepo, leverancierRepo, bestellingRepo, bestellingDetailsRepo, productRepo,
-                    adresRepo, adminRepo, klantRepo);
+                    adresRepo, adminRepo, klantRepo,goedKeuringLeverancieRepo);
 }
 	                     
 
@@ -85,8 +92,9 @@ public class DomeinController {
 		
 
 		return app.getKlantenByLeverancierId(leverancier.getIdLeverancier());
-		
 	}
+	
+	
 	
 	public Interface_Klant getKlantById(int klantId) {
 		return app.getKlantById(klantId);
@@ -149,6 +157,22 @@ public class DomeinController {
 		
 	}
 
+	public ObservableList<Interface_GoedKeuringLeverancier> getGoedKeuringen(String Soort){
+
+		return FXCollections.observableArrayList(goedKeuringLeverancieRepo.getAllByStatusAfhandeling(Soort));
+	}
+	
+	public Interface_Leverancier getLeverancierById(int idLeverancier) {
+		
+		return leverancierRepo.getLeverancierById(idLeverancier);
+	}
+	
+	public void updateGoedkeuringLeverancier(String id, String afgehandeld) {
+		goedKeuringLeverancieRepo.keuringVeranderVerzoekenLeverancier(id, afgehandeld);
+	}
+		
+	
+	
 	//getters en setters
 
 	public void setApp(B2B_Portal app) {

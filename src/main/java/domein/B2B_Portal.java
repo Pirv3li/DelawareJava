@@ -6,6 +6,7 @@ import repository.AdresDao;
 import repository.BedrijfDao;
 import repository.BestellingDao;
 import repository.BestellingDetailsDao;
+import repository.GoedKeuringLeverancierDao;
 import repository.LeverancierDao;
 import repository.ProductDao;
 
@@ -31,10 +32,11 @@ public class B2B_Portal {
     private AdresDao adresRepo;
     private AdminDao adminRepo;
     private KlantDao klantRepo;
+    private GoedKeuringLeverancierDao goedKeuringLeverancieRepo;
 
     public B2B_Portal(BedrijfDao bedrijfRepo, LeverancierDao leverancierRepo, BestellingDao bestellingRepo,
                       BestellingDetailsDao bestellingDetailsRepo, ProductDao productRepo, AdresDao adresRepo,
-                      AdminDao adminRepo, KlantDao klantRepo) {
+                      AdminDao adminRepo, KlantDao klantRepo, GoedKeuringLeverancierDao goedKeuringLeverancieRepo) {
         this.bedrijfRepo = bedrijfRepo;
         this.leverancierRepo = leverancierRepo;
         this.bestellingRepo = bestellingRepo;
@@ -43,6 +45,7 @@ public class B2B_Portal {
         this.adresRepo = adresRepo;
         this.adminRepo = adminRepo;
         this.klantRepo = klantRepo;
+        this.goedKeuringLeverancieRepo = goedKeuringLeverancieRepo;
     }
 	public Admin aanmeldenAdmin(String gebruikersnaam, String password) {
 		try {
@@ -147,6 +150,9 @@ public class B2B_Portal {
 	public Interface_Adres getAdresByIdAdres(int idAdres) {
 		return adresRepo.getAdresById(idAdres);
 	}
+	
+
+	
 
 	public void updateLeverancier(Interface_Leverancier lever) {
 		leverancierRepo.updateLeverancier(lever);

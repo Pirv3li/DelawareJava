@@ -32,6 +32,15 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 		}
 	}
 	
+	public Leverancier getLeverancierById(int idLeverancier) throws EntityNotFoundException {
+		try {
+			return em.createNamedQuery("Leverancier.getLeverancierById", Leverancier.class)
+					.setParameter("idLeverancier", idLeverancier).getSingleResult();
+		} catch (NoResultException ex) {
+			throw new EntityNotFoundException();
+		}
+	}
+	
 	public void updateLeverancier(Interface_Leverancier lever) throws EntityNotFoundException {
 	    EntityTransaction transaction = em.getTransaction();
 	    
