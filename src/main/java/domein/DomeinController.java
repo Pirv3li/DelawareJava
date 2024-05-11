@@ -135,7 +135,7 @@ public class DomeinController {
 	
 	public Interface_Leverancier getLeverancierById(int idLeverancier) {
 		
-		return leverancierRepo.getLeverancierById(idLeverancier);
+		return app.getLeverancierById(idLeverancier);
 	}
 	
 	public void updateGoedkeuringLeverancier(String id, String afgehandeld) {
@@ -144,21 +144,8 @@ public class DomeinController {
 	
 	public void updateLeverancierById(int idLeverancier, String gebruikersnaam, String email, String iban, String btwNummer, String telefoonnummer,
 			String sector, String straat, String nummer, String stad,String postcode) {
-		leverancierRepo.updateLeverancierById(idLeverancier, gebruikersnaam, email);
-		Leverancier l = leverancierRepo.getLeverancierById(idLeverancier);
-		Bedrijf b = l.getBedrijf();
-		b.setIban(iban);
-		b.setBtwNummer(btwNummer);
-		b.setTelefoonnummer(telefoonnummer);
-		b.setSector(sector);
-		int idAdres = b.getIdAdres();
-		l.setBedrijf(null);
-		leverancierRepo.updateBedrijfByLeverancier(l, b);
+		app.updateLeverancierById(idLeverancier, gebruikersnaam, email, iban, btwNummer, telefoonnummer, sector, straat, nummer, stad, postcode);
 	}
-	
-	
-		
-	
 	
 	//getters en setters
 
