@@ -90,7 +90,7 @@ public class B2B_Portal {
 
 		for (Interface_Bestelling bestelling : bestellingen) {
 			countAllorders ++;
-		    if (bestelling.getBetalingStatus()=="Niet betaald" || bestelling.getOrderStatus().contains("niet-verzonden")) {
+		    if (bestelling.getBetalingStatus()=="Niet Betaald" || bestelling.getOrderStatus().contains("niet-verzonden")) {
 		        countUnpaidOrders++;
 		    }
 		}
