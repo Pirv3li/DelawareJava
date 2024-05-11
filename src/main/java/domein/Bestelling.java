@@ -1,7 +1,9 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -22,7 +24,7 @@ import jakarta.persistence.NamedQueries;
 		@NamedQuery(name = "Bestelling.getBestellingenByKlantId", query = "select b FROM Bestelling b where b.idKlant = :idKlant"),
 		@NamedQuery(name = "Bestelling.veranderBetalingStatus", query = "UPDATE Bestelling b Set  b.betalingStatus = :betalingStatus where b.idOrder = :idOrder"),})
 public class Bestelling implements Serializable, Interface_Bestelling {
-
+	private transient List<Observer> observers = new ArrayList<>();
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -36,7 +38,6 @@ public class Bestelling implements Serializable, Interface_Bestelling {
 	private double totaalPrijs;
 	private boolean betalingStatus;
 	
-	private transient BooleanProperty betalingStatusProperty;
 
 
 
@@ -50,22 +51,30 @@ public class Bestelling implements Serializable, Interface_Bestelling {
 		setBetalingStatus(betalingStatus);
 		setTotaalPrijs(totaalPrijs);
 		setIdAdres(idAdres);
-		this.betalingStatusProperty = new SimpleBooleanProperty(betalingStatus);
 	}
 
 	public Bestelling() {
 
 	}
 	
-	private void ensureBetalingStatusPropertyInitialized() {
-        if (betalingStatusProperty == null) {
-            betalingStatusProperty = new SimpleBooleanProperty(betalingStatus);
-            betalingStatusProperty.addListener((observable, oldValue, newValue) -> {
-                System.out.println("Property invalidated");
-                System.out.println("" + this.betalingStatusProperty + oldValue);
-            });
-        }
-    }
+	
+	 @Override
+	    public void addObserver(Observer observer) {
+	        observers.add(observer);
+	        System.out.println(observer);
+	    }
+
+	    @Override
+	    public void removeObserver(Observer observer) {
+	        observers.remove(observer);
+	    }
+
+	    private void notifyObservers() {
+	        for (Observer observer : observers) {
+	        	System.out.println("observers notified");
+	            observer.update(this);
+	        }
+	    }
 
 	@Override
 	public String getIdOrder() {
@@ -122,28 +131,20 @@ public class Bestelling implements Serializable, Interface_Bestelling {
 		this.orderStatus = orderStatus;
 	}
 	
-	 @Override
-	    public BooleanProperty betalingStatusProperty() {
-	        ensureBetalingStatusPropertyInitialized();
-	        return betalingStatusProperty;
-	    }
+	@Override
+	public String getBetalingStatus() {
+	    return betalingStatus ? "Betaald" : "Niet Betaald";
+	}
 
-	    @Override
-	    public boolean getBetalingStatus() {
-	        ensureBetalingStatusPropertyInitialized();
-	        return betalingStatusProperty.get();
-	    }
+	private void setBetalingStatus(boolean betalingStatus) {
+		this.betalingStatus = betalingStatus;
+		System.out.println(observers);
+		notifyObservers();
+	}
 
-	    public void setBetalingStatus(boolean betalingStatus) {
-	        this.betalingStatus = betalingStatus;
-	        ensureBetalingStatusPropertyInitialized();
-	        betalingStatusProperty.set(betalingStatus);
-	    }
-
-	    public void updateBetalingStatus(boolean isBetaald) {
-	        ensureBetalingStatusPropertyInitialized();
-	        betalingStatusProperty.set(isBetaald);
-	    }
+	public void updateBetalingStatus(boolean isBetaald) {
+		setBetalingStatus(isBetaald);
+	}
 
 	@Override
 	public double getTotaalPrijs() {

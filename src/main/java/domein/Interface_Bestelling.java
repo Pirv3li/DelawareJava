@@ -16,10 +16,12 @@ public interface Interface_Bestelling {
 
 	String getOrderStatus();
 
-    boolean getBetalingStatus();
+    String getBetalingStatus();
 
 	double getTotaalPrijs();
-
-	BooleanProperty betalingStatusProperty();
+	
+    void addObserver(Observer observer);
+    
+    void removeObserver(Observer observer);
 
 }

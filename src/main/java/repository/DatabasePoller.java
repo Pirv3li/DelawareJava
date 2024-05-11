@@ -7,10 +7,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import domein.Bestelling;
+import domein.DomeinController;
+import domein.Interface_Bestelling;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 public class DatabasePoller {
@@ -18,16 +22,19 @@ public class DatabasePoller {
     private static final long POLLING_INTERVAL_MS = 1000;
     private final int idLeverancier;
     private Timer timer;
-    private List<Bestelling> originalBestellingList = new ArrayList<>();
+	private ObservableList<Interface_Bestelling> CurrentBestellingList;
 
-    public DatabasePoller(int idLeverancier) {
+    public DatabasePoller(DomeinController controller,int idLeverancier) {
         this.idLeverancier = idLeverancier;
+        controller.setPoller(this);
+        this.CurrentBestellingList = FXCollections.observableArrayList();
     }
 
-    public void startPolling(Stage primaryStage) {
+    public void startPolling( Stage primaryStage) {
         primaryStage.setOnCloseRequest(event -> stopPolling());
         System.out.println("started");
-        populateOriginalBestellingList();
+        
+      
         timer = new Timer();
         timer.schedule(new PollingTask(), 0, POLLING_INTERVAL_MS);
     }
@@ -56,15 +63,18 @@ public class DatabasePoller {
 
 
                 for (Bestelling updatedBestelling : updatedBestellingList) {
-                    Bestelling originalBestelling = findBestellingById(originalBestellingList, updatedBestelling.getIdOrder());
+                    Bestelling originalBestelling = findBestellingById(CurrentBestellingList, updatedBestelling.getIdOrder());
 
-                    boolean currentBetalingStatus = originalBestelling.getBetalingStatus();
-                    boolean newBetalingStatus = updatedBestelling.getBetalingStatus();
-                    if (currentBetalingStatus != newBetalingStatus) {
-                        System.out.println("Status changed!");
-                        originalBestelling.updateBetalingStatus(newBetalingStatus);
+                    if (originalBestelling != null) {
+                        String currentBetalingStatus = originalBestelling.getBetalingStatus();
+                        String newBetalingStatus = updatedBestelling.getBetalingStatus();
+                        if (!currentBetalingStatus.equals(newBetalingStatus)) {
+                            System.out.println("Status changed!");
+                            originalBestelling.updateBetalingStatus(true);
+                        }
                     }
                 }
+
 
                 entityManager.getTransaction().commit();
             } catch (Exception e) {
@@ -79,40 +89,25 @@ public class DatabasePoller {
         }
     }
     
-    private Bestelling findBestellingById(List<Bestelling> bestellingList, String idOrder) {
-        for (Bestelling bestelling : bestellingList) {
+    private Bestelling findBestellingById(List<Interface_Bestelling> bestellingList, String idOrder) {
+        for (Interface_Bestelling bestelling : bestellingList) {
             if (bestelling.getIdOrder().equals(idOrder)) {
-                return bestelling;
+                if (bestelling instanceof Bestelling) {
+                    return (Bestelling) bestelling;
+                } else {
+                	System.out.println("not an isntance");
+                    return null;
+                }
             }
         }
         return null; 
     }
-    
-    private void populateOriginalBestellingList() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("b2bDeleware");
-        EntityManager entityManager = emf.createEntityManager();
 
-        try {
-            entityManager.getTransaction().begin();
 
-            // Query the database to get the initial list of Bestelling objects
-            Query query = entityManager.createQuery("SELECT b FROM Bestelling b WHERE b.idLeverancier = :id", Bestelling.class)
-                    .setParameter("id", idLeverancier);
-            @SuppressWarnings("unchecked")
-            List<Bestelling> initialBestellingList = query.getResultList();
-
-            // Copy the initial list to the originalBestellingList
-            originalBestellingList.addAll(initialBestellingList);
-
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            entityManager.close();
-            emf.close();
+    public void setCurrentList(ObservableList<Interface_Bestelling> bestellingenList) {
+        if (this.CurrentBestellingList == null) {
+            this.CurrentBestellingList = FXCollections.observableArrayList();
         }
+        this.CurrentBestellingList.addAll(bestellingenList);
     }
 }

@@ -60,7 +60,7 @@ public class BestellingController {
 	private TableColumn<Interface_Bestelling, String> orderstatusColumn;
 
 	@FXML
-	private TableColumn<Interface_Bestelling, Boolean> betalingstatusColumn;
+	private TableColumn<Interface_Bestelling, String> betalingstatusColumn;
 
 	@FXML
 	private TableColumn<Interface_BestellingDetails, String> productNaamColumn;
@@ -150,17 +150,32 @@ public class BestellingController {
 
 		});
 		
-		betalingstatusColumn.setCellValueFactory(cellData -> {
-		    BooleanProperty betalingStatusProperty = cellData.getValue().betalingStatusProperty();
-		    return betalingStatusProperty.asObject();
+		betalingstatusColumn.setCellFactory(column -> {
+			return new TableCell<Interface_Bestelling, String>() {
+				@Override
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					setText(empty ? "" : getItem());
+					setGraphic(null);
+
+					if (!isEmpty()) {
+						if (item.equals("Betaald"))
+							setTextFill(Color.GREEN);
+						else
+							setTextFill(Color.RED);
+					}
+				}
+			};
 		});
+
 
 
 
 	}
 
 	private void isbetaald(Interface_Bestelling newSelection) {
-		if (newSelection.getBetalingStatus()) {
+		if (newSelection.getBetalingStatus().equals("betaald")) {
 			betalingsherinnering.setVisible(false);
 		} else {
 			betalingsherinnering.setVisible(true);

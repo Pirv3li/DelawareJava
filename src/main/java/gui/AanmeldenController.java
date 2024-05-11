@@ -98,7 +98,7 @@ public class AanmeldenController {
 //					primaryStage.setFullScreen(true);
         	        primaryStage.centerOnScreen();
 					primaryStage.show();
-			        DatabasePoller poller = new DatabasePoller(controller.getLeverancier().getIdLeverancier());
+			        DatabasePoller poller = new DatabasePoller(controller, controller.getLeverancier().getIdLeverancier());
 			        poller.startPolling(primaryStage);
 				} catch (IOException e) {
 			    	warningMessage.setVisible(true);
@@ -123,7 +123,7 @@ public class AanmeldenController {
 //					primaryStage.setFullScreen(true);
         	        primaryStage.centerOnScreen();
 					primaryStage.show();
-			        DatabasePoller poller = new DatabasePoller(controller.getLeverancier().getIdLeverancier());
+			        DatabasePoller poller = new DatabasePoller(controller, controller.getLeverancier().getIdLeverancier());
 			        poller.startPolling(primaryStage);
 				} catch (IOException e) {
 			    	warningMessage.setVisible(true);

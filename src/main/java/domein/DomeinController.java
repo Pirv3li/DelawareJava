@@ -17,6 +17,7 @@ import repository.BestellingDao;
 import repository.BestellingDaoJpa;
 import repository.BestellingDetailsDao;
 import repository.BestellingDetailsDaoJpa;
+import repository.DatabasePoller;
 import repository.KlantDao;
 import repository.KlantDaoJpa;
 import repository.LeverancierDao;
@@ -39,7 +40,7 @@ public class DomeinController {
     private AdresDao adresRepo;
     private AdminDao adminRepo;
     private KlantDao klantRepo;
-
+    private DatabasePoller poller;
 	 public DomeinController() {
 	        this.bedrijfRepo = new BedrijfDaoJpa();
 	        this.leverancierRepo = new LeverancierDaoJpa();
@@ -54,7 +55,9 @@ public class DomeinController {
                     adresRepo, adminRepo, klantRepo);
 }
 	                     
-
+	public void setPoller(DatabasePoller poller) {
+		this.poller = poller;
+	}
 	public void uitloggen() {
 		setLeverancier(null);
 		setAdmin(null);
@@ -144,7 +147,6 @@ public class DomeinController {
 	
 	public void veranderStatusOrder(String id) {
 		bestellingRepo.veranderBetalingStatus(id);
-		
 	}
 
 	//getters en setters
@@ -171,5 +173,10 @@ public class DomeinController {
 
 	public void updateLeverancier(Interface_Leverancier lever) {
 		app.updateLeverancier(lever);
+	}
+
+	public void pollerList(ObservableList<Interface_Bestelling> bestellingenList) {
+		poller.setCurrentList(bestellingenList);
+		
 	}
 }
