@@ -121,11 +121,10 @@ public class DomeinController {
 	public void maakNotificatie(Interface_Bestelling bestelling) {
 		app.createNotificatie("Gelieve te betalen!", "Betalingsherinnering", false, new Date(), bestelling);
 	}
-	public void veranderStatusOrder(String id, boolean Status) {
-
-		
-		app.veranderBetalingStatus(id, Status);
-		
+	
+	
+	public void veranderStatusOrder(String id) {
+		app.veranderBetalingStatus(id);
 	}
 
 	public ObservableList<Interface_GoedKeuringLeverancier> getGoedKeuringen(String Soort){

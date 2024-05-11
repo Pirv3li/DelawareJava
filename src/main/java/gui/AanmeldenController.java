@@ -123,8 +123,8 @@ public class AanmeldenController {
 //					primaryStage.setFullScreen(true);
         	        primaryStage.centerOnScreen();
 					primaryStage.show();
-			        DatabasePoller poller = new DatabasePoller(controller, controller.getLeverancier().getIdLeverancier());
-			        poller.startPolling(primaryStage);
+//			        DatabasePoller poller = new DatabasePoller(controller, controller.getLeverancier().getIdLeverancier());
+//			        poller.startPolling(primaryStage);
 				} catch (IOException e) {
 			    	warningMessage.setVisible(true);
 					warningMessage.setText("login en wachtwoord combinatie is fout!!");

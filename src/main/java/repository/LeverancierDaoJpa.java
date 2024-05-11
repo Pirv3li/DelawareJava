@@ -185,14 +185,8 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 		}
 	}
 
-	public void veranderBetalingStatus(String id, Boolean betalingStatus) throws EntityNotFoundException {
+	public void veranderBetalingStatus(String id) throws EntityNotFoundException {
 		EntityTransaction transaction = em.getTransaction();
-		boolean hulp = false;
-		if (betalingStatus) {
-			hulp = false;
-		} else if (!betalingStatus) {
-			hulp = true;
-		}
 
 		try {
 			transaction.begin();
@@ -200,7 +194,7 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 			Query query = em.createNamedQuery("Bestelling.veranderBetalingStatus");
 
 			query.setParameter("idOrder", id);
-			query.setParameter("betalingStatus", hulp);
+			query.setParameter("betalingStatus", true);
 
 			int updatedEntities = query.executeUpdate();
 

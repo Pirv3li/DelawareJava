@@ -157,8 +157,8 @@ public class B2B_Portal {
 		
 	}
 	
-	public void veranderBetalingStatus(String id, boolean status) {
-		leverancierRepo.veranderBetalingStatus(id, status);
+	public void veranderBetalingStatus(String id) {
+		leverancierRepo.veranderBetalingStatus(id);
 		
 	}
 	

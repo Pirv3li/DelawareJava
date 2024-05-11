@@ -45,7 +45,7 @@ public interface LeverancierDao extends GenericDao<Leverancier>{
 
     public ObservableList<Bestelling> getBestellingenByKlantId(int id) throws EntityNotFoundException;   
 
-    public void veranderBetalingStatus(String id, Boolean betalingStatus) throws EntityNotFoundException;  
+    public void veranderBetalingStatus(String id) throws EntityNotFoundException;  
     
     
     //BestellingDetailsDao
