@@ -13,5 +13,7 @@ public interface Interface_Leverancier extends Interface_Gebruiker{
 	String getEmail();
 
 	void setBetaalMethodes(String selectedPaymentMethods);
+
+	void setBedrijf(Bedrijf bedrijf);
 	
 }

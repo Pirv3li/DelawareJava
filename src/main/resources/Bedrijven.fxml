@@ -62,6 +62,12 @@
                </font>
             </Text>
             <ImageView fx:id="delawareLogo" fitHeight="90.0" fitWidth="283.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+         	  <Button fx:id="goedKeuringen" layoutX="7.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchGoedKeuring" prefHeight="60.0" prefWidth="271.0" style="-fx-background-color: transparent; -fx-border-color: #326CFC; -fx-border-width: 0px 0px 2px 0px;" text="Goedkeuringen">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Button>
+                        <FontAwesomeIconView layoutX="19.0" layoutY="313.0" size="30" text="" />
          </children>
       </AnchorPane>
    </left>

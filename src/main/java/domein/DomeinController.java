@@ -2,29 +2,16 @@ package domein;
 
 
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
+import java.util.Date;
 import javafx.collections.ObservableList;
 import repository.AdminDao;
 import repository.AdminDaoJpa;
 import repository.AdresDao;
 import repository.AdresDaoJpa;
-import repository.BedrijfDao;
-import repository.BedrijfDaoJpa;
-import repository.BestellingDao;
-import repository.BestellingDaoJpa;
-import repository.BestellingDetailsDao;
-import repository.BestellingDetailsDaoJpa;
-import repository.DatabasePoller;
-import repository.KlantDao;
-import repository.KlantDaoJpa;
 import repository.LeverancierDao;
 import repository.LeverancierDaoJpa;
-import repository.NotificatieDaoJpa;
-import repository.ProductDao;
-import repository.ProductDaoJpa;
+import repository.DatabasePoller;
 
 public class DomeinController {
 
@@ -32,27 +19,18 @@ public class DomeinController {
 	private Leverancier leverancier;
 	private Admin admin;
 
-	private BedrijfDao bedrijfRepo;
+
     private LeverancierDao leverancierRepo;
-    private BestellingDao bestellingRepo;
-    private BestellingDetailsDao bestellingDetailsRepo;
-    private ProductDao productRepo;
     private AdresDao adresRepo;
     private AdminDao adminRepo;
-    private KlantDao klantRepo;
     private DatabasePoller poller;
+
+
 	 public DomeinController() {
-	        this.bedrijfRepo = new BedrijfDaoJpa();
 	        this.leverancierRepo = new LeverancierDaoJpa();
-	        this.bestellingRepo = new BestellingDaoJpa();
-	        this.bestellingDetailsRepo = new BestellingDetailsDaoJpa();
-	        this.productRepo = new ProductDaoJpa();
 	        this.adresRepo = new AdresDaoJpa();
 	        this.adminRepo = new AdminDaoJpa();
-	        this.klantRepo = new KlantDaoJpa();
-	        
-	        this.app = new B2B_Portal(bedrijfRepo, leverancierRepo, bestellingRepo, bestellingDetailsRepo, productRepo,
-                    adresRepo, adminRepo, klantRepo);
+	        this.app = new B2B_Portal(leverancierRepo, adresRepo, adminRepo);
 }
 	                     
 	public void setPoller(DatabasePoller poller) {
@@ -88,8 +66,9 @@ public class DomeinController {
 		
 
 		return app.getKlantenByLeverancierId(leverancier.getIdLeverancier());
-		
 	}
+	
+	
 	
 	public Interface_Klant getKlantById(int klantId) {
 		return app.getKlantById(klantId);
@@ -140,15 +119,34 @@ public class DomeinController {
 	}
 	
 	public void maakNotificatie(Interface_Bestelling bestelling) {
-		NotificatieDaoJpa notificatieRepo = new NotificatieDaoJpa();
-		
-		notificatieRepo.createNotification("Gelieve te betalen!", "Betalingsherinnering", false, new Date(), bestelling);
+		app.createNotificatie("Gelieve te betalen!", "Betalingsherinnering", false, new Date(), bestelling);
 	}
-	
-	public void veranderStatusOrder(String id) {
-		bestellingRepo.veranderBetalingStatus(id);
+	public void veranderStatusOrder(String id, boolean Status) {
+
+		
+		app.veranderBetalingStatus(id, Status);
+		
 	}
 
+	public ObservableList<Interface_GoedKeuringLeverancier> getGoedKeuringen(String Soort){
+
+		return app.getAllByStatusAfhandeling(Soort);
+	}
+	
+	public Interface_Leverancier getLeverancierById(int idLeverancier) {
+		
+		return app.getLeverancierById(idLeverancier);
+	}
+	
+	public void updateGoedkeuringLeverancier(String id, String afgehandeld) {
+		app.keuringVeranderVerzoekenLeverancier(id, afgehandeld);
+	}
+	
+	public void updateLeverancierById(int idLeverancier, String gebruikersnaam, String email, String iban, String btwNummer, String telefoonnummer,
+			String sector, String straat, String nummer, String stad,String postcode) {
+		app.updateLeverancierById(idLeverancier, gebruikersnaam, email, iban, btwNummer, telefoonnummer, sector, straat, nummer, stad, postcode);
+	}
+	
 	//getters en setters
 
 	public void setApp(B2B_Portal app) {

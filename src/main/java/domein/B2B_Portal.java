@@ -1,48 +1,35 @@
 package domein;
 
-import repository.KlantDao;
+
 import repository.AdminDao;
 import repository.AdresDao;
-import repository.BedrijfDao;
-import repository.BestellingDao;
-import repository.BestellingDetailsDao;
 import repository.LeverancierDao;
-import repository.ProductDao;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Callback;
 
 public class B2B_Portal {
 
 	private static final int ARGON_ITERATIONS = 6;
 	private static final int ARGON_MEMORY = 1 << 17;
 
-	private BedrijfDao bedrijfRepo;
     private LeverancierDao leverancierRepo;
-    private BestellingDao bestellingRepo;
-    private BestellingDetailsDao bestellingDetailsRepo;
-    private ProductDao productRepo;
     private AdresDao adresRepo;
     private AdminDao adminRepo;
-    private KlantDao klantRepo;
 
-    public B2B_Portal(BedrijfDao bedrijfRepo, LeverancierDao leverancierRepo, BestellingDao bestellingRepo,
-                      BestellingDetailsDao bestellingDetailsRepo, ProductDao productRepo, AdresDao adresRepo,
-                      AdminDao adminRepo, KlantDao klantRepo) {
-        this.bedrijfRepo = bedrijfRepo;
+    public B2B_Portal(LeverancierDao leverancierRepo, AdresDao adresRepo,
+                      AdminDao adminRepo) {
         this.leverancierRepo = leverancierRepo;
-        this.bestellingRepo = bestellingRepo;
-        this.bestellingDetailsRepo = bestellingDetailsRepo;
-        this.productRepo = productRepo;
         this.adresRepo = adresRepo;
         this.adminRepo = adminRepo;
-        this.klantRepo = klantRepo;
+
     }
 	public Admin aanmeldenAdmin(String gebruikersnaam, String password) {
 		try {
@@ -75,7 +62,7 @@ public class B2B_Portal {
 	}
 	
 	public ObservableList<Interface_Klant> getKlantenByLeverancierId(int idLeverancier){
-		ObservableList<Interface_Klant> klanten = FXCollections.observableArrayList(klantRepo.getKlantenByLeverancierID(idLeverancier));
+		ObservableList<Interface_Klant> klanten = FXCollections.observableArrayList(leverancierRepo.getKlantenByLeverancierID(idLeverancier));
 		
 		for (Interface_Klant klant : klanten) {
 			setAantalBestellingenByKlant(klant);
@@ -85,19 +72,19 @@ public class B2B_Portal {
 	}
 	
 	public Interface_Klant getKlantById(int idKlant){
-		return klantRepo.getKlantById(idKlant);
+		return leverancierRepo.getKlantById(idKlant);
 	}
 
 	public ObservableList<Interface_Bestelling> getBestellingenByLeverancierId(Interface_Leverancier user) {
-		return FXCollections.observableArrayList(bestellingRepo.getBestellingenByLeverancierId(user.getIdLeverancier()));
+		return FXCollections.observableArrayList(leverancierRepo.getBestellingenByLeverancierId(user.getIdLeverancier()));
 	}
 
 	public ObservableList<Interface_Bestelling> getBestellingenByKlantId(Interface_Klant user) {
-		return FXCollections.observableArrayList(bestellingRepo.getBestellingenByKlantId(user.getIdKlant()));
+		return FXCollections.observableArrayList(leverancierRepo.getBestellingenByKlantId(user.getIdKlant()));
 	}
 	
 	public void setAantalBestellingenByKlant(Interface_Klant klant) {
-		List<Bestelling> bestellingen = bestellingRepo.getBestellingenByKlantId(klant.getIdKlant());
+		List<Bestelling> bestellingen = leverancierRepo.getBestellingenByKlantId(klant.getIdKlant());
 		int countUnpaidOrders = 0;
 		int countAllorders = 0;
 
@@ -112,13 +99,13 @@ public class B2B_Portal {
 	}
 	
 	public ObservableList<Interface_BestellingDetails> getBestellingDetails(Interface_Bestelling bestelling) {
-		ObservableList<Interface_BestellingDetails> bestellingDetails = FXCollections.observableArrayList(bestellingDetailsRepo
+		ObservableList<Interface_BestellingDetails> bestellingDetails = FXCollections.observableArrayList(leverancierRepo
 				.getBestellingDetailsByOrderId(String.valueOf(bestelling.getIdOrder())));
 		return bestellingDetails;
 	}
 
 	public Interface_Product getProductByProductId(int id) {
-		return productRepo.getProductByProductId(id);
+		return leverancierRepo.getProductByProductId(id);
 	}
 
 	private boolean verifyPassword(String password, String hashedPassword) {
@@ -133,11 +120,11 @@ public class B2B_Portal {
 	}
 
 	public ObservableList<Interface_Bedrijf> getBedrijven() {
-		return FXCollections.observableArrayList(bedrijfRepo.getBedrijven());
+		return FXCollections.observableArrayList(adminRepo.getBedrijven());
 	}
 	
 	public Interface_Bedrijf getBedrijfByKlantId(int idKlant) {
-		return bedrijfRepo.getBedrijfByKlantId(idKlant);
+		return leverancierRepo.getBedrijfByKlantId(idKlant);
 	}
 
 	public Interface_Leverancier getLeverancierGegevensByIdBedrijf(int idBedrijf) {
@@ -147,9 +134,51 @@ public class B2B_Portal {
 	public Interface_Adres getAdresByIdAdres(int idAdres) {
 		return adresRepo.getAdresById(idAdres);
 	}
+	
 
 	public void updateLeverancier(Interface_Leverancier lever) {
 		leverancierRepo.updateLeverancier(lever);
 		
+	}
+	
+	public void createNotificatie(String string, String string2, boolean b, Date date,
+			Interface_Bestelling bestelling) {
+		leverancierRepo.createNotificatie(string, string2, b, date,
+			bestelling);
+		
+	}
+	
+	public ObservableList<Interface_GoedKeuringLeverancier> getAllByStatusAfhandeling(String soort) {
+		return FXCollections.observableArrayList(adminRepo.getAllByStatusAfhandeling(soort));
+	}
+	
+	public void keuringVeranderVerzoekenLeverancier(String id, String afgehandeld) {
+		adminRepo.keuringVeranderVerzoekenLeverancier(id, afgehandeld);
+		
+	}
+	
+	public void veranderBetalingStatus(String id, boolean status) {
+		leverancierRepo.veranderBetalingStatus(id, status);
+		
+	}
+	
+	public Interface_Leverancier getLeverancierById(int idLeverancier) {
+		return leverancierRepo.getLeverancierById(idLeverancier);
+	}
+	
+	public void updateLeverancierById(int idLeverancier, String gebruikersnaam, String email, String iban, String btwNummer, String telefoonnummer,
+			String sector, String straat, String nummer, String stad,String postcode) {
+		leverancierRepo.updateLeverancierById(idLeverancier, gebruikersnaam, email);
+		Leverancier l = leverancierRepo.getLeverancierById(idLeverancier);
+		Bedrijf b = l.getBedrijf();
+		b.setIban(iban);
+		b.setBtwNummer(btwNummer);
+		b.setTelefoonnummer(telefoonnummer);
+		b.setSector(sector);
+		int idAdres = b.getIdAdres();
+		//int idAdres = adresRepo.createAdres(String straat, String nummer, String stad,String postcode);
+		//b.setIdAdres(idAdres)
+		l.setBedrijf(null);
+		leverancierRepo.updateBedrijfByLeverancier(l, b);
 	}
 }

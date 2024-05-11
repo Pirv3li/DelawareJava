@@ -16,7 +16,8 @@ import jakarta.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "Bedrijf.getBedrijfById", query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf"),
 
-		@NamedQuery(name = "Bedrijf.getBedrijven", query = "SELECT b FROM Bedrijf b") })
+		@NamedQuery(name = "Bedrijf.getBedrijven", query = "SELECT b FROM Bedrijf b"),
+		@NamedQuery(name = "Bedrijf.getBedrijfById", query = "select b FROM Bedrijf b where b.idBedrijf = :idBedrijf"), })
 
 public class Bedrijf implements Serializable, Interface_Bedrijf {
 
@@ -31,7 +32,7 @@ public class Bedrijf implements Serializable, Interface_Bedrijf {
 	private String email;
 	private String iban;
 	private String btwNummer;
-	private int telefoonnummer;
+	private String telefoonnummer;
 	private Date gebruikerSinds;
 	private int idAdres;
 	private boolean isActief;
@@ -50,10 +51,6 @@ public class Bedrijf implements Serializable, Interface_Bedrijf {
 		return this.naam;
 	}
 
-	private void setNaam(String naam) {
-		this.naam = naam;
-	}
-
 	@Override
 	public String getLogo() {
 		return this.logo;
@@ -68,17 +65,9 @@ public class Bedrijf implements Serializable, Interface_Bedrijf {
 		return this.sector;
 	}
 
-	private void setSector(String sector) {
-		this.sector = sector;
-	}
-
 	@Override
 	public String getEmail() {
 		return this.email;
-	}
-
-	private void setEmail(String email) {
-		this.email = email;
 	}
 
 	@Override
@@ -86,26 +75,14 @@ public class Bedrijf implements Serializable, Interface_Bedrijf {
 		return this.iban;
 	}
 
-	private void setIban(String iban) {
-		this.iban = iban;
-	}
-
 	@Override
 	public String getBtwNummer() {
 		return this.btwNummer;
 	}
 
-	private void setBtwNummer(String btwNummer) {
-		this.btwNummer = btwNummer;
-	}
-
 	@Override
-	public int getTelefoonnummer() {
+	public String getTelefoonnummer() {
 		return this.telefoonnummer;
-	}
-
-	private void setTelefoonnummer(int telefoonnummer) {
-		this.telefoonnummer = telefoonnummer;
 	}
 
 	@Override
@@ -137,8 +114,9 @@ public class Bedrijf implements Serializable, Interface_Bedrijf {
 	}
 
 	public Bedrijf(int idBedrijf, String naam, String logo, String sector, String email, String iban, String btwNummer,
-			int telefoonnummer, Date gebruikerSinds, int idAdres, boolean isActief) {
-		setIdBedrijf(idBedrijf);;
+			String telefoonnummer, Date gebruikerSinds, int idAdres, boolean isActief) {
+		setIdBedrijf(idBedrijf);
+		;
 		setNaam(naam);
 		setLogo(logo);
 		setSector(sector);
@@ -153,6 +131,36 @@ public class Bedrijf implements Serializable, Interface_Bedrijf {
 
 	public Bedrijf() {
 
+	}
+
+	@Override
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	@Override
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
+
+	@Override
+	public void setEmail(String email) {
+
+	}
+
+	@Override
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	@Override
+	public void setBtwNummer(String btwNummer) {
+		this.btwNummer = btwNummer;
+	}
+
+	@Override
+	public void setTelefoonnummer(String telefoonnummer) {
+		this.telefoonnummer = telefoonnummer;
 	}
 
 }

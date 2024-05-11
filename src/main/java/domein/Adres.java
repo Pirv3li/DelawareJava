@@ -23,12 +23,12 @@ public class Adres implements Serializable, Interface_Adres {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAdres;
 	private String straat;
-	private int nummer;
+	private String nummer;
 	private String stad;
-	private int postcode;
+	private String postcode;
 	private Date laatstGebruikt;
 
-	public Adres(int idAdres, String straat, int nummer, String stad, int postcode, Date laatstGebruikt) {
+	public Adres(int idAdres, String straat, String nummer, String stad, String postcode, Date laatstGebruikt) {
 		super();
 		setIdAdres(idAdres);
 		setStraat(straat);
@@ -56,11 +56,11 @@ public class Adres implements Serializable, Interface_Adres {
 	}
 
 	@Override
-	public int getNummer() {
+	public String getNummer() {
 		return nummer;
 	}
 
-	private void setNummer(int nummer) {
+	private void setNummer(String nummer) {
 		this.nummer = nummer;
 	}
 
@@ -69,11 +69,11 @@ public class Adres implements Serializable, Interface_Adres {
 	}
 
 	@Override
-	public int getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
 
-	private void setPostcode(int postcode) {
+	private void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 

@@ -5,18 +5,24 @@ public interface Interface_Bedrijf {
 	int getIdBedrijf();
 
 	String getNaam();
+	void setNaam(String naam);
 
 	String getLogo();
 
 	String getSector();
+	void setSector(String sector);
 
 	String getEmail();
+	void setEmail(String email);
 
 	String getIban();
+	void setIban(String iban);
 
 	String getBtwNummer();
+	void setBtwNummer(String btwNummer);
 
-	int getTelefoonnummer();
+	String getTelefoonnummer();
+	void setTelefoonnummer(String telefoonnummer);
 
 	String getGebruikerSinds();
 
