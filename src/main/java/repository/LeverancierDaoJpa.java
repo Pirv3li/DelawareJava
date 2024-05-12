@@ -122,9 +122,11 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 	//BestellingJpa
 	
 	@Override
-	public List<Bestelling> getBestellingenByLeverancierId(int id) throws EntityNotFoundException {
+	public List<Bestelling> getBestellingenByLeverancierId(int id, int aantal, int begin) throws EntityNotFoundException {
 		try {
 			return em.createNamedQuery("Bestelling.getBestellingenByLeverancierId", Bestelling.class)
+                    .setFirstResult(begin)
+                    .setMaxResults(aantal)
 					.setParameter("idLeverancier", id).getResultList();
 		} catch (NoResultException ex) {
 			throw new EntityNotFoundException();
@@ -184,10 +186,12 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
     //KlantJpa
     
     @Override
-    public List<Klant> getKlantenByLeverancierID(int leverancierId) throws EntityNotFoundException {
+    public List<Klant> getKlantenByLeverancierID(int leverancierId, int aantal , int begin) throws EntityNotFoundException {
         try {
             return em.createQuery("SELECT DISTINCT k FROM Klant k JOIN Bestelling b ON k.idKlant = b.idKlant WHERE b.idLeverancier = :idLeverancier", Klant.class)
                     .setParameter("idLeverancier", leverancierId)
+                    .setFirstResult(begin)
+                    .setMaxResults(aantal)
                     .getResultList();
         } catch (NoResultException ex) {
             throw new EntityNotFoundException();

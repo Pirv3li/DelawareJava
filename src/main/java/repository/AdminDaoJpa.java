@@ -23,6 +23,7 @@ public class AdminDaoJpa extends GenericDaoJpa<Admin> implements AdminDao {
 	}
 	
 	
+	
 	@Override
 	public Admin getAdminByGebruikersnaam(String gebruikersnaam) throws EntityNotFoundException {
 		try {
@@ -35,10 +36,13 @@ public class AdminDaoJpa extends GenericDaoJpa<Admin> implements AdminDao {
 	
 	//bedrijfJpa
 	
-    public List<Bedrijf> getBedrijven() throws EntityNotFoundException {
+    public List<Bedrijf> getBedrijven(int aantal, int begin) throws EntityNotFoundException {
         try {
             return em.createNamedQuery("Bedrijf.getBedrijven", Bedrijf.class)
-                .getResultList();
+                    .setFirstResult(begin)
+                    .setMaxResults(aantal)
+                    .getResultList();
+            	
         } catch (NoResultException ex) {
             throw new EntityNotFoundException();
         } 
@@ -69,12 +73,15 @@ public class AdminDaoJpa extends GenericDaoJpa<Admin> implements AdminDao {
     }
 
 	
-	public ObservableList<GoedKeuringLeverancier> getAllByStatusAfhandeling(String afgehandeld)
+	public ObservableList<GoedKeuringLeverancier> getAllByStatusAfhandeling(String afgehandeld, int aantal, int begin)
 			throws EntityNotFoundException {
 		try {
 			List<GoedKeuringLeverancier> resultList = em
 					.createNamedQuery("GoedKeuringLeverancier.getAllByStatusAfhandeling", GoedKeuringLeverancier.class)
-					.setParameter("afgehandeld", afgehandeld).getResultList();
+					.setParameter("afgehandeld", afgehandeld)
+					.setFirstResult(begin)
+					.setMaxResults(aantal)
+					.getResultList();
 			return FXCollections.observableList(resultList);
 		} catch (NoResultException ex) {
 			throw new EntityNotFoundException();
@@ -158,5 +165,8 @@ public class AdminDaoJpa extends GenericDaoJpa<Admin> implements AdminDao {
 	        throw ex;
 	    }
 	}
+
+
+
 	
 }

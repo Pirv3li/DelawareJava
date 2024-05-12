@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -97,6 +99,21 @@ public class BestellingController {
 
 	@FXML
 	private VBox BestellingenRechts;
+	
+	@FXML
+	private FontAwesomeIconView btnRechts;
+
+	@FXML
+	private FontAwesomeIconView btnLinks;
+	
+	@FXML
+	private Label lblPage;
+	
+	@FXML
+	ComboBox<Integer> cbxAantal;
+	
+	private int begin = 0;
+	private int pageCounter = 1;
 
 	public BestellingController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -138,7 +155,11 @@ public class BestellingController {
 		aantalColumn.setCellValueFactory(new PropertyValueFactory<>("aantal"));
 		totaalPrijsPerProductColumn.setCellValueFactory(new PropertyValueFactory<>("totaalPrijs"));
 
-		bestellingTable.setItems(getBestellingen());
+		lblPage.setText("" + pageCounter);
+		cbxAantal.setValue(5);
+		cbxAantal.getItems().addAll(5, 10, 20);
+		
+		bestellingTable.setItems(getBestellingen(cbxAantal.getValue(), begin) );
 
 		bestellingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
@@ -149,6 +170,8 @@ public class BestellingController {
 			}
 
 		});
+		
+
 		
 		betalingstatusColumn.setCellFactory(column -> {
 			return new TableCell<Interface_Bestelling, String>() {
@@ -168,6 +191,59 @@ public class BestellingController {
 				}
 			};
 		});
+		
+		btnRechts.setOnMouseClicked(e -> {
+			pageCounter++;
+			lblPage.setText("" + pageCounter);
+
+			begin += cbxAantal.getValue();
+			Integer aantal = cbxAantal.getValue();
+			if (begin > 0) {
+				btnLinks.setVisible(true);}
+			else {
+				btnLinks.setVisible(false);
+			}
+			
+			
+			
+			bestellingTable.setItems(getBestellingen(aantal, begin));
+			bestellingTable.refresh();
+			
+			if(bestellingTable.getItems().size() < cbxAantal.getValue()) {
+                btnRechts.setVisible(false);}
+
+		});
+
+			btnLinks.setOnMouseClicked(e -> {
+				pageCounter--;
+				lblPage.setText("" + pageCounter);
+
+				begin -= cbxAantal.getValue();
+				Integer aantal = cbxAantal.getValue();
+				if (begin <= 0) {
+					btnLinks.setVisible(false);
+					begin = 0;
+				}
+				btnRechts.setVisible(true);
+				bestellingTable.setItems(getBestellingen(aantal, begin));
+				bestellingTable.refresh();
+
+			});
+			
+			cbxAantal.setOnAction(e -> {
+				pageCounter = 1;
+				begin = 0;
+				
+				Integer aantal = cbxAantal.getValue();
+				bestellingTable.setItems(getBestellingen(aantal, begin));
+				bestellingTable.refresh();
+				
+
+				btnLinks.setVisible(false);
+				btnRechts.setVisible(true);
+				if(bestellingTable.getItems().size() < cbxAantal.getValue()) {
+	                btnRechts.setVisible(false);}
+			});
 
 
 
@@ -175,15 +251,15 @@ public class BestellingController {
 	}
 
 	private void isbetaald(Interface_Bestelling newSelection) {
-		if (newSelection.getBetalingStatus().equals("betaald")) {
+		if (newSelection.getBetalingStatus().equals("Betaald")) {
 			betalingsherinnering.setVisible(false);
 		} else {
 			betalingsherinnering.setVisible(true);
 		}
 	}
 
-	private ObservableList<Interface_Bestelling> getBestellingen() {
-		ObservableList<Interface_Bestelling> bestellingen = controller.findBestellingenByLeverancier();
+	private ObservableList<Interface_Bestelling> getBestellingen(int aantal, int begin) {
+		ObservableList<Interface_Bestelling> bestellingen = controller.findBestellingenByLeverancier(aantal, begin);
 		return bestellingen;
 	}
 

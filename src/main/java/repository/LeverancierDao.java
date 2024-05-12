@@ -37,7 +37,7 @@ public interface LeverancierDao extends GenericDao<Leverancier>{
     
     // BestellingDao
     
-    public List<Bestelling> getBestellingenByLeverancierId(int id) throws EntityNotFoundException;   
+    public List<Bestelling> getBestellingenByLeverancierId(int id, int aantal, int begin) throws EntityNotFoundException;   
 
     public ObservableList<Bestelling> getBestellingenByKlantId(int id) throws EntityNotFoundException;   
 
@@ -50,7 +50,7 @@ public interface LeverancierDao extends GenericDao<Leverancier>{
     
     //KlantDao
     
-    List<Klant> getKlantenByLeverancierID(int leverancierId) throws EntityNotFoundException;
+    List<Klant> getKlantenByLeverancierID(int leverancierId, int aantal, int begin) throws EntityNotFoundException;
     
     Interface_Klant getKlantById(int klantId) throws EntityNotFoundException;
     

@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="783.0" minWidth="1321.0" prefHeight="783.0" prefWidth="1469.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="1080.0" maxWidth="1920.0" minHeight="783.0" minWidth="1321.0" prefHeight="783.0" prefWidth="1469.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane maxHeight="1080.0" maxWidth="350.0" minHeight="783.0" minWidth="-Infinity" prefHeight="783.0" prefWidth="282.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
          <children>
@@ -102,6 +103,11 @@
                   </HBox>
                </children>
             </VBox>
+            <FontAwesomeIconView fx:id="btnRechts" layoutX="467.0" layoutY="724.0" size="25" text="" />
+            <FontAwesomeIconView fx:id="btnLinks" layoutX="146.0" layoutY="724.0" size="25" text="" visible="false" />
+            <ComboBox fx:id="cbxAantal" layoutX="239.0" layoutY="703.0" prefWidth="150.0" />
+            <Label layoutX="259.0" layoutY="741.0" text="Pagina:" />
+            <Label fx:id="lblPage" layoutX="314.0" layoutY="741.0" />
          </children>
       </AnchorPane>
    </center>

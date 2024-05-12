@@ -17,7 +17,7 @@ public interface AdminDao extends GenericDao<Admin>{
 	
 	//bedrijfDao
 	
-	public List<Bedrijf> getBedrijven() throws EntityNotFoundException;
+	public List<Bedrijf> getBedrijven(int aantal, int begin) throws EntityNotFoundException;
 	
 	public void updateBedrijfByIdBedrijf(int idBedrijf, String iban, String btwNummer, String telefoonnummer, String sector, int idAdres) throws EntityNotFoundException;
 	
@@ -26,7 +26,7 @@ public interface AdminDao extends GenericDao<Admin>{
     public void keuringVeranderVerzoekenLeverancier(int id, String afgehandeld) throws EntityNotFoundException;  
 
     
-    public ObservableList<GoedKeuringLeverancier> getAllByStatusAfhandeling(String afgehandeld) throws EntityNotFoundException;
+    public ObservableList<GoedKeuringLeverancier> getAllByStatusAfhandeling(String afgehandeld, int aantal, int begin) throws EntityNotFoundException;
 
 	//adresDao
 	

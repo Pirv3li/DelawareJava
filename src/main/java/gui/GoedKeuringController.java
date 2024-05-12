@@ -3,6 +3,7 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import domein.Bedrijf;
 import domein.DomeinController;
 import domein.Interface_Adres;
@@ -24,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -51,7 +53,7 @@ public class GoedKeuringController implements Observer{
 	
 	
 	@FXML
-	private VBox informatieVBox;
+	private VBox informatieVBox1;
 	@FXML
 	private TableView<Interface_GoedKeuringLeverancier> goedKeuringTable;
 
@@ -138,6 +140,20 @@ public class GoedKeuringController implements Observer{
 	private ObservableList<Interface_GoedKeuringLeverancier> goedKeuringen;
 	
 	
+	@FXML
+	private FontAwesomeIconView btnRechts;
+
+	@FXML
+	private FontAwesomeIconView btnLinks;
+	
+	@FXML
+	private Label lblPage;
+	
+	@FXML
+	ComboBox<Integer> cbxAantal;
+	
+	private int begin = 0;
+	private int pageCounter = 1;
 	
 	
 	public GoedKeuringController(Stage primaryStage) {
@@ -152,6 +168,11 @@ public class GoedKeuringController implements Observer{
 		String url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Delaware-logo.svg/1200px-Delaware-logo.svg.png";
 		Image image = new Image(url);
 		delawareLogo.setImage(image);
+		
+		lblPage.setText("" + pageCounter);
+		cbxAantal.setValue(5);
+		cbxAantal.getItems().addAll(5, 10, 20);
+		
 
 		NummerColumn.setCellValueFactory(new PropertyValueFactory<>("leverancierNummer"));
 		SoortColumn.setCellValueFactory(new PropertyValueFactory<>("roles"));
@@ -160,7 +181,7 @@ public class GoedKeuringController implements Observer{
 
 		// OPTIES
 		// in behandeling, goedgekeurd, afgekeurd
-		getGoedKeuringen();
+		getGoedKeuringen(cbxAantal.getValue(), begin);
 		goedKeuringTable.setItems(goedKeuringen);
 		goedKeuringTable.getItems().forEach(item -> {
 		    item.addObserver(this);
@@ -171,8 +192,8 @@ public class GoedKeuringController implements Observer{
 
 		goedKeuringTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-            	informatieVBox.setVisible(true);
-            	
+            	informatieVBox1.setVisible(true);
+            	informatieVBox1.setVisible(true);
             	vulBestellingDetailsTable(newSelection);
             }
         });
@@ -180,14 +201,74 @@ public class GoedKeuringController implements Observer{
 		
 		btnAfwijzen.setOnAction(e -> {
 			controller.updateGoedkeuringLeverancier(goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier(),"afgekeurd");
-			informatieVBox.setVisible(false);
+			informatieVBox1.setVisible(false);
 		});
 		
 		btnAkkoord.setOnAction(e -> {
 			controller.updateGoedkeuringLeverancier(goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier(),"goedgekeurd");
 			controller.updateLeverancierById(idLeverancier, aGebruikersnaam.getText(), aEmail.getText(), aIban.getText(), aBtw.getText(), aTelefoon.getText(), aSector.getText(), aStraat.getText(), aNummer.getText(), aStad.getText(), aPostcode.getText());
-			informatieVBox.setVisible(false);
+			informatieVBox1.setVisible(false);
 		});
+		
+		btnRechts.setOnMouseClicked(e -> {
+			informatieVBox1.setVisible(false);
+
+			pageCounter++;
+			lblPage.setText("" + pageCounter);
+
+			begin += cbxAantal.getValue();
+			Integer aantal = cbxAantal.getValue();
+			if (begin > 0) {
+				btnLinks.setVisible(true);}
+			else {
+				btnLinks.setVisible(false);
+			}
+			
+			
+			getGoedKeuringen(aantal, begin);
+			goedKeuringTable.setItems(goedKeuringen);
+			goedKeuringTable.refresh();
+			
+			if(goedKeuringTable.getItems().size() < cbxAantal.getValue()) {
+                btnRechts.setVisible(false);}
+
+		});
+
+			btnLinks.setOnMouseClicked(e -> {
+				informatieVBox1.setVisible(false);
+				pageCounter--;
+				lblPage.setText("" + pageCounter);
+
+				begin -= cbxAantal.getValue();
+				Integer aantal = cbxAantal.getValue();
+				if (begin <= 0) {
+					btnLinks.setVisible(false);
+					begin = 0;
+				}
+				btnRechts.setVisible(true);
+				getGoedKeuringen(aantal, begin);
+
+				goedKeuringTable.setItems(goedKeuringen);
+				goedKeuringTable.refresh();
+
+			});
+			
+			cbxAantal.setOnAction(e -> {
+				informatieVBox1.setVisible(false);
+				pageCounter = 1;
+				begin = 0;
+				
+				Integer aantal = cbxAantal.getValue();
+				getGoedKeuringen(aantal, begin);
+				goedKeuringTable.setItems(goedKeuringen);
+				goedKeuringTable.refresh();
+				
+
+				btnLinks.setVisible(false);
+				btnRechts.setVisible(true);
+				if(goedKeuringTable.getItems().size() < cbxAantal.getValue()) {
+	                btnRechts.setVisible(false);}
+			});
 	}
 	
 	private void vulBestellingDetailsTable(Interface_GoedKeuringLeverancier goedkeuringLeverancier) {
@@ -240,8 +321,8 @@ public class GoedKeuringController implements Observer{
 		
 	}
 	
-	private void getGoedKeuringen() {
-		goedKeuringen = controller.getGoedKeuringen("in behandeling");
+	private void getGoedKeuringen(int aantal, int begin) {
+		goedKeuringen = controller.getGoedKeuringen("in behandeling", aantal, begin);
 	}
 	
 	private void compareAndSetColor(Label aLabel, Label vLabel) {

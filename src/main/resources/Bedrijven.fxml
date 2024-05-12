@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -54,7 +55,7 @@
             <FontAwesomeIconView glyphName="USER" layoutX="34.0" layoutY="495.0" size="30" text="" visible="false" />
             <FontAwesomeIconView glyphName="USERS" layoutX="27.0" layoutY="434.0" size="30" text="" visible="false" />
             <FontAwesomeIconView glyphName="LIST" layoutX="30.0" layoutY="374.0" size="30" text="" visible="false" />
-            <FontAwesomeIconView layoutX="30.0" layoutY="252.0" size="30" text="" />
+            <FontAwesomeIconView layoutX="21.0" layoutY="252.0" size="30" text="" />
             <FontAwesomeIconView layoutX="31.0" layoutY="815.0" size="30" text="" />
             <Text layoutX="2.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="B2B-portaal" textAlignment="CENTER" wrappingWidth="276.955078125">
                <font>
@@ -167,6 +168,11 @@
                   </VBox>
                </children>
             </VBox>
+            <FontAwesomeIconView fx:id="btnRechts" layoutX="440.0" layoutY="828.0" size="25" text="" wrappingWidth="25.285714149475098" />
+            <FontAwesomeIconView fx:id="btnLinks" layoutX="53.0" layoutY="828.0" size="25" text="" visible="false" wrappingWidth="25.285714149475098" />
+            <ComboBox fx:id="cbxAantal" layoutX="182.0" layoutY="807.0" prefWidth="150.0" promptText="10" />
+            <Label fx:id="lblPage" layoutX="273.0" layoutY="853.0" prefHeight="17.0" prefWidth="17.0" />
+            <Label layoutX="209.0" layoutY="853.0" text="Pagina:" />
          </children>
       </AnchorPane>
    </center>

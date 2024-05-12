@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -91,7 +92,7 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox fx:id="informatieVBox1" layoutX="501.0" layoutY="115.0" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0" minWidth="423.0" prefHeight="683.0" prefWidth="423.0">
+            <VBox fx:id="informatieVBox1" layoutX="501.0" layoutY="115.0" maxHeight="1022.0" maxWidth="785.0" minHeight="683.0" minWidth="423.0" prefHeight="683.0" prefWidth="423.0" visible="false">
                <children>
                   <HBox prefHeight="35.0" prefWidth="74.0">
                   </HBox>
@@ -212,6 +213,11 @@
                   </VBox>
                </children>
             </VBox>
+             <FontAwesomeIconView fx:id="btnRechts" layoutX="440.0" layoutY="828.0" size="25" text="" wrappingWidth="25.285714149475098" />
+            <FontAwesomeIconView fx:id="btnLinks" layoutX="53.0" layoutY="828.0" size="25" text="" visible="false" wrappingWidth="25.285714149475098" />
+            <ComboBox fx:id="cbxAantal" layoutX="182.0" layoutY="807.0" prefWidth="150.0" promptText="10" />
+            <Label fx:id="lblPage" layoutX="273.0" layoutY="853.0" prefHeight="17.0" prefWidth="17.0" />
+            <Label layoutX="209.0" layoutY="853.0" text="Pagina:" />
          </children>
       </AnchorPane>
    </center>

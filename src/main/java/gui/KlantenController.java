@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -136,6 +137,21 @@ public class KlantenController implements Observer{
 	private ImageView logo;
 	@FXML
 	private ImageView delawareLogo;
+	
+	@FXML
+	private FontAwesomeIconView btnRechts;
+
+	@FXML
+	private FontAwesomeIconView btnLinks;
+	
+	@FXML
+	private Label lblPage;
+	
+	private int begin = 0;
+	private int pageCounter = 1;
+	
+	@FXML
+	ComboBox<Integer> cbxAantal;
 
 	private DomeinController controller;
 	
@@ -185,11 +201,13 @@ public class KlantenController implements Observer{
 		Image image1 = new Image(url1);
 		delawareLogo.setImage(image1);
 		
-
+		lblPage.setText("" + pageCounter);
+		cbxAantal.setValue(5);
+		cbxAantal.getItems().addAll(5, 10, 20);
 		
 		klantNaamColumn.setCellValueFactory(new PropertyValueFactory<>("gebruikersnaam"));
 
-		KlantenTable.setItems(getKlanten());
+		KlantenTable.setItems(getKlanten(cbxAantal.getValue(), begin));
 
 		aantalBestellingenColumn.setCellValueFactory(new PropertyValueFactory<>("aantalBestellingen"));
 
@@ -198,12 +216,14 @@ public class KlantenController implements Observer{
 		KlantenTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
 				KlantRechts.setVisible(true);
+				bestellingenList.clear();
 				bestellingenList.addAll(getBestellingen(newSelection));
 				bestellingenView.setItems(bestellingenList);
 				bestellingenView.getItems().forEach(item -> {
 				    item.addObserver(this);
 				    });
 				vulKlantDetailsTable(newSelection);
+				
 				betalingStatus.setVisible(false);
 
 			}
@@ -227,12 +247,66 @@ public class KlantenController implements Observer{
 				String idOrder = selectedOrder.getIdOrder();
 
 				controller.veranderStatusOrder(idOrder);
+				betalingStatus.setVisible(false);
 
 				
 			
 			}
 		});
 		
+		
+		btnRechts.setOnMouseClicked(e -> {
+			pageCounter++;
+			lblPage.setText("" + pageCounter);
+
+			begin += cbxAantal.getValue();
+			Integer aantal = cbxAantal.getValue();
+			if (begin > 0) {
+				btnLinks.setVisible(true);}
+			else {
+				btnLinks.setVisible(false);
+			}
+			
+			
+			
+			KlantenTable.setItems(getKlanten(aantal, begin));
+			KlantenTable.refresh();
+			
+			if(KlantenTable.getItems().size() < cbxAantal.getValue()) {
+                btnRechts.setVisible(false);}
+
+		});
+
+			btnLinks.setOnMouseClicked(e -> {
+				pageCounter--;
+				lblPage.setText("" + pageCounter);
+
+				begin -= cbxAantal.getValue();
+				Integer aantal = cbxAantal.getValue();
+				if (begin <= 0) {
+					btnLinks.setVisible(false);
+					begin = 0;
+				}
+				btnRechts.setVisible(true);
+				KlantenTable.setItems(getKlanten(aantal, begin));
+				KlantenTable.refresh();
+
+			});
+			
+			cbxAantal.setOnAction(e -> {
+				pageCounter = 1;
+				begin = 0;
+				
+				Integer aantal = cbxAantal.getValue();
+				KlantenTable.setItems(getKlanten(aantal, begin));
+				KlantenTable.refresh();
+				
+
+				btnLinks.setVisible(false);
+				btnRechts.setVisible(true);
+				if(KlantenTable.getItems().size() < cbxAantal.getValue()) {
+	                btnRechts.setVisible(false);}
+			});
 		
 
 	}
@@ -279,13 +353,13 @@ public class KlantenController implements Observer{
 		}
 	}
 
-	private ObservableList<Interface_Klant> getKlanten() {
+	private ObservableList<Interface_Klant> getKlanten(int aantal, int begin) {
 
-		return controller.getKlantenByLeverancierId();
+		return controller.getKlantenByLeverancierId(aantal, begin);
 	}
 
 	private void isbetaald(Interface_Bestelling newSelection) {
-		if (newSelection.getBetalingStatus().equals("betaald")) {
+		if (newSelection.getBetalingStatus().equals("Betaald")) {
 			betalingStatus.setVisible(false);
 		} else {
 			betalingStatus.setVisible(true);

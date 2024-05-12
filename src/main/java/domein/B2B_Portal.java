@@ -61,8 +61,8 @@ public class B2B_Portal {
 
 	}
 	
-	public ObservableList<Interface_Klant> getKlantenByLeverancierId(int idLeverancier){
-		ObservableList<Interface_Klant> klanten = FXCollections.observableArrayList(leverancierRepo.getKlantenByLeverancierID(idLeverancier));
+	public ObservableList<Interface_Klant> getKlantenByLeverancierId(int idLeverancier, int aantal, int begin){
+		ObservableList<Interface_Klant> klanten = FXCollections.observableArrayList(leverancierRepo.getKlantenByLeverancierID(idLeverancier, aantal, begin));
 		
 		for (Interface_Klant klant : klanten) {
 			setAantalBestellingenByKlant(klant);
@@ -75,8 +75,8 @@ public class B2B_Portal {
 		return leverancierRepo.getKlantById(idKlant);
 	}
 
-	public ObservableList<Interface_Bestelling> getBestellingenByLeverancierId(Interface_Leverancier user) {
-		return FXCollections.observableArrayList(leverancierRepo.getBestellingenByLeverancierId(user.getIdLeverancier()));
+	public ObservableList<Interface_Bestelling> getBestellingenByLeverancierId(Interface_Leverancier user, int aantal, int begin) {
+		return FXCollections.observableArrayList(leverancierRepo.getBestellingenByLeverancierId(user.getIdLeverancier(), aantal, begin));
 	}
 
 	public ObservableList<Interface_Bestelling> getBestellingenByKlantId(Interface_Klant user) {
@@ -119,8 +119,8 @@ public class B2B_Portal {
 		}
 	}
 
-	public ObservableList<Interface_Bedrijf> getBedrijven() {
-		return FXCollections.observableArrayList(adminRepo.getBedrijven());
+	public ObservableList<Interface_Bedrijf> getBedrijven(int aantal, int begin) {
+		return FXCollections.observableArrayList(adminRepo.getBedrijven(aantal, begin));
 	}
 	
 	public Interface_Bedrijf getBedrijfByKlantId(int idKlant) {
@@ -147,8 +147,8 @@ public class B2B_Portal {
 		
 	}
 	
-	public ObservableList<Interface_GoedKeuringLeverancier> getAllByStatusAfhandeling(String soort) {
-		return FXCollections.observableArrayList(adminRepo.getAllByStatusAfhandeling(soort));
+	public ObservableList<Interface_GoedKeuringLeverancier> getAllByStatusAfhandeling(String soort, int aantal, int begin) {
+		return FXCollections.observableArrayList(adminRepo.getAllByStatusAfhandeling(soort, aantal, begin));
 	}
 	
 	public void keuringVeranderVerzoekenLeverancier(int id, String afgehandeld) {

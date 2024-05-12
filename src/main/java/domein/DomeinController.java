@@ -59,10 +59,10 @@ public class DomeinController {
 		return aangemeld;
 	};
 	
-	public ObservableList<Interface_Klant> getKlantenByLeverancierId(){
+	public ObservableList<Interface_Klant> getKlantenByLeverancierId(int aantal, int begin){
 		
 
-		return app.getKlantenByLeverancierId(leverancier.getIdLeverancier());
+		return app.getKlantenByLeverancierId(leverancier.getIdLeverancier(), aantal, begin);
 	}
 	
 	
@@ -80,8 +80,8 @@ public class DomeinController {
 		app.setAantalBestellingenByKlant(klant);
 	}
 	
-	public ObservableList<Interface_Bestelling> findBestellingenByLeverancier() {
-		ObservableList<Interface_Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier);
+	public ObservableList<Interface_Bestelling> findBestellingenByLeverancier(int aantal, int begin) {
+		ObservableList<Interface_Bestelling> bestellingen = app.getBestellingenByLeverancierId(leverancier, aantal, begin);
 		return bestellingen;
 	}
 
@@ -95,8 +95,8 @@ public class DomeinController {
 		return product;
 	}
 
-	public ObservableList<Interface_Bedrijf> getBedrijven() {
-		ObservableList<Interface_Bedrijf> bedrijven = app.getBedrijven();
+	public ObservableList<Interface_Bedrijf> getBedrijven(int aantal, int begin) {
+		ObservableList<Interface_Bedrijf> bedrijven = app.getBedrijven(aantal, begin);
 		return bedrijven;
 	}
 	
@@ -124,9 +124,9 @@ public class DomeinController {
 		app.veranderBetalingStatus(id);
 	}
 
-	public ObservableList<Interface_GoedKeuringLeverancier> getGoedKeuringen(String Soort){
+	public ObservableList<Interface_GoedKeuringLeverancier> getGoedKeuringen(String Soort, int aantal, int begin){
 
-		return app.getAllByStatusAfhandeling(Soort);
+		return app.getAllByStatusAfhandeling(Soort, aantal, begin);
 	}
 	
 	public Interface_Leverancier getLeverancierById(int idLeverancier) {
