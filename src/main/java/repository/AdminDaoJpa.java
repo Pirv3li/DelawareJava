@@ -1,11 +1,14 @@
 package repository;
 
+import java.util.Date;
 import java.util.List;
 
 import domein.Admin;
+import domein.Adres;
 import domein.Bedrijf;
 import domein.GoedKeuringLeverancier;
 import domein.Interface_GoedKeuringLeverancier;
+import domein.Leverancier;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
@@ -43,31 +46,28 @@ public class AdminDaoJpa extends GenericDaoJpa<Admin> implements AdminDao {
     
     //goedKeuringJpa
     
-	public void keuringVeranderVerzoekenLeverancier(String id, String afgehandeld) throws EntityNotFoundException {
-		System.out.println("id: " + id + " afgehandeld: " + afgehandeld);
-		EntityTransaction transaction = em.getTransaction();
-			try {
-				transaction.begin();
+    public void keuringVeranderVerzoekenLeverancier(int id, String afgehandeld) throws EntityNotFoundException {
+        System.out.println("id: " + id + " afgehandeld: " + afgehandeld);
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
 
-				Query query = em.createNamedQuery("GoedKeuringLeverancier.keuringVeranderVerzoekenLeverancier");
+            GoedKeuringLeverancier keuringLeverancier = em.find(GoedKeuringLeverancier.class, id);
+            if (keuringLeverancier != null) {
+                keuringLeverancier.setAfgehandeld(afgehandeld);
+            } else {
+                throw new EntityNotFoundException("GoedKeuringLeverancier not found with id: " + id);
+            }
 
-				query.setParameter("idGoedkeuringLeverancier", Integer.parseInt(id));
-				
-				query.setParameter("afgehandeld", afgehandeld);
-				int updatedEntities = query.executeUpdate();
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw ex;
+        }
+    }
 
-				if (updatedEntities == 0) {
-					throw new EntityNotFoundException();
-				}
-
-				transaction.commit();
-			} catch (Exception ex) {
-				if (transaction != null && transaction.isActive()) {
-					transaction.rollback();
-				}
-				throw ex;
-			}
-		}
 	
 	public ObservableList<GoedKeuringLeverancier> getAllByStatusAfhandeling(String afgehandeld)
 			throws EntityNotFoundException {
@@ -80,4 +80,83 @@ public class AdminDaoJpa extends GenericDaoJpa<Admin> implements AdminDao {
 			throw new EntityNotFoundException();
 		}
 	}
+	
+	
+	public void updateBedrijfByIdBedrijf(int idBedrijf, String iban, String btwNummer, String telefoonnummer, String sector, int idAdres) throws EntityNotFoundException {
+		EntityTransaction transaction = em.getTransaction();
+	    try {
+	        transaction.begin();
+
+	        Bedrijf bedrijf = em.find(Bedrijf.class, idBedrijf);
+	        if (bedrijf == null) {
+	            throw new EntityNotFoundException("Bedrijf not found with ID: " + idBedrijf);
+	        }
+
+	        bedrijf.setIban(iban);
+	        bedrijf.setBtwNummer(btwNummer);
+	        bedrijf.setTelefoonnummer(telefoonnummer);
+	        bedrijf.setSector(sector);
+	        bedrijf.setIdAdres(idAdres);
+
+	        transaction.commit();
+	    } catch (Exception ex) {
+	        if (transaction != null && transaction.isActive()) {
+	            transaction.rollback();
+	        }
+	        throw ex;
+	    }
+	}
+	
+	// AdresJPA
+	
+	public int createAdres(String straat, String nummer, String stad, String postcode) throws EntityNotFoundException {
+	    EntityTransaction transaction = em.getTransaction();
+	    try {
+	        transaction.begin();
+
+	        Date date = new Date();
+	        Adres newAdres = new Adres(straat, nummer, stad, postcode, date);
+	        em.persist(newAdres);
+
+	        em.flush();
+
+	        transaction.commit();
+
+	        return newAdres.getIdAdres();
+	    } catch (Exception ex) {
+	        // If an exception occurs, rollback the transaction
+	        if (transaction != null && transaction.isActive()) {
+	            transaction.rollback();
+	        }
+	        throw ex;
+	    }
+	}
+    
+    //leverancierJPA
+    
+	public void updateLeverancierById(int idLeverancier, String gebruikersnaam, String email) {
+	    EntityTransaction transaction = em.getTransaction();
+
+	    try {
+	        transaction.begin();
+
+	        Leverancier leverancier = em.find(Leverancier.class, idLeverancier);
+	        if (leverancier == null) {
+	            throw new EntityNotFoundException("Leverancier with ID " + idLeverancier + " not found");
+	        }
+
+	        leverancier.setGebruikersnaam(gebruikersnaam);
+	        leverancier.setEmail(email);
+
+	        em.merge(leverancier); // Update the leverancier entity
+
+	        transaction.commit();
+	    } catch (Exception ex) {
+	        if (transaction != null && transaction.isActive()) {
+	            transaction.rollback();
+	        }
+	        throw ex;
+	    }
+	}
+	
 }

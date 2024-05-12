@@ -1,5 +1,7 @@
 package repository;
 
+import java.util.Date;
+
 import domein.Adres;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
@@ -20,5 +22,7 @@ public class AdresDaoJpa extends GenericDaoJpa<Adres> implements AdresDao  {
             throw new EntityNotFoundException();
         } 
     }
+	
+
 
 }

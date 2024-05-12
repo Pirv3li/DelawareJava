@@ -27,7 +27,7 @@ public class Gebruiker implements Serializable, Interface_Gebruiker {
 		return gebruikersnaam;
 	}
 
-	private void setGebruikersnaam(String gebruikersnaam) {
+	public void setGebruikersnaam(String gebruikersnaam) {
 		this.gebruikersnaam = gebruikersnaam;
 	}
 

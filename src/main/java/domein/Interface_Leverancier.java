@@ -16,4 +16,8 @@ public interface Interface_Leverancier extends Interface_Gebruiker{
 
 	void setBedrijf(Bedrijf bedrijf);
 	
+    void addObserver(Observer observer);
+    
+    void removeObserver(Observer observer);
+	
 }

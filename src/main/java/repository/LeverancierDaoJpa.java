@@ -47,7 +47,8 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 			throw new EntityNotFoundException();
 		}
 	}
-
+	
+	@Override
 	public Leverancier getLeverancierByIdBedrijf(int idBedrijf) throws EntityNotFoundException {
 		try {
 			return em.createNamedQuery("Leverancier.getLeverancierByIdBedrijf", Leverancier.class)
@@ -56,7 +57,8 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 			throw new EntityNotFoundException();
 		}
 	}
-
+	
+	@Override
 	public Leverancier getLeverancierById(int idLeverancier) throws EntityNotFoundException {
 		try {
 			return em.createNamedQuery("Leverancier.getLeverancierById", Leverancier.class)
@@ -65,7 +67,8 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 			throw new EntityNotFoundException();
 		}
 	}
-
+	
+	@Override
 	public void updateLeverancier(Interface_Leverancier lever) throws EntityNotFoundException {
 		EntityTransaction transaction = em.getTransaction();
 
@@ -91,56 +94,10 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 		}
 	}
 
-	@Override
-	public void updateLeverancierById(int idLeverancier, String gebruikersnaam, String email) {
-		EntityTransaction transaction = em.getTransaction();
-
-		try {
-			transaction.begin();
-
-			Query query = em.createNamedQuery("Leverancier.updateLeverancierById");
-			query.setParameter("idLeverancier", idLeverancier);
-			query.setParameter("gebruikersnaam", gebruikersnaam);
-			query.setParameter("email", email);
-
-
-			int updatedEntities = query.executeUpdate();
-
-			if (updatedEntities == 0) {
-				throw new EntityNotFoundException();
-			}
-
-			transaction.commit();
-		} catch (Exception ex) {
-			if (transaction != null && transaction.isActive()) {
-				transaction.rollback();
-			}
-			throw ex;
-		}
-	}
-	
-	@Override
-	public void updateBedrijfByLeverancier(Leverancier leverancier, Bedrijf bedrijf) throws EntityNotFoundException {
-		EntityTransaction transaction = entityManager.getTransaction();
-		try {
-			transaction.begin();
-			Leverancier managedLeverancier = entityManager.find(Leverancier.class, leverancier.getIdLeverancier());
-			if (managedLeverancier == null) {
-				throw new EntityNotFoundException();
-			}
-			managedLeverancier.setBedrijf(bedrijf);
-			entityManager.merge(managedLeverancier);
-			transaction.commit();
-		} catch (Exception ex) {
-			if (transaction != null && transaction.isActive()) {
-				transaction.rollback();
-			}
-			throw ex;
-		}
-	}
-	
 	
 	//BedrijvenJpa
+	
+	@Override
     public Interface_Bedrijf getBedrijfById(int id) throws EntityNotFoundException {
         try {
             return em.createNamedQuery("Bedrijf.getBedrijfById", Bedrijf.class)
@@ -151,7 +108,7 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
         } 
     }
    
-    
+	@Override
 	public Interface_Bedrijf getBedrijfByKlantId(int id) throws EntityNotFoundException {
 		try {
 			return em.createQuery("SELECT b FROM Klant k JOIN Bedrijf b ON k.idBedrijf = b.idBedrijf WHERE k.idKlant = :idKlant", Bedrijf.class)
@@ -184,32 +141,33 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
 			throw new EntityNotFoundException();
 		}
 	}
+	
+	@Override
+	public void veranderBetalingStatus(String idOrder) throws EntityNotFoundException {
+	    EntityTransaction transaction = em.getTransaction();
 
-	public void veranderBetalingStatus(String id) throws EntityNotFoundException {
-		EntityTransaction transaction = em.getTransaction();
+	    try {
+	        transaction.begin();
 
-		try {
-			transaction.begin();
+	        // Find the order entity by its ID
+	        Bestelling order = em.find(Bestelling.class, idOrder);
+	        if (order == null) {
+	            throw new EntityNotFoundException("Order with ID " + idOrder + " not found");
+	        }
 
-			Query query = em.createNamedQuery("Bestelling.veranderBetalingStatus");
+	        // Update the betalingStatus of the order entity
+	        order.updateBetalingStatus(true);
 
-			query.setParameter("idOrder", id);
-			query.setParameter("betalingStatus", true);
-
-			int updatedEntities = query.executeUpdate();
-
-			if (updatedEntities == 0) {
-				throw new EntityNotFoundException();
-			}
-
-			transaction.commit();
-		} catch (Exception ex) {
-			if (transaction != null && transaction.isActive()) {
-				transaction.rollback();
-			}
-			throw ex;
-		}
+	        // Commit the transaction to persist the changes
+	        transaction.commit();
+	    } catch (Exception ex) {
+	        if (transaction != null && transaction.isActive()) {
+	            transaction.rollback();
+	        }
+	        throw ex;
+	    }
 	}
+
 	
 	//BestellingDetailsJpa
 	
@@ -236,7 +194,7 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
         }
     }
     
-    
+    @Override
     public Interface_Klant getKlantById(int klantId) throws EntityNotFoundException {
         try {
             return em.createNamedQuery("Klant.getKlantById", Klant.class)
@@ -249,6 +207,7 @@ public class LeverancierDaoJpa extends GenericDaoJpa<Leverancier> implements Lev
     
     //NotificatieJpa
     
+    @Override
     public void createNotificatie(String text, String onderwerp, boolean geopend, Date datum, Interface_Bestelling bestelling) {
     	EntityTransaction transaction = em.getTransaction();
     	String idOrder = bestelling.getIdOrder();

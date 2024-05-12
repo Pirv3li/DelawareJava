@@ -109,7 +109,7 @@ public class Bedrijf implements Serializable, Interface_Bedrijf {
 		return idAdres;
 	}
 
-	private void setIdAdres(int idAdres) {
+	public void setIdAdres(int idAdres) {
 		this.idAdres = idAdres;
 	}
 

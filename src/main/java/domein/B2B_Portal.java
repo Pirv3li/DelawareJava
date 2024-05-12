@@ -138,7 +138,6 @@ public class B2B_Portal {
 
 	public void updateLeverancier(Interface_Leverancier lever) {
 		leverancierRepo.updateLeverancier(lever);
-		
 	}
 	
 	public void createNotificatie(String string, String string2, boolean b, Date date,
@@ -152,14 +151,13 @@ public class B2B_Portal {
 		return FXCollections.observableArrayList(adminRepo.getAllByStatusAfhandeling(soort));
 	}
 	
-	public void keuringVeranderVerzoekenLeverancier(String id, String afgehandeld) {
+	public void keuringVeranderVerzoekenLeverancier(int id, String afgehandeld) {
 		adminRepo.keuringVeranderVerzoekenLeverancier(id, afgehandeld);
 		
 	}
 	
-	public void veranderBetalingStatus(String id) {
-		leverancierRepo.veranderBetalingStatus(id);
-		
+	public void veranderBetalingStatus(String idOrder) {
+		leverancierRepo.veranderBetalingStatus(idOrder);
 	}
 	
 	public Interface_Leverancier getLeverancierById(int idLeverancier) {
@@ -168,17 +166,14 @@ public class B2B_Portal {
 	
 	public void updateLeverancierById(int idLeverancier, String gebruikersnaam, String email, String iban, String btwNummer, String telefoonnummer,
 			String sector, String straat, String nummer, String stad,String postcode) {
-		leverancierRepo.updateLeverancierById(idLeverancier, gebruikersnaam, email);
+		adminRepo.updateLeverancierById(idLeverancier, gebruikersnaam, email);
 		Leverancier l = leverancierRepo.getLeverancierById(idLeverancier);
 		Bedrijf b = l.getBedrijf();
 		b.setIban(iban);
 		b.setBtwNummer(btwNummer);
 		b.setTelefoonnummer(telefoonnummer);
 		b.setSector(sector);
-		int idAdres = b.getIdAdres();
-		//int idAdres = adresRepo.createAdres(String straat, String nummer, String stad,String postcode);
-		//b.setIdAdres(idAdres)
-		l.setBedrijf(null);
-		leverancierRepo.updateBedrijfByLeverancier(l, b);
+		int idAdres = adminRepo.createAdres(straat, nummer, stad,postcode);
+		adminRepo.updateBedrijfByIdBedrijf(b.getIdBedrijf() ,iban, btwNummer, telefoonnummer, sector, idAdres);
 	}
 }

@@ -17,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import repository.DatabasePoller;
 
 public class AanmeldenController {
 
@@ -98,8 +97,6 @@ public class AanmeldenController {
 //					primaryStage.setFullScreen(true);
         	        primaryStage.centerOnScreen();
 					primaryStage.show();
-			        DatabasePoller poller = new DatabasePoller(controller, controller.getLeverancier().getIdLeverancier());
-			        poller.startPolling(primaryStage);
 				} catch (IOException e) {
 			    	warningMessage.setVisible(true);
 					warningMessage.setText("login en wachtwoord combinatie is fout!!");
@@ -123,8 +120,6 @@ public class AanmeldenController {
 //					primaryStage.setFullScreen(true);
         	        primaryStage.centerOnScreen();
 					primaryStage.show();
-//			        DatabasePoller poller = new DatabasePoller(controller, controller.getLeverancier().getIdLeverancier());
-//			        poller.startPolling(primaryStage);
 				} catch (IOException e) {
 			    	warningMessage.setVisible(true);
 					warningMessage.setText("login en wachtwoord combinatie is fout!!");

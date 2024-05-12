@@ -7,7 +7,9 @@ import java.util.List;
 import domein.DomeinController;
 import domein.Interface_Adres;
 import domein.Interface_Bedrijf;
+import domein.Interface_Bestelling;
 import domein.Interface_Leverancier;
+import domein.Observer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -250,8 +252,7 @@ public class ProfielController {
 //			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
-			System.out.println("fail");
-			;
+			e.printStackTrace();
 		}
 	}
 
@@ -269,8 +270,8 @@ public class ProfielController {
 //			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
-			System.out.println("fail");
-			;
+			e.printStackTrace();
 		}
 	}
+
 }

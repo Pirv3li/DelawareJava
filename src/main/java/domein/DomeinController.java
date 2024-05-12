@@ -11,7 +11,7 @@ import repository.AdresDao;
 import repository.AdresDaoJpa;
 import repository.LeverancierDao;
 import repository.LeverancierDaoJpa;
-import repository.DatabasePoller;
+
 
 public class DomeinController {
 
@@ -23,7 +23,7 @@ public class DomeinController {
     private LeverancierDao leverancierRepo;
     private AdresDao adresRepo;
     private AdminDao adminRepo;
-    private DatabasePoller poller;
+
 
 
 	 public DomeinController() {
@@ -33,9 +33,6 @@ public class DomeinController {
 	        this.app = new B2B_Portal(leverancierRepo, adresRepo, adminRepo);
 }
 	                     
-	public void setPoller(DatabasePoller poller) {
-		this.poller = poller;
-	}
 	public void uitloggen() {
 		setLeverancier(null);
 		setAdmin(null);
@@ -137,7 +134,7 @@ public class DomeinController {
 		return app.getLeverancierById(idLeverancier);
 	}
 	
-	public void updateGoedkeuringLeverancier(String id, String afgehandeld) {
+	public void updateGoedkeuringLeverancier(int id, String afgehandeld) {
 		app.keuringVeranderVerzoekenLeverancier(id, afgehandeld);
 	}
 	
@@ -172,8 +169,4 @@ public class DomeinController {
 		app.updateLeverancier(lever);
 	}
 
-	public void pollerList(ObservableList<Interface_Bestelling> bestellingenList) {
-		poller.setCurrentList(bestellingenList);
-		
-	}
 }

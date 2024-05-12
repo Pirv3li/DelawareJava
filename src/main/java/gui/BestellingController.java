@@ -247,8 +247,7 @@ public class BestellingController {
 //			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
-			System.out.println("fail");
-			;
+			e.printStackTrace();
 		}
 
 	}
@@ -267,8 +266,7 @@ public class BestellingController {
 //			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
-			System.out.println("fail");
-			;
+			e.printStackTrace();
 		}
 	}
 

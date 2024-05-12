@@ -1,7 +1,9 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import jakarta.persistence.Table;
     })
 
 public class GoedKeuringLeverancier implements Serializable, Interface_GoedKeuringLeverancier{
-
+	private transient List<Observer> observers = new ArrayList<>();
 	/**
 	 * 
 	 */
@@ -78,7 +80,23 @@ public class GoedKeuringLeverancier implements Serializable, Interface_GoedKeuri
 	}
 	
 	
-	
+	@Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+        System.out.println(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        for (Observer observer : observers) {
+        	System.out.println("observers notified");
+            observer.update(this);
+        }
+    }
 	
 	public void setIdGoedkeuringLeverancier(int idGoedkeuringLeverancier) {
 		this.idGoedkeuringLeverancier = idGoedkeuringLeverancier;
@@ -166,6 +184,7 @@ public class GoedKeuringLeverancier implements Serializable, Interface_GoedKeuri
 
 	public void setAfgehandeld(String afgehandeld) {
 		this.afgehandeld = afgehandeld;
+		notifyObservers();
 	}
 
 

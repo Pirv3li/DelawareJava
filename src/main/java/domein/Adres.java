@@ -28,7 +28,7 @@ public class Adres implements Serializable, Interface_Adres {
 	private String postcode;
 	private Date laatstGebruikt;
 
-	public Adres(int idAdres, String straat, String nummer, String stad, String postcode, Date laatstGebruikt) {
+	public Adres(String straat, String nummer, String stad, String postcode, Date laatstGebruikt) {
 		super();
 		setIdAdres(idAdres);
 		setStraat(straat);

@@ -1,7 +1,10 @@
 package domein;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +29,7 @@ import jakarta.persistence.Table;
 
 })
 public class Leverancier extends Gebruiker implements Serializable, Interface_Leverancier {
-
+	private transient List<Observer> observers = new ArrayList<>();
     private static final long serialVersionUID = 1L;
     
     @ManyToOne
@@ -78,6 +81,24 @@ public class Leverancier extends Gebruiker implements Serializable, Interface_Le
         super(gebruikersnaam, password_Hash);
         setLeveranciernummer(leveranciernummer);
     }
+    
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+        System.out.println(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        for (Observer observer : observers) {
+        	System.out.println("observers notified");
+            observer.update(this);
+        }
+    }
 
     @Override
 	public int getIdLeverancier() {
@@ -86,6 +107,7 @@ public class Leverancier extends Gebruiker implements Serializable, Interface_Le
 
     private void setIdLeverancier(int idLeverancier) {
         this.idLeverancier = idLeverancier;
+        notifyObservers();
     }
 
     @Override
@@ -95,6 +117,7 @@ public class Leverancier extends Gebruiker implements Serializable, Interface_Le
 
     private void setLeveranciernummer(String leveranciernummer) {
         this.leveranciernummer = leveranciernummer;
+        notifyObservers();
     }
 
     @Override
@@ -106,12 +129,14 @@ public class Leverancier extends Gebruiker implements Serializable, Interface_Le
         }
     }
     
-    private void setEmail(String email) {
+    public void setEmail(String email) {
     	this.email = email;
+    	notifyObservers();
     }
 
     public void setBetaalMethodes(String betaalMethodes) {
         this.betaalMethodes = betaalMethodes;
+        notifyObservers();
     }
     
 	@Override
@@ -122,6 +147,7 @@ public class Leverancier extends Gebruiker implements Serializable, Interface_Le
 	@Override
     public void setBedrijf(Bedrijf bedrijf) {
         this.bedrijf = bedrijf;
+        notifyObservers();
     }
 
 	@Override

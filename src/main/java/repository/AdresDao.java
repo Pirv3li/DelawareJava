@@ -5,7 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 
 public interface AdresDao extends GenericDao<Adres>{
 
-	public Adres getAdresById(int id) throws EntityNotFoundException;   
+	public Adres getAdresById(int id) throws EntityNotFoundException;
 	        
 
 }

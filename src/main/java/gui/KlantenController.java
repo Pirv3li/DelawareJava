@@ -30,7 +30,9 @@ import domein.DomeinController;
 import domein.Interface_Adres;
 import domein.Interface_Bedrijf;
 import domein.Interface_Bestelling;
+import domein.Interface_GoedKeuringLeverancier;
 import domein.Interface_Klant;
+import domein.Interface_Leverancier;
 import domein.Observer;
 
 public class KlantenController implements Observer{
@@ -140,18 +142,14 @@ public class KlantenController implements Observer{
 	private ObservableList<Interface_Bestelling> bestellingenList = FXCollections.observableArrayList();
 	
 	public static String convertToList(String input) {
-		// Remove brackets and split by comma
 		String[] tokens = input.replaceAll("\\[|\\]", "").split(", ");
 
-		// Initialize list to store strings
 		List<String> list = new ArrayList<>();
 
-		// Add each token to the list
 		for (String token : tokens) {
 			list.add(token);
 		}
 
-		// Join the list into a single string with each item separated by a comma
 		String result = String.join(", ", list);
 		return result;
 	}
@@ -205,7 +203,6 @@ public class KlantenController implements Observer{
 				bestellingenView.getItems().forEach(item -> {
 				    item.addObserver(this);
 				    });
-				controller.pollerList(bestellingenList);
 				vulKlantDetailsTable(newSelection);
 				betalingStatus.setVisible(false);
 
@@ -242,18 +239,15 @@ public class KlantenController implements Observer{
 	
 	
     private void updateBestellingenList(Interface_Bestelling updatedBestelling) {
-        // Find the index of the updated bestelling in the list
         int index = bestellingenList.indexOf(updatedBestelling);
         
         if (index != -1) {
-            // Replace the old bestelling with the updated one
             bestellingenList.set(index, updatedBestelling);
         }
     }
 	
     @Override
     public void update(Interface_Bestelling updatedBestelling) {
-    	System.out.println("iets veranderd");
     	updateBestellingenList(updatedBestelling);
         bestellingenView.refresh();
     }
@@ -324,7 +318,6 @@ public class KlantenController implements Observer{
 		orderStatusColumn.setCellValueFactory(new PropertyValueFactory<>("OrderStatus"));
 		betalingStatusColumn.setCellValueFactory(new PropertyValueFactory<>("betalingStatus"));
 	    
-	    // Customize the appearance of the betalingStatusColumn
 	    betalingStatusColumn.setCellFactory(column -> {
 	        return new TableCell<Interface_Bestelling, String>() {
 	            @Override
@@ -380,8 +373,7 @@ public class KlantenController implements Observer{
 //			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
-			System.out.println("fail");
-			;
+			e.printStackTrace();
 		}
 	}
 
@@ -399,9 +391,18 @@ public class KlantenController implements Observer{
 //			primaryStage.setFullScreen(true);
 			primaryStage.show();
 		} catch (Exception e) {
-			System.out.println("fail");
-			;
+			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void update(Interface_Leverancier leverancier) {
+	}
+
+	@Override
+	public void update(Interface_GoedKeuringLeverancier goedKeuringLeverancier) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

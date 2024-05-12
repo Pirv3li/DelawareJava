@@ -21,4 +21,8 @@ public interface Interface_GoedKeuringLeverancier {
 	 String getAfgehandeld();
 	 Date getDatumAanvraag();
 	 int getIdLeverancier();
+	 
+	 void addObserver(Observer observer);
+	    
+	 void removeObserver(Observer observer);
 }

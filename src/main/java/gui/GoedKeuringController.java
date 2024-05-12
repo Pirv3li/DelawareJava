@@ -12,6 +12,7 @@ import domein.Interface_BestellingDetails;
 import domein.Interface_GoedKeuringLeverancier;
 import domein.Interface_Leverancier;
 import domein.Interface_Product;
+import domein.Observer;
 import domein.ProductEnDetailsGecombineerd;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -32,7 +33,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class GoedKeuringController {
+public class GoedKeuringController implements Observer{
 
 	private DomeinController controller;
 	private Stage primaryStage;
@@ -134,7 +135,7 @@ public class GoedKeuringController {
 	private Button btnAkkoord;
 	
 	
-	
+	private ObservableList<Interface_GoedKeuringLeverancier> goedKeuringen;
 	
 	
 	
@@ -159,8 +160,12 @@ public class GoedKeuringController {
 
 		// OPTIES
 		// in behandeling, goedgekeurd, afgekeurd
-		goedKeuringTable.setItems(controller.getGoedKeuringen("in behandeling"));
-		ObservableList<Interface_GoedKeuringLeverancier> goedKeuringen = controller.getGoedKeuringen("afgekeurd");
+		getGoedKeuringen();
+		goedKeuringTable.setItems(goedKeuringen);
+		goedKeuringTable.getItems().forEach(item -> {
+		    item.addObserver(this);
+		    });
+//		ObservableList<Interface_GoedKeuringLeverancier> goedKeuringen = controller.getGoedKeuringen("afgekeurd");
 
 
 
@@ -174,13 +179,14 @@ public class GoedKeuringController {
 		
 		
 		btnAfwijzen.setOnAction(e -> {
-			controller.updateGoedkeuringLeverancier((""+goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier()),"afgekeurd");
-			
+			controller.updateGoedkeuringLeverancier(goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier(),"afgekeurd");
+			informatieVBox.setVisible(false);
 		});
 		
 		btnAkkoord.setOnAction(e -> {
-			controller.updateGoedkeuringLeverancier((""+goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier()),"goedgekeurd");
+			controller.updateGoedkeuringLeverancier(goedKeuringTable.getSelectionModel().getSelectedItem().getidGoedkeuringLeverancier(),"goedgekeurd");
 			controller.updateLeverancierById(idLeverancier, aGebruikersnaam.getText(), aEmail.getText(), aIban.getText(), aBtw.getText(), aTelefoon.getText(), aSector.getText(), aStraat.getText(), aNummer.getText(), aStad.getText(), aPostcode.getText());
+			informatieVBox.setVisible(false);
 		});
 	}
 	
@@ -234,6 +240,10 @@ public class GoedKeuringController {
 		
 	}
 	
+	private void getGoedKeuringen() {
+		goedKeuringen = controller.getGoedKeuringen("in behandeling");
+	}
+	
 	private void compareAndSetColor(Label aLabel, Label vLabel) {
 	    if (!aLabel.getText().equals(vLabel.getText())) {
 	        aLabel.setStyle("-fx-text-fill: red;");
@@ -275,5 +285,34 @@ public class GoedKeuringController {
 			e.printStackTrace();
 
 		}
+	}
+
+	@Override
+	public void update(Interface_Bestelling bestelling) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Interface_Leverancier leverancier) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+    private void updateGoedkeuringList(Interface_GoedKeuringLeverancier goedKeuringLeverancier) {
+        int index = goedKeuringen.indexOf(goedKeuringLeverancier);
+        
+        if (index != -1) {
+            goedKeuringen.set(index, goedKeuringLeverancier);
+        }
+    }
+
+	@Override
+	public void update(Interface_GoedKeuringLeverancier goedKeuringLeverancier) {
+		updateGoedkeuringList(goedKeuringLeverancier);
+		
+		
+		goedKeuringTable.refresh();
+		
 	}
 }
